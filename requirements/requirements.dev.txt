@@ -6,3 +6,4 @@ flake8
 mypy
 pylint
 pylint-django
+django-stubs[compatible-mypy]
