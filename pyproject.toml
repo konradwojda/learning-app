@@ -31,3 +31,5 @@ django_settings_module = "simplystudy.settings"
 load-plugins = ["pylint_django"]
 
 disable = ["missing-module-docstring"]
+
+django-settings-module = "simplystudy.settings"
