@@ -8,3 +8,4 @@ pylint
 pylint-django
 django-stubs[compatible-mypy]
 djangorestframework-stubs[compatible-mypy]
+whitenoise
