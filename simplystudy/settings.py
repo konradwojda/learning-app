@@ -126,9 +126,7 @@ STATIC_URL = "/static/"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, UI_PATH)
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, UI_PATH)]
 
 STATIC_HOST = os.environ.get("DJANGO_STATIC_HOST", "")
 
