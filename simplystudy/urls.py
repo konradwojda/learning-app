@@ -23,6 +23,9 @@ from simplystudy.questions import views
 router = routers.DefaultRouter()
 router.register(r"questions", views.QuestionViewSet)
 router.register(r"question_sets", views.QuestionSetViewSet)
+router.register(r"courses", views.CourseViewSet)
+router.register(r"tests", views.TestViewSet)
+router.register(r"test_questions", views.TestQuestionViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
