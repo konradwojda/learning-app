@@ -3,7 +3,7 @@ from rest_framework import serializers
 from simplystudy.questions.models import Course, Question, QuestionSet, Test, TestQuestion
 
 
-class CourseSerializer(serializers.ModelField):
+class CourseSerializer(serializers.ModelSerializer):
     """Serializer dla Course"""
 
     class Meta:
