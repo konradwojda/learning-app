@@ -4,7 +4,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TopBarComponent } from './top-bar/top-bar.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,7 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     BrowserModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
-    TopBarComponent
+    NavigationComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
