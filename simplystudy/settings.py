@@ -18,6 +18,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 APPS_DIR = BASE_DIR / "simplystudy/"
 UI_PATH = "simplystudy-ui/dist/simplystudy-ui"
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -42,7 +45,9 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework.authtoken",
     "simplystudy.questions",
+    "simplystudy.users",
 ]
 
 MIDDLEWARE = [
@@ -76,6 +81,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "simplystudy.wsgi.application"
 
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ),
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
