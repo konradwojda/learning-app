@@ -7,3 +7,26 @@
         </button>
     </mat-toolbar>
 </p>
+
+<div class="navigation-container" [class.is-mobile]="mobileQuery.matches">
+    <mat-toolbar color="primary" class="navigation-toolbar">
+        <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
+        <span class="app-name">SimplyStudy</span>
+        <span class="profile-spacer"></span>
+        <button mat-icon-button class="material-icons"><mat-icon>person</mat-icon></button>
+    </mat-toolbar>
+
+    <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+        <mat-sidenav #sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+            fixedTopGap="56" opened>
+            <mat-nav-list>
+                <a mat-list-item routerLink=".">Dashboard</a>
+                <a mat-list-item routerLink=".">My resources</a>
+                <a mat-list-item routerLink=".">Search resources</a>
+            </mat-nav-list>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
