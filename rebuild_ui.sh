@@ -1,4 +1,4 @@
 cd simplystudy-ui
 ng build
 cd ..
-python3 manage.py collectstatic --noinput
+python3 manage.py collectstatic --noinput --clear
