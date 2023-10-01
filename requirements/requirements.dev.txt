@@ -8,4 +8,3 @@ pylint
 pylint-django
 django-stubs[compatible-mypy]==4.2.3
 djangorestframework-stubs[compatible-mypy]
-whitenoise
