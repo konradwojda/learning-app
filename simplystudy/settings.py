@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "rest_framework",
+    "djoser",
     "rest_framework.authtoken",
     "simplystudy.questions",
     "simplystudy.users",

@@ -21,7 +21,7 @@ from django.urls import include, path, re_path
 from rest_framework import routers
 
 from simplystudy.questions import views
-from simplystudy.users.views import UserLogIn, UserViewSet
+from simplystudy.users.views import UserViewSet
 from simplystudy.views import RedirectToAngular
 
 router = routers.DefaultRouter()
@@ -35,6 +35,7 @@ router.register(r"users", UserViewSet)
 urlpatterns = [
     path("api/", include(router.urls)),
     path("admin/", admin.site.urls),
-    path("api-login/", UserLogIn.as_view()),
+    re_path(r"^auth/", include("djoser.urls")),
+    re_path(r"^auth/", include("djoser.urls.authtoken")),
     re_path(r"^(?P<path>.*)/$", RedirectToAngular.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
