@@ -15,11 +15,7 @@ export class AuthTokenInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const userData = JSON.parse(localStorage.getItem('userData') || '{}');
     if (userData.token) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Token ${userData.token}`
-        }
-      });
+      request = request.clone({ headers: request.headers.set('Authorization', 'Token ' + userData.token) })
     }
     return next.handle(request);
   }

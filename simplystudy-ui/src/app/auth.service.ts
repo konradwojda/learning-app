@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpXsrfTokenExtractor } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { LoggedUser } from "./auth";
 
@@ -8,13 +8,11 @@ import { LoggedUser } from "./auth";
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, private cookieExtractor: HttpXsrfTokenExtractor) { }
+  constructor(private http: HttpClient) { }
 
   logIn(username: string, password: string): Observable<any> {
-    let xsrf = this.cookieExtractor.getToken() as string;
-    let headers = new HttpHeaders().set('X-CSRFToken', xsrf);
     return this.http.post(
-      'http://127.0.0.1:8000/auth/token/login/', { username, password }, { 'headers': headers }
+      'http://127.0.0.1:8000/auth/token/login/', { username, password }
     ) as Observable<any>;
   }
 
