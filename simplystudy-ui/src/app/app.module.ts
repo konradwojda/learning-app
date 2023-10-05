@@ -13,6 +13,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AuthTokenInterceptor } from './auth-token.interceptor';
 import { CsrfTokenInterceptor } from './csrf-token.interceptor';
+import { AuthRegisterComponent } from './auth-register/auth-register.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { CsrfTokenInterceptor } from './csrf-token.interceptor';
   ],
   imports: [
     AuthLoginComponent,
+    AuthRegisterComponent,
     BrowserModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
@@ -33,7 +35,7 @@ import { CsrfTokenInterceptor } from './csrf-token.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true },
-    { provide: HttpXsrfTokenExtractor, useClass: CsrfTokenInterceptor }
+    { provide: HTTP_INTERCEPTORS, useClass: CsrfTokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

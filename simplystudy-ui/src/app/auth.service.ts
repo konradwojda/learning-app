@@ -21,4 +21,8 @@ export class AuthService {
       localStorage.setItem('userData', JSON.stringify(userData));
     }
   }
+
+  registerUser(username: string, password: string, re_password: string, email: string): Observable<any> {
+    return this.http.post('http://127.0.0.1:8000/auth/users/', { username, password, re_password, email });
+  }
 }

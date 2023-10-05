@@ -8,3 +8,10 @@ export interface LoggedUser {
     token: string,
     username: string
 }
+
+export interface RegisterUserData {
+    username: string,
+    password: string,
+    re_password: string,
+    email: string
+}
