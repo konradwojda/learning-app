@@ -1,18 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { QuestionSet } from './question-set';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-question-sets',
   templateUrl: './question-sets.component.html',
   styleUrls: ['./question-sets.component.css'],
   standalone: true,
+  imports: [MatButtonModule, MatCardModule, MatListModule, NgFor]
 })
 export class QuestionSetsComponent implements OnInit {
-  @Input() questionSet?: QuestionSet;
+  questionSet: QuestionSet;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {
+    this.questionSet = {
+      name: '',
+      description: '',
+      course: '',
+      questions: '',
+      owner: ''
+    }
   }
 
   ngOnInit(): void {
@@ -25,7 +37,7 @@ export class QuestionSetsComponent implements OnInit {
       description: data.description,
       course: data.course,
       questions: data.questions,
-      owner: data.owner
+      owner: data.owner,
     })
   }
 }

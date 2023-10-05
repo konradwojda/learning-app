@@ -1,1 +1,30 @@
-{{questionSet}}
+<div class="question-set-container">
+    <mat-card class="question-set-info">
+        <mat-card-header>
+            <mat-card-title>{{questionSet.name}}</mat-card-title>
+            <mat-card-subtitle>{{questionSet.owner}}</mat-card-subtitle>
+            <mat-card-subtitle>{{questionSet.course}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+            <button mat-button>Learn</button>
+            <button mat-button>Test yourself</button>
+            <button mat-button>Edit</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+<div class="questions">
+    <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let question of questionSet.questions" class="question">
+            <mat-card class="inline">
+                <mat-card-content>
+                    Question: {{question.content}}
+                </mat-card-content>
+            </mat-card>
+            <mat-card class="inline">
+                <mat-card-content>
+                    Answer: {{question.answer}}
+                </mat-card-content>
+            </mat-card>
+        </mat-list-item>
+    </mat-list>
+</div>
