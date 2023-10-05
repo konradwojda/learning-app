@@ -22,9 +22,13 @@ class QuestionSerializer(serializers.ModelSerializer):
 class QuestionSetSerializer(serializers.ModelSerializer):
     """Serializer dla modelu QuestionSet"""
 
+    owner = serializers.SlugRelatedField(read_only=True, slug_field="username")
+    course = CourseSerializer()
+    questions = QuestionSerializer(many=True, read_only=True)
+
     class Meta:
         model = QuestionSet
-        fields = "__all__"
+        fields = ("name", "description", "owner", "course", "questions")
 
 
 class TestSerializer(serializers.ModelSerializer):
