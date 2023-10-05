@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { AuthTokenInterceptor } from './auth-token.interceptor';
 import { CsrfTokenInterceptor } from './csrf-token.interceptor';
 import { AuthRegisterComponent } from './auth-register/auth-register.component';
+import { QuestionSetsComponent } from './question-sets/question-sets.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AuthRegisterComponent } from './auth-register/auth-register.component';
     AuthLoginComponent,
     AuthRegisterComponent,
     BrowserModule,
+    QuestionSetsComponent,
     BrowserAnimationsModule,
     MatSlideToggleModule,
     NavigationComponent,

@@ -5,7 +5,7 @@ export interface UserCredentials {
 
 export interface LoggedUser {
     id: number,
-    token: string,
+    auth_token: string,
     username: string
 }
 
