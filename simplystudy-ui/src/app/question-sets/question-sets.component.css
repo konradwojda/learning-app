@@ -2,16 +2,29 @@
     padding: 20px 40px;
 }
 
-.questions {
+.question-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 20px 40px;
+
 }
 
-.question {
-    width: max-content;
+.question-pair {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 16px;
+    width: 100%;
 }
 
-.inline {
-    display: inline-block;
-    padding-left: 20px;
-    padding-right: 20px;
+.question-card,
+.answer-card {
+    flex: 1;
+    margin-right: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-button {
+    margin-top: middle;
 }

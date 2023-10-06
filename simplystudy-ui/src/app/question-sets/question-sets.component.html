@@ -12,19 +12,25 @@
         </mat-card-actions>
     </mat-card>
 </div>
-<div class="questions">
-    <mat-list role="list">
-        <mat-list-item role="listitem" *ngFor="let question of questionSet.questions" class="question">
-            <mat-card class="inline">
-                <mat-card-content>
-                    Question: {{question.content}}
-                </mat-card-content>
-            </mat-card>
-            <mat-card class="inline">
-                <mat-card-content>
-                    Answer: {{question.answer}}
-                </mat-card-content>
-            </mat-card>
-        </mat-list-item>
-    </mat-list>
+<div class="question-list">
+    <div *ngFor="let question of questionSet.questions" class="question-pair">
+
+        <mat-card class="question-card">
+            <mat-card-header>
+                <mat-card-title>Question</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>{{ question.content }}</mat-card-content>
+        </mat-card>
+
+        <mat-card class="answer-card">
+            <mat-card-header>
+                <mat-card-title>Answer</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>{{ question.answer }}</mat-card-content>
+        </mat-card>
+
+        <button mat-icon-button class="edit-button">
+            <mat-icon>edit</mat-icon>
+        </button>
+    </div>
 </div>
