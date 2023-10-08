@@ -2,17 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { LoggedUser } from "./auth";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private apiUrl = environment.apiUrl;
+
   constructor(private http: HttpClient) { }
 
   logIn(username: string, password: string): Observable<any> {
     return this.http.post(
-      'http://127.0.0.1:8000/auth/token/login/', { username, password }
+      this.apiUrl + '/auth/token/login/', { username, password }
     ) as Observable<any>;
   }
 
@@ -30,10 +33,10 @@ export class AuthService {
   }
 
   registerUser(username: string, password: string, re_password: string, email: string): Observable<any> {
-    return this.http.post('http://127.0.0.1:8000/auth/users/', { username, password, re_password, email });
+    return this.http.post(this.apiUrl + '/auth/users/', { username, password, re_password, email });
   }
 
   logOut(): Observable<any> {
-    return this.http.post('http://127.0.0.1:8000/auth/token/logout/', {}) as Observable<any>;
+    return this.http.post(this.apiUrl + '/auth/token/logout/', {}) as Observable<any>;
   }
 }

@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { NgFor } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-question-sets',
@@ -17,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class QuestionSetsComponent implements OnInit {
   questionSet: QuestionSet;
+  private apiUrl = environment.apiUrl;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {
     this.questionSet = {
@@ -33,7 +35,7 @@ export class QuestionSetsComponent implements OnInit {
   }
   getQuestionSet(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.http.get<QuestionSet>('http://127.0.0.1:8000/api/question_sets/' + id + '/').subscribe((data: QuestionSet) => this.questionSet = {
+    this.http.get<QuestionSet>(this.apiUrl + '/api/question_sets/' + id + '/').subscribe((data: QuestionSet) => this.questionSet = {
       name: data.name,
       description: data.description,
       course: data.course,
