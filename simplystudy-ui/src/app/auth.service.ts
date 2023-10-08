@@ -22,7 +22,18 @@ export class AuthService {
     }
   }
 
+  getUsername(): string | null {
+    if (localStorage.getItem('userData')) {
+      return JSON.parse(localStorage.getItem('userData') as string).username;
+    }
+    return null;
+  }
+
   registerUser(username: string, password: string, re_password: string, email: string): Observable<any> {
     return this.http.post('http://127.0.0.1:8000/auth/users/', { username, password, re_password, email });
+  }
+
+  logOut(): Observable<any> {
+    return this.http.post('http://127.0.0.1:8000/auth/token/logout/', {}) as Observable<any>;
   }
 }

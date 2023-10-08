@@ -29,6 +29,7 @@ export class AuthLoginComponent implements OnInit {
   logInUser(user: UserCredentials): void {
     this.authService.logIn(user.username, user.password).subscribe({
       next: (data) => {
+        data.username = user.username;
         this.authService.setLoggedInUser(data);
       },
       error: (error) => {
