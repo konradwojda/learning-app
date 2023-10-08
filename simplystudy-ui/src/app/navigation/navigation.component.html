@@ -13,7 +13,11 @@
         <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
         <span class="app-name">SimplyStudy</span>
         <span class="profile-spacer"></span>
-        <button mat-icon-button class="material-icons"><mat-icon>person</mat-icon></button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="material-icons"><mat-icon>person</mat-icon></button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>My profile<mat-icon>account_circle</mat-icon></button>
+            <button mat-menu-item>Log out<mat-icon>logout</mat-icon></button>
+        </mat-menu>
     </mat-toolbar>
 
     <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
