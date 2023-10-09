@@ -15,6 +15,7 @@ import { AuthTokenInterceptor } from './auth-token.interceptor';
 import { CsrfTokenInterceptor } from './csrf-token.interceptor';
 import { AuthRegisterComponent } from './auth-register/auth-register.component';
 import { QuestionSetsComponent } from './question-sets/question-sets.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { QuestionSetsComponent } from './question-sets/question-sets.component';
     HttpClientModule,
     MatInputModule,
     MatButtonModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
     HttpClientXsrfModule.withOptions({ cookieName: 'csrftoken', headerName: 'X-CSRFToken' })
   ],
