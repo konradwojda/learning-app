@@ -6,6 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { SnackbarService } from '../snackbar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-login',
@@ -16,7 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class AuthLoginComponent implements OnInit {
   logInForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private snackbarService: SnackbarService, private router: Router) {
     this.logInForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -31,9 +33,14 @@ export class AuthLoginComponent implements OnInit {
       next: (data) => {
         data.username = user.username;
         this.authService.setLoggedInUser(data);
+        this.snackbarService.showSnackbar('Logged in successfully');
+        this.router.navigateByUrl('');
       },
       error: (error) => {
         console.log(error);
+        for (var err in error.error) {
+          this.snackbarService.showSnackbar(error.error[err][0]);
+        }
       }
     }
     );

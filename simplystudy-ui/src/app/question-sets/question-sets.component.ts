@@ -8,6 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { NgFor } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { environment } from 'src/environments/environment';
+import { SnackbarService } from '../snackbar.service';
 
 @Component({
   selector: 'app-question-sets',
@@ -20,7 +21,7 @@ export class QuestionSetsComponent implements OnInit {
   questionSet: QuestionSet;
   private apiUrl = environment.apiUrl;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private snackbarService: SnackbarService) {
     this.questionSet = {
       name: '',
       description: '',
@@ -42,5 +43,17 @@ export class QuestionSetsComponent implements OnInit {
       questions: data.questions,
       owner: data.owner,
     })
+    this.http.get<QuestionSet>(this.apiUrl + '/api/question_sets/' + id + '/').subscribe({
+      next: (data: QuestionSet) => this.questionSet = {
+        name: data.name,
+        description: data.description,
+        course: data.course,
+        questions: data.questions,
+        owner: data.owner,
+      },
+      error: (error) => {
+        this.snackbarService.showSnackbar(error.error.detail);
+      }
+    });
   }
 }
