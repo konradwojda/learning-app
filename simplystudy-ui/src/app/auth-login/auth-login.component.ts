@@ -33,6 +33,7 @@ export class AuthLoginComponent implements OnInit {
       next: (data) => {
         data.username = user.username;
         this.authService.setLoggedInUser(data);
+        this.authService.setIsAuthenticated(true);
         this.snackbarService.showSnackbar('Logged in successfully');
         this.router.navigateByUrl('');
       },

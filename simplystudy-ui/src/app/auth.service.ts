@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { LoggedUser } from "./auth";
 import { environment } from 'src/environments/environment';
 
@@ -10,6 +10,8 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
 
   private apiUrl = environment.apiUrl;
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  private usernameSubject = new BehaviorSubject<string>('');
 
   constructor(private http: HttpClient) { }
 
@@ -19,17 +21,38 @@ export class AuthService {
     ) as Observable<any>;
   }
 
+  isLoggedIn(): boolean {
+    return localStorage.getItem('userData') ? true : false;
+  }
+
+  setUsername(username: string): void {
+    this.usernameSubject.next(username);
+  }
+
+  setIsAuthenticated(isAuthenticated: boolean): void {
+    this.isAuthenticatedSubject.next(isAuthenticated);
+  }
+
+  isAuthenticated$(): Observable<boolean> {
+    return this.isAuthenticatedSubject.asObservable();
+  }
+
+  getUsername$(): Observable<string> {
+    return this.usernameSubject.asObservable();
+  }
+
   setLoggedInUser(userData: LoggedUser): void {
     if (localStorage.getItem('userData') !== JSON.stringify(userData)) {
       localStorage.setItem('userData', JSON.stringify(userData));
+      this.setUsername(this.getUsername());
     }
   }
 
-  getUsername(): string | null {
-    if (localStorage.getItem('userData')) {
+  getUsername(): string {
+    if (this.isLoggedIn()) {
       return JSON.parse(localStorage.getItem('userData') as string).username;
     }
-    return null;
+    return '';
   }
 
   registerUser(username: string, password: string, re_password: string, email: string): Observable<any> {

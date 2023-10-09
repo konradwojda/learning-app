@@ -13,10 +13,11 @@
         <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
         <span class="app-name">SimplyStudy</span>
         <span class="profile-spacer"></span>
-        <button mat-icon-button [matMenuTriggerFor]="menu" class="material-icons"><mat-icon>person</mat-icon></button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="material-icons"
+            *ngIf="isAuthenticated"><mat-icon>person</mat-icon></button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item>My profile<mat-icon>account_circle</mat-icon></button>
-            <button mat-menu-item (click)="logOut()">Log out<mat-icon>logout</mat-icon></button>
+            <button mat-menu-item *ngIf="isAuthenticated">{{username}}<mat-icon>account_circle</mat-icon></button>
+            <button mat-menu-item (click)="logOut()" *ngIf="isAuthenticated">Log out<mat-icon>logout</mat-icon></button>
         </mat-menu>
     </mat-toolbar>
 
@@ -28,8 +29,8 @@
                 <a mat-list-item routerLink=".">My resources</a>
                 <a mat-list-item routerLink=".">Search resources</a>
                 <a mat-list-item routerLink="/question_sets/1">Test view</a>
-                <a mat-list-item routerLink="/login">Log in</a>
-                <a mat-list-item routerLink="/register">Register</a>
+                <a mat-list-item routerLink="/login" *ngIf="!isAuthenticated">Log in</a>
+                <a mat-list-item routerLink="/register" *ngIf="!isAuthenticated">Register</a>
             </mat-nav-list>
         </mat-sidenav>
 
