@@ -12,7 +12,7 @@ Web-based application for learning easily.
 1. `pip3 install -r requirements.dev.txt`
 2. `sudo apt install nodejs npm`
 3. `sudo npm install -g @angular/cli`
-4. `cd simplystudy-ui; npm install`
+4. `cd simplystudy-ui; npm install; ng build -c development`
 
 # Run
 
