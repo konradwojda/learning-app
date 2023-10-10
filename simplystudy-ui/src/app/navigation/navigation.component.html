@@ -10,7 +10,7 @@
 
 <div class="navigation-container" [class.is-mobile]="mobileQuery.matches">
     <mat-toolbar color="primary" class="navigation-toolbar">
-        <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
+        <button mat-icon-button (click)="sidenav.toggle()" *ngIf="isAuthenticated"><mat-icon>menu</mat-icon></button>
         <span class="app-name">SimplyStudy</span>
         <span class="profile-spacer"></span>
         <button mat-icon-button [matMenuTriggerFor]="menu" class="material-icons"
@@ -23,7 +23,7 @@
 
     <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
         <mat-sidenav #sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
-            fixedTopGap="56" opened>
+            fixedTopGap="56" [opened]="isAuthenticated">
             <mat-nav-list>
                 <a mat-list-item routerLink=".">Dashboard</a>
                 <a mat-list-item routerLink=".">My resources</a>
