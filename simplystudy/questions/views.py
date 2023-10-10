@@ -1,3 +1,4 @@
+from django.db.models.query import QuerySet
 from rest_framework import permissions, viewsets
 
 from simplystudy.questions.models import Course, Question, QuestionSet, Test, TestQuestion
@@ -25,6 +26,13 @@ class QuestionSetViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-anc
     queryset = QuestionSet.objects.all()
     serializer_class = QuestionSetSerializer
     permission_classes = [permissions.IsAuthenticated, QuestionSetPermissions]
+
+    def get_queryset(self) -> QuerySet:
+        queryset = QuestionSet.objects.all()
+        username = self.request.query_params.get("username")
+        if username is not None:
+            queryset.filter(owner__username=username)
+        return queryset
 
 
 class CourseViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
