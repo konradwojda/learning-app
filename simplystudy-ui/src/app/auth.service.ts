@@ -21,6 +21,13 @@ export class AuthService {
     ) as Observable<any>;
   }
 
+  setAuthenticated(): void {
+    if (this.isLoggedIn()) {
+      this.setUsername(this.getUsername());
+      this.setIsAuthenticated(true);
+    }
+  }
+
   isLoggedIn(): boolean {
     return localStorage.getItem('userData') ? true : false;
   }

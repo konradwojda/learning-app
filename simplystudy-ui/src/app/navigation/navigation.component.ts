@@ -38,6 +38,7 @@ export class NavigationComponent implements OnDestroy, OnInit {
     this.authService.getUsername$().subscribe((username) => {
       this.username = username;
     })
+    this.authService.setAuthenticated();
   }
 
   logOut(): void {
