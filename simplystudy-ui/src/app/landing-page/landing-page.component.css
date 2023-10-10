@@ -1,0 +1,12 @@
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
+
+.landing-page button {
+    margin: 5px;
+    padding: 10px 20px;
+}

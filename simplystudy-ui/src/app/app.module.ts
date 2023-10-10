@@ -16,6 +16,7 @@ import { CsrfTokenInterceptor } from './csrf-token.interceptor';
 import { AuthRegisterComponent } from './auth-register/auth-register.component';
 import { QuestionSetsComponent } from './question-sets/question-sets.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     BrowserAnimationsModule,
     MatSlideToggleModule,
     NavigationComponent,
+    LandingPageComponent,
     AppRoutingModule,
     HttpClientModule,
     MatInputModule,
