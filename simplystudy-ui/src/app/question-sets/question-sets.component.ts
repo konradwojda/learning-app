@@ -36,13 +36,6 @@ export class QuestionSetsComponent implements OnInit {
   }
   getQuestionSet(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.http.get<QuestionSet>(this.apiUrl + '/api/question_sets/' + id + '/').subscribe((data: QuestionSet) => this.questionSet = {
-      name: data.name,
-      description: data.description,
-      course: data.course,
-      questions: data.questions,
-      owner: data.owner,
-    })
     this.http.get<QuestionSet>(this.apiUrl + '/api/question_sets/' + id + '/').subscribe({
       next: (data: QuestionSet) => this.questionSet = {
         name: data.name,
