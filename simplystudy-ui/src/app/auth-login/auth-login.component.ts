@@ -35,7 +35,7 @@ export class AuthLoginComponent implements OnInit {
         this.authService.setLoggedInUser(data);
         this.authService.setIsAuthenticated(true);
         this.snackbarService.showSnackbar('Logged in successfully');
-        this.router.navigateByUrl('');
+        this.router.navigateByUrl('/dashboard');
       },
       error: (error) => {
         console.log(error);

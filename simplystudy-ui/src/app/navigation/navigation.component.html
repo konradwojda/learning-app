@@ -25,7 +25,7 @@
         <mat-sidenav #sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
             fixedTopGap="56" [opened]="isAuthenticated">
             <mat-nav-list>
-                <a mat-list-item routerLink=".">Dashboard</a>
+                <a mat-list-item routerLink="/dashboard">Dashboard</a>
                 <a mat-list-item routerLink=".">My resources</a>
                 <a mat-list-item routerLink=".">Search resources</a>
                 <a mat-list-item routerLink="/question_sets/1">Test view</a>

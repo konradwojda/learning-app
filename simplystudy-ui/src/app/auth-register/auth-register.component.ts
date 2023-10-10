@@ -36,7 +36,7 @@ export class AuthRegisterComponent implements OnInit {
       next: (data) => {
         this.snackbarService.showSnackbar('Registered successfully');
         console.log(data);
-        this.router.navigateByUrl('');
+        this.router.navigateByUrl('/dashboard');
       },
       error: (error) => {
         console.log(error);

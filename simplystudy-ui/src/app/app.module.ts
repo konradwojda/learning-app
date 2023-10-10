@@ -17,6 +17,7 @@ import { AuthRegisterComponent } from './auth-register/auth-register.component';
 import { QuestionSetsComponent } from './question-sets/question-sets.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
   imports: [
     AuthLoginComponent,
     AuthRegisterComponent,
+    DashboardComponent,
     BrowserModule,
     QuestionSetsComponent,
     BrowserAnimationsModule,
