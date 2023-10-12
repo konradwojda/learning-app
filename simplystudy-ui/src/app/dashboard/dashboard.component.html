@@ -1,10 +1,19 @@
-<mat-grid-list cols="4" rowHeight="2:1">
-    <mat-grid-tile *ngFor="let question_set of questionSets">
-        <mat-card>
+<div class="container">
+    <div class="search">
+        <mat-form-field class="search-field">
+            <mat-label>Search for resources</mat-label>
+            <input matInput>
+        </mat-form-field>
+        <button class="new-set-btn" mat-raised-button>Add new set</button>
+    </div>
+    <div class="grid">
+        <mat-card class="question_set" *ngFor="let question_set of questionSets" matRipple
+            (click)="onCardClick(question_set)">
             <mat-card-header>
-                <mat-card-title>{{question_set.name}}</mat-card-title>
+                <mat-card-title>{{question_set.name}}</mat-card-title><br />
                 <mat-card-subtitle>{{question_set.description}}</mat-card-subtitle>
             </mat-card-header>
+            <br>
         </mat-card>
-    </mat-grid-tile>
-</mat-grid-list>
+    </div>
+</div>
