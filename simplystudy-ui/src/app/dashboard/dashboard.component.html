@@ -1,13 +1,13 @@
 <div class="container">
     <div class="search">
         <mat-form-field class="search-field">
-            <mat-label>Search for resources</mat-label>
-            <input matInput>
+            <mat-label>Filter your resources</mat-label>
+            <input matInput [(ngModel)]="filterText" (ngModelChange)="applyFilter()">
         </mat-form-field>
         <button class="new-set-btn" mat-raised-button>Add new set</button>
     </div>
     <div class="grid">
-        <mat-card class="question_set" *ngFor="let question_set of questionSets" matRipple
+        <mat-card class="question_set" *ngFor="let question_set of filteredQuestionSets" matRipple
             (click)="onCardClick(question_set)">
             <mat-card-header>
                 <mat-card-title>{{question_set.name}}</mat-card-title><br />

@@ -13,26 +13,42 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatRippleModule } from '@angular/material/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
   standalone: true,
-  imports: [MatGridListModule, NgFor, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatListModule, MatRippleModule]
+  imports: [MatGridListModule, NgFor, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatListModule, MatRippleModule, FormsModule]
 })
 export class DashboardComponent implements OnInit {
 
   questionSets: Array<QuestionSet> = [];
+  filteredQuestionSets: Array<QuestionSet> = [];
+  filterText: string = '';
   private apiUrl = environment.apiUrl;
 
   constructor(private router: Router, private http: HttpClient, private authService: AuthService, private snackbarService: SnackbarService) {
   }
 
+  applyFilter() {
+    this.filteredQuestionSets = this.filterQuestionSetsByName(this.filterText);
+  }
+
+  private filterQuestionSetsByName(filterText: string): Array<QuestionSet> {
+    return this.questionSets.filter((questionSet) =>
+      questionSet.name.toLowerCase().includes(filterText.toLowerCase())
+    );
+  }
+
   ngOnInit(): void {
     let username = this.authService.getUsername();
     this.http.get<Array<QuestionSet>>(this.apiUrl + '/api/question_sets/?username=' + username).subscribe({
-      next: (data: Array<QuestionSet>) => this.questionSets = data,
+      next: (data: Array<QuestionSet>) => {
+        this.questionSets = data;
+        this.filteredQuestionSets = data;
+      },
       error: (error) => {
         this.snackbarService.showSnackbar(error.error.detail);
       }
