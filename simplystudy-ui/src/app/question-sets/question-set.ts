@@ -1,4 +1,5 @@
 export interface QuestionSet {
+    id: string,
     name: string,
     description: string,
     course: string,

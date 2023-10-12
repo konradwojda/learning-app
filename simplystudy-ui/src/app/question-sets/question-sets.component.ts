@@ -23,6 +23,7 @@ export class QuestionSetsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private snackbarService: SnackbarService) {
     this.questionSet = {
+      id: '',
       name: '',
       description: '',
       course: '',
@@ -38,6 +39,7 @@ export class QuestionSetsComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.http.get<QuestionSet>(this.apiUrl + '/api/question_sets/' + id + '/').subscribe({
       next: (data: QuestionSet) => this.questionSet = {
+        id: data.id,
         name: data.name,
         description: data.description,
         course: data.course,
