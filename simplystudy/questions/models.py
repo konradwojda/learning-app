@@ -9,6 +9,7 @@ class Course(models.Model):
     name = models.CharField(max_length=512)
     university = models.CharField(max_length=512)
     description = models.TextField(null=True, blank=True, max_length=1024)
+    owner = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE)
 
 
 class QuestionSet(models.Model):
