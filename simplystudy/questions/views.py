@@ -2,7 +2,7 @@ from django.db.models.query import QuerySet
 from rest_framework import permissions, viewsets
 
 from simplystudy.questions.models import Course, Question, QuestionSet, Test, TestQuestion
-from simplystudy.questions.permissions import QuestionSetPermissions
+from simplystudy.questions.permissions import OwnerPermissions
 from simplystudy.questions.serializers import (
     CourseSerializer,
     QuestionSerializer,
@@ -25,7 +25,7 @@ class QuestionSetViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-anc
 
     queryset = QuestionSet.objects.all()
     serializer_class = QuestionSetSerializer
-    permission_classes = [permissions.IsAuthenticated, QuestionSetPermissions]
+    permission_classes = [permissions.IsAuthenticated, OwnerPermissions]
 
     def get_queryset(self) -> QuerySet:
         queryset = self.queryset
@@ -40,7 +40,7 @@ class CourseViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestor
 
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, OwnerPermissions]
 
     def get_queryset(self) -> QuerySet:
         queryset = self.queryset
