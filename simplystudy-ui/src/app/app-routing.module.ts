@@ -6,6 +6,7 @@ import { QuestionSetsComponent } from './question-sets/question-sets.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateQuestionSetComponent } from './create-question-set/create-question-set.component';
+import { CoursesComponent } from './courses/courses.component';
 
 const routes: Routes = [
     { path: '', component: LandingPageComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'question_sets/:id', component: QuestionSetsComponent },
     { path: 'create_question_set', component: CreateQuestionSetComponent },
+    { path: 'courses', component: CoursesComponent},
 ];
 
 @NgModule({
