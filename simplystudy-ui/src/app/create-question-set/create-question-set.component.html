@@ -1,1 +1,28 @@
-<p>create-question-set works!</p>
+<div class="container">
+    <mat-stepper #stepper>
+        <mat-step [stepControl]="questionSetData">
+            <form [formGroup]="questionSetData">
+                <ng-template matStepLabel>Fill the question set data</ng-template>
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Description</mat-label>
+                    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5" formControlName="description"></textarea>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Course</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let course of courseList" [value]="course">
+                            {{course}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+    </mat-stepper>
+</div>
