@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { QuestionSet } from '../question-sets/question-set';
 import { AuthService } from '../auth.service';
 import { environment } from 'src/environments/environment';
@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
   standalone: true,
-  imports: [MatGridListModule, NgFor, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatListModule, MatRippleModule, FormsModule]
+  imports: [MatGridListModule, NgFor, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatListModule, MatRippleModule, FormsModule, RouterModule]
 })
 export class DashboardComponent implements OnInit {
 

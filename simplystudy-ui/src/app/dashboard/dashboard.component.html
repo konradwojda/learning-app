@@ -4,7 +4,7 @@
             <mat-label>Filter your resources</mat-label>
             <input matInput [(ngModel)]="filterText" (ngModelChange)="applyFilter()">
         </mat-form-field>
-        <button class="new-set-btn" mat-raised-button>Add new set</button>
+        <button class="new-set-btn" mat-raised-button routerLink="/create_question_set/">Add new set</button>
     </div>
     <div class="grid">
         <mat-card class="question_set" *ngFor="let question_set of filteredQuestionSets" matRipple

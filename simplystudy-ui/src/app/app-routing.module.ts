@@ -13,7 +13,7 @@ const routes: Routes = [
     { path: 'register', component: AuthRegisterComponent },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'question_sets/:id', component: QuestionSetsComponent },
-    { path: 'question_sets/new', component: CreateQuestionSetComponent }
+    { path: 'create_question_set', component: CreateQuestionSetComponent },
 ];
 
 @NgModule({
