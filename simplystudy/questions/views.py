@@ -28,10 +28,10 @@ class QuestionSetViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-anc
     permission_classes = [permissions.IsAuthenticated, QuestionSetPermissions]
 
     def get_queryset(self) -> QuerySet:
-        queryset = QuestionSet.objects.all()
+        queryset = self.queryset
         username = self.request.query_params.get("username")
         if username is not None:
-            queryset.filter(owner__username=username)
+            return queryset.filter(owner__username=username)
         return queryset
 
 
@@ -41,6 +41,13 @@ class CourseViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestor
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self) -> QuerySet:
+        queryset = self.queryset
+        username = self.request.query_params.get("username")
+        if username is not None:
+            return queryset.filter(owner__username=username)
+        return queryset
 
 
 class TestViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
