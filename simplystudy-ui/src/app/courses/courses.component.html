@@ -1,1 +1,7 @@
-<p>courses works!</p>
+<mat-list>
+    <mat-list-item *ngFor="let course of courses">
+        <span matListItemTitle>{{course.name}}</span>
+        <span matListItemLine>{{course.university}}</span>
+        <span matListItemLine>{{course.description}}</span>
+    </mat-list-item>
+</mat-list>
