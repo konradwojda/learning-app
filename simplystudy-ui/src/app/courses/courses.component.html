@@ -1,7 +1,11 @@
-<mat-list>
-    <mat-list-item *ngFor="let course of courses">
-        <span matListItemTitle>{{course.name}}</span>
-        <span matListItemLine>{{course.university}}</span>
-        <span matListItemLine>{{course.description}}</span>
-    </mat-list-item>
-</mat-list>
+<div class="container">
+    <button mat-raised-button color="primary" (click)="createCourse()">Create new</button>
+    <mat-list>
+        <mat-list-item *ngFor="let course of courses" matRipple (click)="editCourse(course)">
+            <span matListItemTitle>{{course.name}}</span>
+            <span matListItemLine>{{course.university}}</span>
+            <span matListItemLine>{{course.description}}</span>
+            <mat-divider [inset]="true"></mat-divider>
+        </mat-list-item>
+    </mat-list>
+</div>
