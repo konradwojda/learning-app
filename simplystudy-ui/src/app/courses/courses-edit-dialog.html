@@ -2,15 +2,15 @@
 <div mat-dialog-content>
     <mat-form-field>
         <mat-label>Course name</mat-label>
-        <input matInput [(ngModel)]="data.name" [formControl]="requiredFieldControl">
+        <input matInput [(ngModel)]="data.name" [formControl]="nameFieldControl">
     </mat-form-field>
     <mat-form-field>
         <mat-label>University name</mat-label>
-        <input matInput [(ngModel)]="data.university" [formControl]="requiredFieldControl">
+        <input matInput [(ngModel)]="data.university" [formControl]="universityFieldControl">
     </mat-form-field>
     <mat-form-field>
         <mat-label>Description</mat-label>
-        <input matInput [(ngModel)]="data.description">
+        <textarea matInput [(ngModel)]="data.description"></textarea>
     </mat-form-field>
 </div>
 <div mat-dialog-actions>
