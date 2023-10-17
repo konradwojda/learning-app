@@ -32,18 +32,31 @@ export class CoursesComponent implements OnInit {
   editCourse(course: Course): void {
     const dialogRef = this.dialog.open(CourseEditDialog, { data: { name: course.name, description: course.description, university: course.university } });
     dialogRef.afterClosed().subscribe(result => {
-      result.owner = this.authService.getUsername();
-      this.http.put(this.apiUrl + '/api/courses/' + course.id + '/', result).subscribe({
-        next: (data) => {
-          this.snackbarService.showSnackbar("Successfully updated course");
-          window.location.reload();
-        },
-        error: (error) => {
-          for (var err in error.error) {
-            this.snackbarService.showSnackbar(err + ': ' + error.error[err][0]);
+      if (result == null) {
+        this.http.delete(this.apiUrl + '/api/courses/' + course.id + '/').subscribe({
+          next: (data) => {
+            this.snackbarService.showSnackbar("Deleted course");
+            window.location.reload();
+          },
+          error: (error) => {
+            this.snackbarService.showSnackbar(error);
           }
-        }
-      });
+        })
+      }
+      else {
+        result.owner = this.authService.getUsername();
+        this.http.put(this.apiUrl + '/api/courses/' + course.id + '/', result).subscribe({
+          next: (data) => {
+            this.snackbarService.showSnackbar("Successfully updated course");
+            window.location.reload();
+          },
+          error: (error) => {
+            for (var err in error.error) {
+              this.snackbarService.showSnackbar(err + ': ' + error.error[err][0]);
+            }
+          }
+        });
+      }
     })
   }
 
