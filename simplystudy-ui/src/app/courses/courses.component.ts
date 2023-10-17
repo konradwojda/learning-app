@@ -32,7 +32,18 @@ export class CoursesComponent implements OnInit {
   editCourse(course: Course): void {
     const dialogRef = this.dialog.open(CourseEditDialog, { data: { name: course.name, description: course.description, university: course.university } });
     dialogRef.afterClosed().subscribe(result => {
-      // create course
+      result.owner = this.authService.getUsername();
+      this.http.put(this.apiUrl + '/api/courses/' + course.id + '/', result).subscribe({
+        next: (data) => {
+          this.snackbarService.showSnackbar("Successfully updated course");
+          window.location.reload();
+        },
+        error: (error) => {
+          for (var err in error.error) {
+            this.snackbarService.showSnackbar(err + ': ' + error.error[err][0]);
+          }
+        }
+      });
     })
   }
 
@@ -67,12 +78,6 @@ export class CoursesComponent implements OnInit {
   }
 }
 
-export interface CourseData {
-  name: string;
-  university: string;
-  description: string;
-}
-
 @Component({
   selector: 'app-courses-edit-dialog',
   templateUrl: 'courses-edit-dialog.html',
@@ -83,7 +88,7 @@ export interface CourseData {
 export class CourseEditDialog {
   constructor(
     public dialogRef: MatDialogRef<CourseEditDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: CourseData,
+    @Inject(MAT_DIALOG_DATA) public data: Course,
   ) { }
 
   onNoClick(): void {
