@@ -39,7 +39,18 @@ export class CoursesComponent implements OnInit {
   createCourse(): void {
     const dialogRef = this.dialog.open(CourseEditDialog, { data: { name: '', description: '', university: '' } });
     dialogRef.afterClosed().subscribe(result => {
-      // create course
+      result.owner = this.authService.getUsername();
+      this.http.post(this.apiUrl + '/api/courses/', result).subscribe({
+        next: (data) => {
+          this.snackbarService.showSnackbar("Successfully added new course");
+          window.location.reload();
+        },
+        error: (error) => {
+          for (var err in error.error) {
+            this.snackbarService.showSnackbar(err + ': ' + error.error[err][0]);
+          }
+        }
+      });
     })
   }
 

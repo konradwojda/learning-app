@@ -1,14 +1,23 @@
 from rest_framework import serializers
 
 from simplystudy.questions.models import Course, Question, QuestionSet, Test, TestQuestion
+from simplystudy.users.models import User
 
+class OwnerUsernameField(serializers.CharField):
+    """Pole reprezentujące nazwę użytkownika właściciela obiektu."""
+    def to_internal_value(self, data):
+        try:
+            return User.objects.get(username=data)
+        except User.DoesNotExist:
+            raise serializers.ValidationError("User with this username does not exist.")
 
 class CourseSerializer(serializers.ModelSerializer):
     """Serializer dla Course"""
+    owner = OwnerUsernameField()
 
     class Meta:
         model = Course
-        fields = "__all__"
+        fields = ("name", "university", "description", "owner")
 
 
 class QuestionSerializer(serializers.ModelSerializer):
