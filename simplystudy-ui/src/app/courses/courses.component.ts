@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-courses',
@@ -83,9 +83,11 @@ export class CoursesComponent implements OnInit {
   templateUrl: 'courses-edit-dialog.html',
   styleUrls: ['./courses.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule],
 })
 export class CourseEditDialog {
+  requiredFieldControl = new FormControl('', [Validators.required])
+
   constructor(
     public dialogRef: MatDialogRef<CourseEditDialog>,
     @Inject(MAT_DIALOG_DATA) public data: Course,
