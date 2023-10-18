@@ -22,7 +22,6 @@ import { SnackbarService } from '../snackbar.service';
 export class CreateQuestionSetComponent implements OnInit {
   private apiUrl = environment.apiUrl;
 
-  // TODO: Add course component and load it from api
   courseList: Array<any> = [];
 
   questionSetData = this._formBuilder.group({
