@@ -25,5 +25,30 @@
                 </div>
             </form>
         </mat-step>
+        <mat-step [stepControl]="questionsData">
+            <form [formGroup]="questionsData">
+                <ng-template matStepLabel>Add questions to this set</ng-template>
+                <div formArrayName="questions">
+                    <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i">
+                        <mat-form-field>
+                            <mat-label>Content</mat-label>
+                            <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5"
+                                formControlName="content"></textarea>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Answer</mat-label>
+                            <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5"
+                                formControlName="answer"></textarea>
+                        </mat-form-field>
+                        <button mat-button (click)="removeQuestion(i)">Remove</button>
+                    </div>
+                </div>
+                <div>
+                    <button mat-button (click)="addQuestion()">Add question</button>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Save</button>
+                </div>
+            </form>
+        </mat-step>
     </mat-stepper>
 </div>

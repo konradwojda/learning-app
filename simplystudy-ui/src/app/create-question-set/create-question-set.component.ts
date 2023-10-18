@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../auth.service';
@@ -22,7 +22,7 @@ import { SnackbarService } from '../snackbar.service';
 export class CreateQuestionSetComponent implements OnInit {
   private apiUrl = environment.apiUrl;
 
-  courseList: Array<any> = [];
+  courseList: Array<Course> = [];
 
   questionSetData = this._formBuilder.group({
     name: ['', Validators.required],
@@ -30,6 +30,11 @@ export class CreateQuestionSetComponent implements OnInit {
     course: [''],
 
   });
+  questionsData = this._formBuilder.group({
+    questions: this._formBuilder.array([])
+  }) as FormGroup;
+
+  questions = this.questionsData.get('questions') as FormArray;
 
   constructor(private _formBuilder: FormBuilder, private authService: AuthService, private http: HttpClient, private snackbarService: SnackbarService) {
 
@@ -45,5 +50,18 @@ export class CreateQuestionSetComponent implements OnInit {
         this.snackbarService.showSnackbar(error.error.detail);
       }
     })
+  }
+
+  addQuestion(): void {
+    const questionArray = this.questionsData.get('questions') as FormArray;
+    questionArray.push(this._formBuilder.group({
+      content: ['', Validators.required],
+      answer: ['', Validators.required]
+    }))
+  }
+
+  removeQuestion(index: number) {
+    const questionArray = this.questionsData.get('questions') as FormArray;
+    questionArray.removeAt(index);
   }
 }
