@@ -1,11 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
+import { AuthService } from '../auth.service';
+import { Course } from '../courses/course';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { SnackbarService } from '../snackbar.service';
 
 @Component({
   selector: 'app-create-question-set',
@@ -14,10 +19,11 @@ import {MatSelectModule} from '@angular/material/select';
   styleUrls: ['./create-question-set.component.css'],
   imports: [CommonModule, MatStepperModule, MatButtonModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatInputModule, MatSelectModule],
 })
-export class CreateQuestionSetComponent {
+export class CreateQuestionSetComponent implements OnInit {
+  private apiUrl = environment.apiUrl;
 
   // TODO: Add course component and load it from api
-  courseList: Array<any> = ["Example1", "Example2"];
+  courseList: Array<any> = [];
 
   questionSetData = this._formBuilder.group({
     name: ['', Validators.required],
@@ -26,7 +32,19 @@ export class CreateQuestionSetComponent {
 
   });
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder, private authService: AuthService, private http: HttpClient, private snackbarService: SnackbarService) {
 
+  }
+
+  ngOnInit(): void {
+    let username = this.authService.getUsername();
+    this.http.get<Course[]>(this.apiUrl + '/api/courses/?username=' + username).subscribe({
+      next: (data: Course[]) => {
+        this.courseList = data;
+      },
+      error: (error) => {
+        this.snackbarService.showSnackbar(error.error.detail);
+      }
+    })
   }
 }
