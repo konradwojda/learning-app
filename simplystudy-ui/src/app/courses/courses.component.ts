@@ -20,7 +20,7 @@ import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angu
   standalone: true,
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css'],
-  imports: [CommonModule, MatListModule, MatDividerModule, MatRippleModule, MatButtonModule, MatIconModule, MatDialogModule],
+  imports: [CommonModule, MatListModule, MatDividerModule, MatRippleModule, MatButtonModule, MatIconModule, MatDialogModule, MatIconModule],
 })
 export class CoursesComponent implements OnInit {
   courses: Course[] = [];
@@ -29,34 +29,33 @@ export class CoursesComponent implements OnInit {
   constructor(private http: HttpClient, private authService: AuthService, private snackbarService: SnackbarService, public dialog: MatDialog) {
   }
 
+  deleteCourse(course_id: number): void {
+    this.http.delete(this.apiUrl + '/api/courses/' + course_id + '/').subscribe({
+      next: (data) => {
+        this.snackbarService.showSnackbar("Deleted course");
+        window.location.reload();
+      },
+      error: (error) => {
+        this.snackbarService.showSnackbar(error);
+      }
+    })
+  }
+
   editCourse(course: Course): void {
     const dialogRef = this.dialog.open(CourseEditDialog, { data: { name: course.name, description: course.description, university: course.university } });
     dialogRef.afterClosed().subscribe(result => {
-      if (result == null) {
-        this.http.delete(this.apiUrl + '/api/courses/' + course.id + '/').subscribe({
-          next: (data) => {
-            this.snackbarService.showSnackbar("Deleted course");
-            window.location.reload();
-          },
-          error: (error) => {
-            this.snackbarService.showSnackbar(error);
+      result.owner = this.authService.getUsername();
+      this.http.put(this.apiUrl + '/api/courses/' + course.id + '/', result).subscribe({
+        next: (data) => {
+          this.snackbarService.showSnackbar("Successfully updated course");
+          window.location.reload();
+        },
+        error: (error) => {
+          for (var err in error.error) {
+            this.snackbarService.showSnackbar(err + ': ' + error.error[err][0]);
           }
-        })
-      }
-      else {
-        result.owner = this.authService.getUsername();
-        this.http.put(this.apiUrl + '/api/courses/' + course.id + '/', result).subscribe({
-          next: (data) => {
-            this.snackbarService.showSnackbar("Successfully updated course");
-            window.location.reload();
-          },
-          error: (error) => {
-            for (var err in error.error) {
-              this.snackbarService.showSnackbar(err + ': ' + error.error[err][0]);
-            }
-          }
-        });
-      }
+        }
+      });
     })
   }
 

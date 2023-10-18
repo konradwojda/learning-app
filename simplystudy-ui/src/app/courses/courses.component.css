@@ -10,3 +10,20 @@ mat-form-field {
     flex-direction: column;
     padding: 10px;
 }
+
+.course-info {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.course-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.delete-course {
+    display: flex;
+    align-items: center;
+}
