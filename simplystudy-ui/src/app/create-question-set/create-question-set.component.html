@@ -26,7 +26,7 @@
             </form>
         </mat-step>
         <mat-step [stepControl]="questionsData">
-            <form [formGroup]="questionsData" (ngSubmit)="postQuestionSet()">
+            <form [formGroup]="questionsData">
                 <ng-template matStepLabel>Add questions to this set</ng-template>
                 <div formArrayName="questions">
                     <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i">
@@ -54,7 +54,7 @@
                 <div>
                     <button mat-button (click)="addQuestion()">Add question</button>
                     <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button type="submit">Save</button>
+                    <button mat-button (click)="postQuestionSet()">Save</button>
                 </div>
             </form>
         </mat-step>

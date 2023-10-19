@@ -4,7 +4,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../auth.service';
 import { Course } from '../courses/course';
@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { SnackbarService } from '../snackbar.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-question-set',
@@ -38,7 +39,7 @@ export class CreateQuestionSetComponent implements OnInit {
 
   questions = this.questionsData.get('questions') as FormArray;
 
-  constructor(private _formBuilder: FormBuilder, private authService: AuthService, private http: HttpClient, private snackbarService: SnackbarService) {
+  constructor(private _formBuilder: FormBuilder, private authService: AuthService, private http: HttpClient, private snackbarService: SnackbarService, private router: Router) {
 
   }
 
@@ -81,11 +82,24 @@ export class CreateQuestionSetComponent implements OnInit {
     let formValue = this.questionSetData.value;
     let username = this.authService.getUsername();
     this.http.post(this.apiUrl + '/api/question_sets/', { name: formValue.name, description: formValue.description, course: formValue.course ? formValue.course.id : null, owner: username }).subscribe({
-      next: (data) => {
-
+      next: (set_data: any) => {
+        let questionsArr: Array<any> = this.questionsData.value.questions;
+        for (var question of questionsArr) {
+          this.http.post(this.apiUrl + '/api/questions/', { content: question.content, answer: question.answer, image: question.image, question_set: set_data.id }).subscribe({
+            next: (data) => {
+              this.snackbarService.showSnackbar("Added new question set");
+              this.router.navigateByUrl('/question_sets/' + set_data.id);
+            },
+            error: (error) => {
+              for (var err in error.error) {
+                this.snackbarService.showSnackbar(err + ': ' + error.error[err][0]);
+              }
+            }
+          })
+        };
       },
       error: (error) => {
-
+        this.snackbarService.showSnackbar(error);
       }
     })
   }
