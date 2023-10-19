@@ -29,7 +29,7 @@ export class CreateQuestionSetComponent implements OnInit {
   questionSetData = this._formBuilder.group({
     name: ['', Validators.required],
     description: [''],
-    course: [''],
+    course: new FormControl(),
 
   });
   questionsData = this._formBuilder.group({
@@ -75,5 +75,18 @@ export class CreateQuestionSetComponent implements OnInit {
       const quetsionArray = this.questionsData.get('questions') as FormArray;
       quetsionArray.at(question_idx).patchValue({ image: img });
     }
+  }
+
+  postQuestionSet(): void {
+    let formValue = this.questionSetData.value;
+    let username = this.authService.getUsername();
+    this.http.post(this.apiUrl + '/api/question_sets/', { name: formValue.name, description: formValue.description, course: formValue.course ? formValue.course.id : null, owner: username }).subscribe({
+      next: (data) => {
+
+      },
+      error: (error) => {
+
+      }
+    })
   }
 }
