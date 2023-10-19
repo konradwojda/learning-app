@@ -67,4 +67,13 @@ export class CreateQuestionSetComponent implements OnInit {
     const questionArray = this.questionsData.get('questions') as FormArray;
     questionArray.removeAt(index);
   }
+
+  onImageUpload(event: Event, question_idx: number): void {
+    const files = (event.target as HTMLInputElement).files;
+    if (files != null) {
+      const img = files[0];
+      const quetsionArray = this.questionsData.get('questions') as FormArray;
+      quetsionArray.at(question_idx).patchValue({ image: img });
+    }
+  }
 }

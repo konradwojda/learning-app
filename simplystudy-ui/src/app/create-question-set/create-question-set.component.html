@@ -45,7 +45,7 @@
                             </div>
                             <div class="question-img">
                                 <mat-icon (click)="fileInput.click()" matTooltip="Upload image">image</mat-icon>
-                                <input #fileInput type="file" style="display:none">
+                                <input #fileInput type="file" style="display:none" (change)="onImageUpload($event, i)">
                             </div>
                         </div>
                         <button mat-button (click)="removeQuestion(i)">Remove</button>
