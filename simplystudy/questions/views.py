@@ -6,7 +6,8 @@ from simplystudy.questions.permissions import OwnerPermissions
 from simplystudy.questions.serializers import (
     CourseSerializer,
     QuestionSerializer,
-    QuestionSetSerializer,
+    QuestionSetCreateSerializer,
+    QuestionSetDetailSerializer,
     TestQuestionSerializer,
     TestSerializer,
 )
@@ -24,8 +25,13 @@ class QuestionSetViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-anc
     """ViewSet dla modelu QuestionSet"""
 
     queryset = QuestionSet.objects.all()
-    serializer_class = QuestionSetSerializer
     permission_classes = [permissions.IsAuthenticated, OwnerPermissions]
+
+    def get_serializer_class(self):
+        if self.request.method == "POST":
+            return QuestionSetCreateSerializer
+        else:
+            return QuestionSetDetailSerializer
 
     def get_queryset(self) -> QuerySet:
         queryset = self.queryset

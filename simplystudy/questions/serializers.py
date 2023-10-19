@@ -32,7 +32,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class QuestionSetSerializer(serializers.ModelSerializer):
+class QuestionSetDetailSerializer(serializers.ModelSerializer):
     """Serializer dla modelu QuestionSet"""
 
     owner = OwnerUsernameField()
@@ -42,6 +42,23 @@ class QuestionSetSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionSet
         fields = ("id", "name", "description", "owner", "course", "questions")
+
+
+class QuestionSetCreateSerializer(serializers.ModelSerializer):
+    """Serializer dla modelu QuestionSet"""
+
+    owner = OwnerUsernameField()
+    course = serializers.PrimaryKeyRelatedField(queryset=Course.objects.all())
+
+    class Meta:
+        model = QuestionSet
+        fields = (
+            "id",
+            "name",
+            "description",
+            "owner",
+            "course",
+        )
 
 
 class TestSerializer(serializers.ModelSerializer):
