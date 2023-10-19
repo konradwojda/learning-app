@@ -4,20 +4,22 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
+import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../auth.service';
 import { Course } from '../courses/course';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { SnackbarService } from '../snackbar.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-create-question-set',
   standalone: true,
   templateUrl: './create-question-set.component.html',
   styleUrls: ['./create-question-set.component.css'],
-  imports: [CommonModule, MatStepperModule, MatButtonModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatInputModule, MatSelectModule],
+  imports: [CommonModule, MatStepperModule, MatButtonModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatInputModule, MatSelectModule, MatIconModule, MatTooltipModule],
 })
 export class CreateQuestionSetComponent implements OnInit {
   private apiUrl = environment.apiUrl;
@@ -56,7 +58,8 @@ export class CreateQuestionSetComponent implements OnInit {
     const questionArray = this.questionsData.get('questions') as FormArray;
     questionArray.push(this._formBuilder.group({
       content: ['', Validators.required],
-      answer: ['', Validators.required]
+      answer: ['', Validators.required],
+      image: new FormControl(null),
     }))
   }
 
