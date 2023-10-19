@@ -9,6 +9,7 @@ import { NgFor } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { environment } from 'src/environments/environment';
 import { SnackbarService } from '../snackbar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-question-sets',
@@ -21,7 +22,7 @@ export class QuestionSetsComponent implements OnInit {
   questionSet: QuestionSet;
   private apiUrl = environment.apiUrl;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private snackbarService: SnackbarService) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private snackbarService: SnackbarService, private router: Router) {
     this.questionSet = {
       id: '',
       name: '',
@@ -50,5 +51,17 @@ export class QuestionSetsComponent implements OnInit {
         this.snackbarService.showSnackbar(error.error.detail);
       }
     });
+  }
+
+  deleteQuestionSet(id: string): void {
+    this.http.delete(this.apiUrl + '/api/question_sets/' + id + '/').subscribe({
+      next: (data) => {
+        this.snackbarService.showSnackbar("Deleted course");
+        this.router.navigateByUrl('/dashboard');
+      },
+      error: (error) => {
+        this.snackbarService.showSnackbar(error);
+      }
+    })
   }
 }
