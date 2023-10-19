@@ -26,7 +26,7 @@
             </form>
         </mat-step>
         <mat-step [stepControl]="questionsData">
-            <form [formGroup]="questionsData">
+            <form [formGroup]="questionsData" enctype="multipart/form-data">
                 <ng-template matStepLabel>Add questions to this set</ng-template>
                 <div formArrayName="questions">
                     <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i">
@@ -45,7 +45,8 @@
                             </div>
                             <div class="question-img">
                                 <mat-icon (click)="fileInput.click()" matTooltip="Upload image">image</mat-icon>
-                                <input #fileInput type="file" style="display:none" (change)="onImageUpload($event, i)">
+                                <input #fileInput type="file" name="image" style="display:none"
+                                    (change)="onImageUpload($event, i)">
                             </div>
                         </div>
                         <button mat-button (click)="removeQuestion(i)">Remove</button>

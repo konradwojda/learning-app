@@ -9,7 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../auth.service';
 import { Course } from '../courses/course';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SnackbarService } from '../snackbar.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -85,7 +85,12 @@ export class CreateQuestionSetComponent implements OnInit {
       next: (set_data: any) => {
         let questionsArr: Array<any> = this.questionsData.value.questions;
         for (var question of questionsArr) {
-          this.http.post(this.apiUrl + '/api/questions/', { content: question.content, answer: question.answer, image: question.image, question_set: set_data.id }).subscribe({
+          let question_form = new FormData();
+          question_form.append('content', question.content)
+          question_form.append('answer', question.answer)
+          question_form.append('image', question.image)
+          question_form.append('question_set', set_data.id)
+          this.http.post(this.apiUrl + '/api/questions/', question_form).subscribe({
             next: (data) => {
               this.snackbarService.showSnackbar("Added new question set");
               this.router.navigateByUrl('/question_sets/' + set_data.id);
