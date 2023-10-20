@@ -36,7 +36,7 @@ class QuestionSetDetailSerializer(serializers.ModelSerializer):
     """Serializer dla modelu QuestionSet"""
 
     owner = OwnerUsernameField()
-    course: serializers.Field = serializers.SlugRelatedField(read_only=True, slug_field="name")
+    course = CourseSerializer()
     questions = QuestionSerializer(many=True, read_only=True)
 
     class Meta:

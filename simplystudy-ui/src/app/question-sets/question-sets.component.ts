@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { environment } from 'src/environments/environment';
 import { SnackbarService } from '../snackbar.service';
 import { Router } from '@angular/router';
+import { Course } from '../courses/course';
 
 @Component({
   selector: 'app-question-sets',
@@ -27,7 +28,7 @@ export class QuestionSetsComponent implements OnInit {
       id: '',
       name: '',
       description: '',
-      course: '',
+      course: {} as Course,
       questions: '',
       owner: ''
     }
@@ -36,6 +37,7 @@ export class QuestionSetsComponent implements OnInit {
   ngOnInit(): void {
     this.getQuestionSet();
   }
+
   getQuestionSet(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.http.get<QuestionSet>(this.apiUrl + '/api/question_sets/' + id + '/').subscribe({
