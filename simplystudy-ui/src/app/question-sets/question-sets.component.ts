@@ -95,7 +95,12 @@ export class QuestionSetsComponent implements OnInit {
   editQuestion(question: any): void {
     const dialogRef = this.dialog.open(QuestionEditDialog, { data: { content: question.content, answer: question.answer, image: question.image, id: question.id } })
     dialogRef.afterClosed().subscribe(result => {
-
+      this.http.patch(this.apiUrl + '/api/questions/' + question.id + '/', { content: result.content, answer: result.answer }).subscribe({
+        next: (data) => {
+          this.snackbarService.showSnackbar("Updated question");
+          window.location.reload();
+        }
+      })
     })
   }
 }
@@ -161,6 +166,7 @@ export class QuestionEditDialog {
 
   onNoClick(): void {
     this.dialogRef.close();
+    window.location.reload();
   }
 
   onImageUpload(event: Event): void {
