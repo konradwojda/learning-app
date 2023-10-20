@@ -28,3 +28,9 @@
 .edit-button {
     margin-top: middle;
 }
+
+mat-form-field {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}

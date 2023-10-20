@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Question set</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="data.name" required>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput [(ngModel)]="data.description"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Course</mat-label>
+        <mat-select [(ngModel)]="data.course" [compareWith]="compareById">
+            <mat-option *ngFor="let course of courses" [value]="course">
+                {{course.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Close</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Submit</button>
+</div>
