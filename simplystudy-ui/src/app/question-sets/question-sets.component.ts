@@ -81,6 +81,7 @@ export class QuestionSetsComponent implements OnInit {
       this.http.patch(this.apiUrl + '/api/question_sets/' + this.questionSet.id + '/', { name: result.name, description: result.description, course: result.course ? result.course.id : null, owner: username }).subscribe({
         next: (data) => {
           this.snackbarService.showSnackbar("Saved question set");
+          window.location.reload();
         },
         error: (error) => {
           this.snackbarService.showSnackbar(error);
