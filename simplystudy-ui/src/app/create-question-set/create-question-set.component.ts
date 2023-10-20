@@ -39,7 +39,8 @@ export class CreateQuestionSetComponent implements OnInit {
 
   questions = this.questionsData.get('questions') as FormArray;
 
-  constructor(private _formBuilder: FormBuilder, private authService: AuthService, private http: HttpClient, private snackbarService: SnackbarService, private router: Router) {
+  constructor(private _formBuilder: FormBuilder, private authService: AuthService, private http: HttpClient,
+    private snackbarService: SnackbarService, private router: Router) {
 
   }
 
@@ -60,7 +61,7 @@ export class CreateQuestionSetComponent implements OnInit {
     questionArray.push(this._formBuilder.group({
       content: ['', Validators.required],
       answer: ['', Validators.required],
-      image: new FormControl(null),
+      image: new FormControl(''),
     }))
   }
 
