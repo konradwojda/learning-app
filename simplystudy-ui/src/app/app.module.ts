@@ -18,6 +18,7 @@ import { QuestionSetsComponent } from './question-sets/question-sets.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: CsrfTokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: CsrfTokenInterceptor, multi: true },
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { width: '70%' } }
   ],
   bootstrap: [AppComponent]
 })
