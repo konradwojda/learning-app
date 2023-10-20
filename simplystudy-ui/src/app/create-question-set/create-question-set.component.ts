@@ -92,8 +92,6 @@ export class CreateQuestionSetComponent implements OnInit {
           question_form.append('question_set', set_data.id)
           this.http.post(this.apiUrl + '/api/questions/', question_form).subscribe({
             next: (data) => {
-              this.snackbarService.showSnackbar("Added new question set");
-              this.router.navigateByUrl('/question_sets/' + set_data.id);
             },
             error: (error) => {
               for (var err in error.error) {
@@ -102,6 +100,8 @@ export class CreateQuestionSetComponent implements OnInit {
             }
           })
         };
+        this.snackbarService.showSnackbar("Added new question set");
+        this.router.navigateByUrl('/question_sets/' + set_data.id);
       },
       error: (error) => {
         this.snackbarService.showSnackbar(error);

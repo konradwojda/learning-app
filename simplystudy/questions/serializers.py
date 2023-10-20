@@ -48,7 +48,7 @@ class QuestionSetCreateSerializer(serializers.ModelSerializer):
     """Serializer dla modelu QuestionSet"""
 
     owner = OwnerUsernameField()
-    course = serializers.PrimaryKeyRelatedField(queryset=Course.objects.all())
+    course = serializers.PrimaryKeyRelatedField(queryset=Course.objects.all(), allow_null=True)
 
     class Meta:
         model = QuestionSet
