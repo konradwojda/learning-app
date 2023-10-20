@@ -12,12 +12,12 @@
         <mat-icon (click)="fileInput.click()" matTooltip="Upload image">image</mat-icon>
         <input #fileInput type="file" name="image" style="display:none" (change)="onImageUpload($event)">
     </div>
-    <div *ngIf=" data.image">
+    <div *ngIf="data.image">
         <div class="image">
             <img src={{data.image}} alt="" />
         </div>
         <div class="delete-img">
-            <mat-icon matTooltip="Delete image">delete</mat-icon>
+            <mat-icon matTooltip="Delete image" (click)="deleteImage()">delete</mat-icon>
         </div>
     </div>
 </div>

@@ -178,4 +178,9 @@ export class QuestionEditDialog {
     });
   }
 
+  deleteImage(): void {
+    this.data.image = null;
+    this.http.patch(this.apiUrl + '/api/questions/' + this.data.id + '/', { image: null }).subscribe();
+  }
+
 }
