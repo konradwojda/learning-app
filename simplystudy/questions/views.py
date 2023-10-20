@@ -28,7 +28,7 @@ class QuestionSetViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-anc
     permission_classes = [permissions.IsAuthenticated, OwnerPermissions]
 
     def get_serializer_class(self):
-        if self.request.method == "POST":
+        if self.request.method in ["POST", "PATCH"]:
             return QuestionSetCreateSerializer
         else:
             return QuestionSetDetailSerializer
