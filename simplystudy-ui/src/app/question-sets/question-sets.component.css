@@ -34,3 +34,19 @@ mat-form-field {
     flex-direction: column;
     padding: 10px;
 }
+
+.question-img {
+    display: flex;
+    justify-content: center;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+}
+
+.delete-img {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { environment } from 'src/environments/environment';
 import { SnackbarService } from '../snackbar.service';
@@ -18,6 +18,8 @@ import { FormControl, FormsModule, NgModel, ReactiveFormsModule, Validators } fr
 import { AuthService } from '../auth.service';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { Observable } from 'rxjs';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-question-sets',
@@ -89,6 +91,13 @@ export class QuestionSetsComponent implements OnInit {
       })
     })
   }
+
+  editQuestion(question: any): void {
+    const dialogRef = this.dialog.open(QuestionEditDialog, { data: { content: question.content, answer: question.answer, image: question.image, id: question.id } })
+    dialogRef.afterClosed().subscribe(result => {
+
+    })
+  }
 }
 
 @Component({
@@ -106,7 +115,6 @@ export class QuestionSetEditDialog {
     public dialogRef: MatDialogRef<QuestionSetEditDialog>,
     private authService: AuthService,
     private http: HttpClient,
-
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.getCourses();
@@ -130,6 +138,44 @@ export class QuestionSetEditDialog {
 
   compareById(c1: Course, c2: Course): boolean {
     return c1 && c2 && c1.id === c2.id;
+  }
+
+}
+
+@Component({
+  selector: 'app-question-sets-question-edit-dialog',
+  templateUrl: 'question-edit-dialog.html',
+  styleUrls: ['./question-sets.component.css'],
+  standalone: true,
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatOptionModule, MatSelectModule, NgFor, MatIconModule, NgIf, MatTooltipModule],
+})
+export class QuestionEditDialog {
+
+  private apiUrl = environment.apiUrl;
+
+  constructor(
+    private http: HttpClient,
+    public dialogRef: MatDialogRef<QuestionEditDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onImageUpload(event: Event): void {
+    const files = (event.target as HTMLInputElement).files;
+    if (files != null) {
+      const img = files[0];
+      this.data.image = img;
+    }
+    let question_form = new FormData();
+    question_form.append('image', this.data.image);
+    this.http.patch(this.apiUrl + '/api/questions/' + this.data.id + '/', question_form).subscribe({
+      next: (result: any) => {
+        this.data.image = result.image;
+      }
+    });
   }
 
 }
