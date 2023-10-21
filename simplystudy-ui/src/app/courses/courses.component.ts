@@ -102,8 +102,6 @@ export class CoursesComponent implements OnInit {
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule],
 })
 export class CourseEditDialog {
-  nameFieldControl = new FormControl('', [Validators.required])
-  universityFieldControl = new FormControl('', [Validators.required])
 
   constructor(
     public dialogRef: MatDialogRef<CourseEditDialog>,
