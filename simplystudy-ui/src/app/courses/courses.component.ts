@@ -14,6 +14,7 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angu
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -26,14 +27,15 @@ export class CoursesComponent implements OnInit {
   courses: Course[] = [];
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private authService: AuthService, private snackbarService: SnackbarService, public dialog: MatDialog) {
+  constructor(private http: HttpClient, private authService: AuthService, private snackbarService: SnackbarService, public dialog: MatDialog, private router: Router) {
   }
 
   deleteCourse(course_id: number): void {
     this.http.delete(this.apiUrl + '/api/courses/' + course_id + '/').subscribe({
       next: (data) => {
         this.snackbarService.showSnackbar("Deleted course");
-        window.location.reload();
+        this.ngOnInit();
+        this.router.navigateByUrl(this.router.url);
       },
       error: (error) => {
         this.snackbarService.showSnackbar(error);
@@ -48,7 +50,8 @@ export class CoursesComponent implements OnInit {
       this.http.put(this.apiUrl + '/api/courses/' + course.id + '/', result).subscribe({
         next: (data) => {
           this.snackbarService.showSnackbar("Successfully updated course");
-          window.location.reload();
+          this.ngOnInit();
+          this.router.navigateByUrl(this.router.url);
         },
         error: (error) => {
           for (var err in error.error) {
@@ -66,7 +69,8 @@ export class CoursesComponent implements OnInit {
       this.http.post(this.apiUrl + '/api/courses/', result).subscribe({
         next: (data) => {
           this.snackbarService.showSnackbar("Successfully added new course");
-          window.location.reload();
+          this.ngOnInit();
+          this.router.navigateByUrl(this.router.url);
         },
         error: (error) => {
           for (var err in error.error) {

@@ -83,7 +83,8 @@ export class QuestionSetsComponent implements OnInit {
       this.http.patch(this.apiUrl + '/api/question_sets/' + this.questionSet.id + '/', { name: result.name, description: result.description, course: result.course ? result.course.id : null, owner: username }).subscribe({
         next: (data) => {
           this.snackbarService.showSnackbar("Saved question set");
-          window.location.reload();
+          this.ngOnInit();
+          this.router.navigateByUrl(this.router.url);
         },
         error: (error) => {
           this.snackbarService.showSnackbar(error);
@@ -98,7 +99,8 @@ export class QuestionSetsComponent implements OnInit {
       this.http.patch(this.apiUrl + '/api/questions/' + question.id + '/', { content: result.content, answer: result.answer }).subscribe({
         next: (data) => {
           this.snackbarService.showSnackbar("Updated question");
-          window.location.reload();
+          this.ngOnInit();
+          this.router.navigateByUrl(this.router.url);
         }
       })
     })

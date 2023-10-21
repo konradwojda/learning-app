@@ -15,11 +15,11 @@ const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'question_sets/:id', component: QuestionSetsComponent },
     { path: 'create_question_set', component: CreateQuestionSetComponent },
-    { path: 'courses', component: CoursesComponent},
+    { path: 'courses', component: CoursesComponent },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
     exports: [RouterModule]
 })
 export class AppRoutingModule { }
