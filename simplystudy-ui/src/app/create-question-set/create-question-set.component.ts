@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,6 +14,7 @@ import { SnackbarService } from '../snackbar.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
+import { CsvService } from '../csv.service';
 
 @Component({
   selector: 'app-create-question-set',
@@ -23,6 +24,7 @@ import { Router } from '@angular/router';
   imports: [CommonModule, MatStepperModule, MatButtonModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatInputModule, MatSelectModule, MatIconModule, MatTooltipModule],
 })
 export class CreateQuestionSetComponent implements OnInit {
+  @ViewChild('csvInput', { static: false }) csvInput: ElementRef | undefined;
   private apiUrl = environment.apiUrl;
 
   courseList: Array<Course> = [];
@@ -40,7 +42,7 @@ export class CreateQuestionSetComponent implements OnInit {
   questions = this.questionsData.get('questions') as FormArray;
 
   constructor(private _formBuilder: FormBuilder, private authService: AuthService, private http: HttpClient,
-    private snackbarService: SnackbarService, private router: Router) {
+    private snackbarService: SnackbarService, private router: Router, private csv: CsvService) {
 
   }
 
@@ -108,5 +110,28 @@ export class CreateQuestionSetComponent implements OnInit {
         this.snackbarService.showSnackbar(error);
       }
     })
+  }
+
+  async importCsvQuestions(event: Event) {
+    let csvString = await this.getTextFromFile(event);
+    let questions = this.csv.importCSV(csvString);
+    const questionArray = this.questionsData.get('questions') as FormArray;
+    for (var question of questions) {
+      questionArray.push(this._formBuilder.group({
+        content: [question.content, Validators.required],
+        answer: [question.answer, Validators.required],
+        image: new FormControl(''),
+      }))
+    }
+    if (this.csvInput) {
+      this.csvInput.nativeElement.value = '';
+    }
+  }
+
+  private async getTextFromFile(event: any) {
+    const file: File = event.target.files[0];
+    let fileContent = await file.text();
+
+    return fileContent;
   }
 }
