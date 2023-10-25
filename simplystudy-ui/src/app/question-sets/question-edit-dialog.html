@@ -9,8 +9,8 @@
         <textarea matInput [(ngModel)]="data.answer"></textarea>
     </mat-form-field>
     <div class="question-img" *ngIf="!data.image">
-        <button mat-icon-button (click)="fileInput.click()">
-            <mat-icon matTooltip="Upload image">image</mat-icon>
+        <button mat-icon-button (click)="fileInput.click()" matTooltip="Upload image">
+            <mat-icon>image</mat-icon>
         </button>
         <input #fileInput type="file" name="image" style="display:none" (change)="onImageUpload($event)">
     </div>
@@ -19,8 +19,8 @@
             <img src={{data.image}} alt="" />
         </div>
         <div class="delete-img">
-            <button mat-icon-button (click)="deleteImage()">
-                <mat-icon matTooltip="Delete image">delete</mat-icon>
+            <button mat-icon-button (click)="deleteImage()" matTooltip="Delete image">
+                <mat-icon>delete</mat-icon>
             </button>
         </div>
     </div>
