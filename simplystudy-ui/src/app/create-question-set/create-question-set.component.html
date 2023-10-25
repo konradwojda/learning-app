@@ -44,7 +44,9 @@
                                 </mat-form-field>
                             </div>
                             <div class="question-img">
-                                <mat-icon (click)="fileInput.click()" matTooltip="Upload image">image</mat-icon>
+                                <button mat-icon-button (click)="fileInput.click()" matTooltip="Upload image">
+                                    <mat-icon>image</mat-icon>
+                                </button>
                                 <input #fileInput type="file" name="image" style="display:none"
                                     (change)="onImageUpload($event, i)">
                             </div>
