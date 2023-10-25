@@ -120,12 +120,30 @@ export class QuestionSetsComponent implements OnInit {
           this.router.navigateByUrl(this.router.url);
         },
         error: (error) => {
-
+          this.ngOnInit();
+          this.router.navigateByUrl(this.router.url);
+          this.snackbarService.showSnackbar(error);
         }
       })
     })
   }
+
+  deleteQuestion(question_id: string): void {
+    this.http.delete(this.apiUrl + '/api/questions/' + question_id + '/').subscribe({
+      next: (data) => {
+        this.ngOnInit();
+        this.router.navigateByUrl(this.router.url);
+        this.snackbarService.showSnackbar("Deleted question");
+      },
+      error: (error) => {
+        this.ngOnInit();
+        this.router.navigateByUrl(this.router.url);
+        this.snackbarService.showSnackbar(error)
+      }
+    })
+  }
 }
+
 
 @Component({
   selector: 'app-question-sets-edit-dialog',

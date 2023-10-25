@@ -25,6 +25,11 @@
     flex-direction: column;
 }
 
+.question-actions {
+    display: flex;
+    flex-direction: column;
+}
+
 .edit-button {
     margin-top: middle;
 }
