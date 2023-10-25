@@ -9,7 +9,9 @@
                     <span matListItemLine>{{course.description}}</span>
                 </div>
                 <div class="delete-course">
-                    <mat-icon (click)="deleteCourse(course.id)">delete</mat-icon>
+                    <button mat-icon-button (click)="deleteCourse(course.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
                 </div>
             </div>
             <mat-divider [inset]="true"></mat-divider>
