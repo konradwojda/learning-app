@@ -14,7 +14,7 @@ import { Course } from '../courses/course';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
@@ -104,6 +104,27 @@ export class QuestionSetsComponent implements OnInit {
       })
     })
   }
+
+  addQuestion(question_set_id: string): void {
+    const dialogRef = this.dialog.open(QuestionCreateDialog, { data: { content: '', answer: '', image: '', } });
+    dialogRef.afterClosed().subscribe(result => {
+      let question_form = new FormData();
+      question_form.append('content', result.content)
+      question_form.append('answer', result.answer)
+      question_form.append('image', result.image)
+      question_form.append('question_set', question_set_id)
+      this.http.post(this.apiUrl + "/api/questions/", question_form).subscribe({
+        next: (data) => {
+          this.snackbarService.showSnackbar("Added question");
+          this.ngOnInit();
+          this.router.navigateByUrl(this.router.url);
+        },
+        error: (error) => {
+
+        }
+      })
+    })
+  }
 }
 
 @Component({
@@ -188,6 +209,36 @@ export class QuestionEditDialog {
   deleteImage(): void {
     this.data.image = null;
     this.http.patch(this.apiUrl + '/api/questions/' + this.data.id + '/', { image: null }).subscribe();
+  }
+
+}
+
+@Component({
+  selector: 'app-question-sets-question-create-dialog',
+  templateUrl: 'question-create-dialog.html',
+  styleUrls: ['./question-sets.component.css'],
+  standalone: true,
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatOptionModule, MatSelectModule, NgFor, MatIconModule, NgIf, MatTooltipModule],
+})
+export class QuestionCreateDialog {
+
+
+  constructor(
+    public dialogRef: MatDialogRef<QuestionCreateDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+    window.location.reload();
+  }
+
+  onImageUpload(event: Event): void {
+    const files = (event.target as HTMLInputElement).files;
+    if (files != null) {
+      const img = files[0];
+      this.data.image = img;
+    }
   }
 
 }
