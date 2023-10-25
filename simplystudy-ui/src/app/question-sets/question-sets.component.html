@@ -24,15 +24,20 @@
             <mat-card-content>{{ question.content }}</mat-card-content>
         </mat-card>
 
-        <mat-card class="answer-card">
-            <mat-card-header>
-                <mat-card-title>Answer</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>{{ question.answer }}</mat-card-content>
-        </mat-card>
+        <div class="answer-card">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Answer</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>{{ question.answer }}</mat-card-content>
+            </mat-card>
+            <button mat-icon-button class="edit-button" (click)="editQuestion(question)">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </div>
 
-        <button mat-icon-button class="edit-button" (click)="editQuestion(question)">
-            <mat-icon>edit</mat-icon>
-        </button>
     </div>
+    <button mat-icon-button (click)="addQuestion(questionSet.id)">
+        <mat-icon>add</mat-icon>
+    </button>
 </div>

@@ -25,6 +25,11 @@
     flex-direction: column;
 }
 
+.answer-card {
+    display: flex;
+    flex-direction: row;
+}
+
 .edit-button {
     margin-top: middle;
 }
