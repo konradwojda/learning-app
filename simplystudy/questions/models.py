@@ -19,6 +19,7 @@ class QuestionSet(models.Model):
     description = models.TextField(null=True, blank=True)
     course = models.ForeignKey(to=Course, null=True, blank=True, on_delete=models.SET_NULL)
     owner = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE)
+    is_private = models.BooleanField(default=True)
 
 
 class Question(models.Model):
