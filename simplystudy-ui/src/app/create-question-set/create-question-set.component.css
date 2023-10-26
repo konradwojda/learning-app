@@ -29,3 +29,10 @@ mat-form-field {
     align-items: center;
     justify-content: center;
 }
+
+.check-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

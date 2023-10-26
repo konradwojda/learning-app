@@ -9,7 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../auth.service';
 import { Course } from '../courses/course';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { SnackbarService } from '../snackbar.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -78,7 +78,13 @@ export class CreateQuestionSetComponent implements OnInit {
       const img = files[0];
       const quetsionArray = this.questionsData.get('questions') as FormArray;
       quetsionArray.at(question_idx).patchValue({ image: img });
+      (event.target as HTMLInputElement).value = '';
     }
+  }
+
+  deleteImage(question_idx: number): void {
+    const questionArray = this.questionsData.get('questions') as FormArray;
+    questionArray.at(question_idx).patchValue({ image: '' });
   }
 
   postQuestionSet(): void {

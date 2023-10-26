@@ -44,11 +44,19 @@
                                 </mat-form-field>
                             </div>
                             <div class="question-img">
-                                <button mat-icon-button (click)="fileInput.click()" matTooltip="Upload image">
+                                <button mat-icon-button (click)="fileInput.click()" matTooltip="Upload image"
+                                    *ngIf="!question.get('image')?.value">
                                     <mat-icon>image</mat-icon>
                                 </button>
                                 <input #fileInput type="file" name="image" style="display:none"
                                     (change)="onImageUpload($event, i)">
+                                <div class="check-icon" *ngIf="question.get('image')?.value">
+                                    <mat-icon matTooltip="File {{question.get('image')?.value.name}} loaded"
+                                        [matTooltipPosition]="'above'">check</mat-icon>
+                                    <button mat-icon-button matTooltip="Delete image" (click)="deleteImage(i)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <button mat-button (click)="removeQuestion(i)">Remove</button>
