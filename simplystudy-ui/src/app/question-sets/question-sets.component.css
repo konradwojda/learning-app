@@ -30,8 +30,9 @@
     flex-direction: column;
 }
 
-.edit-button {
-    margin-top: middle;
+.check-icon {
+    display: flex;
+    align-items: center;
 }
 
 mat-form-field {

@@ -256,7 +256,12 @@ export class QuestionCreateDialog {
     if (files != null) {
       const img = files[0];
       this.data.image = img;
+      (event.target as HTMLInputElement).value = '';
     }
+  }
+
+  deleteImage(): void {
+    this.data.image = null;
   }
 
 }
