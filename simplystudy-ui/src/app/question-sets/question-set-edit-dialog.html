@@ -11,6 +11,7 @@
     <mat-form-field>
         <mat-label>Course</mat-label>
         <mat-select [(ngModel)]="data.course" [compareWith]="compareById">
+            <mat-option></mat-option>
             <mat-option *ngFor="let course of courses" [value]="course">
                 {{course.name}}
             </mat-option>
