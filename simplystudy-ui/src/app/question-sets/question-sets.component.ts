@@ -25,7 +25,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './question-sets.component.html',
   styleUrls: ['./question-sets.component.css'],
   standalone: true,
-  imports: [MatButtonModule, MatCardModule, MatListModule, NgFor, MatIconModule, MatDialogModule]
+  imports: [MatButtonModule, MatCardModule, MatListModule, NgFor, MatIconModule, MatDialogModule, NgIf]
 })
 export class QuestionSetsComponent implements OnInit {
   questionSet: QuestionSet;

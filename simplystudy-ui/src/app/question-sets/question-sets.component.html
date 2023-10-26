@@ -22,6 +22,9 @@
                 <mat-card-title>Question</mat-card-title>
             </mat-card-header>
             <mat-card-content>{{ question.content }}</mat-card-content>
+            <div *ngIf="question.image" class="question-image">
+                <img class="question-image" src={{question.image}} alt="" />
+            </div>
         </mat-card>
 
         <mat-card class="answer-card">
