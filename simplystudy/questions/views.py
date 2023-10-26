@@ -1,8 +1,15 @@
+from typing import Any
+
+from django.db.models import Q
 from django.db.models.query import QuerySet
 from rest_framework import permissions, viewsets
 
 from simplystudy.questions.models import Course, Question, QuestionSet, Test, TestQuestion
-from simplystudy.questions.permissions import OwnerPermissions
+from simplystudy.questions.permissions import (
+    OwnerPermissions,
+    QuestionPermissions,
+    QuestionSetPermissions,
+)
 from simplystudy.questions.serializers import (
     CourseSerializer,
     QuestionSerializer,
@@ -18,14 +25,14 @@ class QuestionViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancest
 
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, QuestionPermissions]
 
 
 class QuestionSetViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
     """ViewSet dla modelu QuestionSet"""
 
     queryset = QuestionSet.objects.all()
-    permission_classes = [permissions.IsAuthenticated, OwnerPermissions]
+    permission_classes = [permissions.IsAuthenticated, QuestionSetPermissions]
 
     def get_serializer_class(self):
         if self.request.method in ["POST", "PATCH"]:
@@ -34,7 +41,7 @@ class QuestionSetViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-anc
             return QuestionSetDetailSerializer
 
     def get_queryset(self) -> QuerySet:
-        queryset = self.queryset
+        queryset = self.queryset.filter(Q(is_private=False) | Q(owner=self.request.user))
         username = self.request.query_params.get("username")
         if username is not None:
             return queryset.filter(owner__username=username)
