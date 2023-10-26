@@ -11,6 +11,10 @@ mat-form-field {
     padding: 10px;
 }
 
+.is-private-slide {
+    padding: 10px;
+}
+
 .question-container {
     display: flex;
     flex-direction: row;

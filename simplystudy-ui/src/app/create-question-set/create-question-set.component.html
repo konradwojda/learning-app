@@ -3,6 +3,10 @@
         <mat-step [stepControl]="questionSetData">
             <form [formGroup]="questionSetData">
                 <ng-template matStepLabel>Fill the question set data</ng-template>
+                <div class="is-private-slide">
+                    <mat-slide-toggle formControlName="is_private" [(ngModel)]="isPrivate">Should this set be
+                        private?</mat-slide-toggle>
+                </div>
                 <mat-form-field>
                     <mat-label>Name</mat-label>
                     <input matInput formControlName="name" required>

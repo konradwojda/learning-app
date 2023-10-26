@@ -15,24 +15,27 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { CsvService } from '../csv.service';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-create-question-set',
   standalone: true,
   templateUrl: './create-question-set.component.html',
   styleUrls: ['./create-question-set.component.css'],
-  imports: [CommonModule, MatStepperModule, MatButtonModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatInputModule, MatSelectModule, MatIconModule, MatTooltipModule],
+  imports: [CommonModule, MatStepperModule, MatButtonModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatInputModule, MatSelectModule, MatIconModule, MatTooltipModule, MatSlideToggleModule],
 })
 export class CreateQuestionSetComponent implements OnInit {
   @ViewChild('csvInput', { static: false }) csvInput: ElementRef | undefined;
   private apiUrl = environment.apiUrl;
 
   courseList: Array<Course> = [];
+  isPrivate: boolean = true;
 
   questionSetData = this._formBuilder.group({
     name: ['', Validators.required],
     description: [''],
     course: new FormControl(),
+    is_private: ['', Validators.required]
 
   });
   questionsData = this._formBuilder.group({
@@ -90,7 +93,7 @@ export class CreateQuestionSetComponent implements OnInit {
   postQuestionSet(): void {
     let formValue = this.questionSetData.value;
     let username = this.authService.getUsername();
-    this.http.post(this.apiUrl + '/api/question_sets/', { name: formValue.name, description: formValue.description, course: formValue.course ? formValue.course.id : null, owner: username }).subscribe({
+    this.http.post(this.apiUrl + '/api/question_sets/', { name: formValue.name, description: formValue.description, course: formValue.course ? formValue.course.id : null, owner: username, is_private: formValue.is_private }).subscribe({
       next: (set_data: any) => {
         let questionsArr: Array<any> = this.questionsData.value.questions;
         for (var question of questionsArr) {
