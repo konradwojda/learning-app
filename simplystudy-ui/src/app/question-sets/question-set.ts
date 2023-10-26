@@ -4,7 +4,7 @@ export interface QuestionSet {
     id: string,
     name: string,
     description: string,
-    course: Course,
+    course: Course | null,
     questions: any,
     owner: string
 }

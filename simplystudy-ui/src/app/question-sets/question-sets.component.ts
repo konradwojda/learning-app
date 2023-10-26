@@ -36,7 +36,7 @@ export class QuestionSetsComponent implements OnInit {
       id: '',
       name: '',
       description: '',
-      course: {} as Course,
+      course: null,
       questions: '',
       owner: ''
     }
