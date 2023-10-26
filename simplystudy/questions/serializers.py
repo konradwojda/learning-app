@@ -41,7 +41,7 @@ class QuestionSetDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = QuestionSet
-        fields = ("id", "name", "description", "owner", "course", "questions")
+        fields = ("id", "name", "description", "owner", "course", "questions", "is_private")
 
 
 class QuestionSetCreateSerializer(serializers.ModelSerializer):
