@@ -1,3 +1,14 @@
-<div *ngFor="let qs of resources">
-    {{qs.name}}
+<div class="container">
+    <div class="list">
+        <mat-card *ngFor="let question_set of resources" (click)="onCardClick(question_set)" matRipple>
+            <mat-card-header>
+                <mat-card-title>{{question_set.name}}</mat-card-title><br />
+                <mat-card-subtitle>{{question_set.description}}</mat-card-subtitle>
+                <mat-card-subtitle>Author: {{question_set.owner}}</mat-card-subtitle>
+                <mat-card-subtitle *ngIf="question_set.course">Course: {{question_set.course.name}}</mat-card-subtitle>
+                <mat-card-subtitle>{{question_set.questions.length}} questions</mat-card-subtitle>
+            </mat-card-header>
+            <br>
+        </mat-card>
+    </div>
 </div>
