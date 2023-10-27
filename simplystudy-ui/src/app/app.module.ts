@@ -19,6 +19,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { SearchResourcesComponent } from './search-resources/search-resources.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
     MatSlideToggleModule,
     NavigationComponent,
     LandingPageComponent,
+    SearchResourcesComponent,
     AppRoutingModule,
     HttpClientModule,
     MatInputModule,
