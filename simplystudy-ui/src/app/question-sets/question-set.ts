@@ -6,5 +6,6 @@ export interface QuestionSet {
     description: string,
     course: Course | null,
     questions: any,
-    owner: string
+    owner: string,
+    is_private: boolean | null,
 }

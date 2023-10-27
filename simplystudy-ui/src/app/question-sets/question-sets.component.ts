@@ -19,6 +19,7 @@ import { AuthService } from '../auth.service';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-question-sets',
@@ -38,7 +39,8 @@ export class QuestionSetsComponent implements OnInit {
       description: '',
       course: null,
       questions: '',
-      owner: ''
+      owner: '',
+      is_private: null,
     }
   }
 
@@ -56,6 +58,7 @@ export class QuestionSetsComponent implements OnInit {
         course: data.course,
         questions: data.questions,
         owner: data.owner,
+        is_private: data.is_private,
       },
       error: (error) => {
         this.snackbarService.showSnackbar(error.error.detail);
@@ -76,10 +79,10 @@ export class QuestionSetsComponent implements OnInit {
   }
 
   editQuestionSet(): void {
-    const dialogRef = this.dialog.open(QuestionSetEditDialog, { data: { name: this.questionSet.name, description: this.questionSet.description, course: this.questionSet.course as Course } });
+    const dialogRef = this.dialog.open(QuestionSetEditDialog, { data: { name: this.questionSet.name, description: this.questionSet.description, course: this.questionSet.course as Course, is_private: this.questionSet.is_private } });
     dialogRef.afterClosed().subscribe(result => {
       let username = this.authService.getUsername();
-      this.http.patch(this.apiUrl + '/api/question_sets/' + this.questionSet.id + '/', { name: result.name, description: result.description, course: result.course ? result.course.id : null, owner: username }).subscribe({
+      this.http.patch(this.apiUrl + '/api/question_sets/' + this.questionSet.id + '/', { name: result.name, description: result.description, course: result.course ? result.course.id : null, owner: username, is_private: result.is_private }).subscribe({
         next: (data) => {
           this.snackbarService.showSnackbar("Saved question set");
           this.ngOnInit();
@@ -150,7 +153,7 @@ export class QuestionSetsComponent implements OnInit {
   templateUrl: 'question-set-edit-dialog.html',
   styleUrls: ['./question-sets.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatOptionModule, MatSelectModule, NgFor],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatOptionModule, MatSelectModule, NgFor, MatSlideToggleModule],
 })
 export class QuestionSetEditDialog {
   private apiUrl = environment.apiUrl;

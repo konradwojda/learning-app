@@ -49,6 +49,10 @@ mat-form-field {
     padding: 10px;
 }
 
+.is-private-slide {
+    padding: 10px;
+}
+
 .question-img {
     display: flex;
     justify-content: center;

@@ -17,6 +17,10 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
+    <div class="is-private-slide">
+        <mat-slide-toggle [(ngModel)]="data.is_private">Should this set be
+            private?</mat-slide-toggle>
+    </div>
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Close</button>
