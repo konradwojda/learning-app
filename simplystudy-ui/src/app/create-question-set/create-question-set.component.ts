@@ -56,7 +56,7 @@ export class CreateQuestionSetComponent implements OnInit {
         this.courseList = data;
       },
       error: (error) => {
-        this.snackbarService.showSnackbar(error.error.detail);
+        this.snackbarService.showError(error);
       }
     })
   }
@@ -116,7 +116,7 @@ export class CreateQuestionSetComponent implements OnInit {
         this.router.navigateByUrl('/question_sets/' + set_data.id);
       },
       error: (error) => {
-        this.snackbarService.showSnackbar(error);
+        this.snackbarService.showError(error);
       }
     })
   }

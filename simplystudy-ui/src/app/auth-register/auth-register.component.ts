@@ -39,10 +39,7 @@ export class AuthRegisterComponent implements OnInit {
         this.router.navigateByUrl('/dashboard');
       },
       error: (error) => {
-        console.log(error);
-        for (var err in error.error) {
-          this.snackbarService.showSnackbar(error.error[err][0]);
-        }
+        this.snackbarService.showError(error);
       }
     }
     );;

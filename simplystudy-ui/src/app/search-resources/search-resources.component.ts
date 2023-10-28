@@ -30,7 +30,7 @@ export class SearchResourcesComponent implements OnInit {
         this.resources = data;
       },
       error: (error) => {
-        this.snackbarService.showSnackbar(error.error.detail);
+        this.snackbarService.showError(error);
       }
     })
   }

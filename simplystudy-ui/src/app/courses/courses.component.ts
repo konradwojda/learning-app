@@ -38,7 +38,7 @@ export class CoursesComponent implements OnInit {
         this.router.navigateByUrl(this.router.url);
       },
       error: (error) => {
-        this.snackbarService.showSnackbar(error);
+        this.snackbarService.showError(error);
       }
     })
   }
@@ -88,7 +88,7 @@ export class CoursesComponent implements OnInit {
         this.courses = data;
       },
       error: (error) => {
-        this.snackbarService.showSnackbar(error.error.detail);
+        this.snackbarService.showError(error);
       }
     })
   }

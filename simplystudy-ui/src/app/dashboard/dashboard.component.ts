@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
         this.filteredQuestionSets = data;
       },
       error: (error) => {
-        this.snackbarService.showSnackbar(error.error.detail);
+        this.snackbarService.showError(error);
       }
     });
   };

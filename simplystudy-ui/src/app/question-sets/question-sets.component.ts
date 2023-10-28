@@ -61,7 +61,7 @@ export class QuestionSetsComponent implements OnInit {
         is_private: data.is_private,
       },
       error: (error) => {
-        this.snackbarService.showSnackbar(error.error.detail);
+        this.snackbarService.showError(error);
       }
     });
   }
@@ -73,7 +73,7 @@ export class QuestionSetsComponent implements OnInit {
         this.router.navigateByUrl('/dashboard');
       },
       error: (error) => {
-        this.snackbarService.showSnackbar(error);
+        this.snackbarService.showError(error);
       }
     })
   }
@@ -89,7 +89,7 @@ export class QuestionSetsComponent implements OnInit {
           this.router.navigateByUrl(this.router.url);
         },
         error: (error) => {
-          this.snackbarService.showSnackbar(error);
+          this.snackbarService.showError(error);
         }
       })
     })
@@ -125,7 +125,7 @@ export class QuestionSetsComponent implements OnInit {
         error: (error) => {
           this.ngOnInit();
           this.router.navigateByUrl(this.router.url);
-          this.snackbarService.showSnackbar(error);
+          this.snackbarService.showError(error);
         }
       })
     })
@@ -141,7 +141,7 @@ export class QuestionSetsComponent implements OnInit {
       error: (error) => {
         this.ngOnInit();
         this.router.navigateByUrl(this.router.url);
-        this.snackbarService.showSnackbar(error)
+        this.snackbarService.showError(error);
       }
     })
   }
