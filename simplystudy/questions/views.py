@@ -41,7 +41,9 @@ class QuestionSetViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-anc
             return QuestionSetDetailSerializer
 
     def get_queryset(self) -> QuerySet:
-        queryset = self.queryset.filter(Q(is_private=False) | Q(owner=self.request.user))
+        queryset = self.queryset
+        if not self.request.user.is_superuser:
+            queryset = queryset.filter(Q(is_private=False) | Q(owner=self.request.user))
         username = self.request.query_params.get("username")
         if username is not None:
             return queryset.filter(owner__username=username)
