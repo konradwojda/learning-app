@@ -30,6 +30,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 })
 export class QuestionSetsComponent implements OnInit {
   questionSet: QuestionSet;
+  isOwner: boolean = false;
   private apiUrl = environment.apiUrl;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private snackbarService: SnackbarService, private router: Router, private authService: AuthService, public dialog: MatDialog) {
@@ -51,14 +52,19 @@ export class QuestionSetsComponent implements OnInit {
   getQuestionSet(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.http.get<QuestionSet>(this.apiUrl + '/api/question_sets/' + id + '/').subscribe({
-      next: (data: QuestionSet) => this.questionSet = {
-        id: data.id,
-        name: data.name,
-        description: data.description,
-        course: data.course,
-        questions: data.questions,
-        owner: data.owner,
-        is_private: data.is_private,
+      next: (data: QuestionSet) => {
+        this.questionSet = {
+          id: data.id,
+          name: data.name,
+          description: data.description,
+          course: data.course,
+          questions: data.questions,
+          owner: data.owner,
+          is_private: data.is_private,
+        }
+        if (this.questionSet.owner === this.authService.getUsername()) {
+          this.isOwner = true;
+        }
       },
       error: (error) => {
         this.snackbarService.showError(error);
