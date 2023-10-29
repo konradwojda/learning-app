@@ -15,13 +15,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css'],
-  imports: [CommonModule, MatListModule, MatDividerModule, MatRippleModule, MatButtonModule, MatIconModule, MatDialogModule, MatIconModule],
+  imports: [CommonModule, MatDividerModule, MatRippleModule, MatButtonModule, MatIconModule, MatDialogModule, MatIconModule, MatCardModule],
 })
 export class CoursesComponent implements OnInit {
   courses: Course[] = [];

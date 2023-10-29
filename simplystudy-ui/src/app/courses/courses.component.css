@@ -5,6 +5,24 @@
     padding-bottom: 30px;
 }
 
+.list {
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.list-elem {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+}
+
+mat-card {
+    flex: 1;
+    padding-bottom: 10px;
+}
+
 mat-form-field {
     display: flex;
     flex-direction: column;

@@ -1,20 +1,17 @@
 <div class="container">
     <button mat-raised-button color="primary" (click)="createCourse()">Create new</button>
-    <mat-list>
-        <mat-list-item *ngFor="let course of courses">
-            <div class="course-container">
-                <div class="course-info" matRipple (click)="editCourse(course)">
-                    <span matListItemTitle>{{course.name}}</span>
-                    <span matListItemLine>{{course.university}}</span>
-                    <span matListItemLine>{{course.description}}</span>
-                </div>
-                <div class="delete-course">
-                    <button mat-icon-button (click)="deleteCourse(course.id)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </div>
-            </div>
-            <mat-divider [inset]="true"></mat-divider>
-        </mat-list-item>
-    </mat-list>
+    <div class="list">
+        <div class="list-elem" *ngFor="let course of courses">
+            <mat-card (click)="editCourse(course)" matRipple>
+                <mat-card-header>
+                    <mat-card-title>{{course.name}}</mat-card-title>
+                    <mat-card-subtitle>{{course.university}}</mat-card-subtitle>
+                    <mat-card-subtitle>{{course.description}}</mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+            <button mat-icon-button (click)="deleteCourse(course.id)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>
 </div>
