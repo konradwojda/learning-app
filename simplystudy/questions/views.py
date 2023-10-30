@@ -3,6 +3,7 @@ from typing import Any
 from django.db.models import Q
 from django.db.models.query import QuerySet
 from rest_framework import permissions, viewsets
+from rest_framework.pagination import PageNumberPagination
 
 from simplystudy.questions.models import Course, Question, QuestionSet, Test, TestQuestion
 from simplystudy.questions.permissions import (
@@ -18,6 +19,12 @@ from simplystudy.questions.serializers import (
     TestQuestionSerializer,
     TestSerializer,
 )
+
+
+class StandardPagination(PageNumberPagination):
+    page_size = 100
+    page_size_query_param = "page_size"
+    max_page_size = 1000
 
 
 class QuestionViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
@@ -48,6 +55,15 @@ class QuestionSetViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-anc
         if username is not None:
             return queryset.filter(owner__username=username)
         return queryset
+
+
+class PublicQuestionSetViewSet(viewsets.ReadOnlyModelViewSet):
+    """Widok dla publicznych zestawów pytań"""
+
+    queryset = QuestionSet.objects.filter(is_private=False)
+    serializer_class = QuestionSetDetailSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    pagination_class = StandardPagination
 
 
 class CourseViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors

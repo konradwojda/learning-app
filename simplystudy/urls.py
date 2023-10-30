@@ -27,6 +27,9 @@ from simplystudy.views import RedirectToAngular
 router = routers.DefaultRouter()
 router.register(r"questions", views.QuestionViewSet)
 router.register(r"question_sets", views.QuestionSetViewSet)
+router.register(
+    r"public_question_sets", views.PublicQuestionSetViewSet, basename="public-question-sets"
+)
 router.register(r"courses", views.CourseViewSet)
 router.register(r"tests", views.TestViewSet)
 router.register(r"test_questions", views.TestQuestionViewSet)
