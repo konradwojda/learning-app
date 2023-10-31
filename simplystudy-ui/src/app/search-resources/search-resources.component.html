@@ -1,4 +1,11 @@
 <div class="container">
+    <div class="search-bar">
+        <mat-form-field class="search-field">
+            <mat-label>Search by name, description, author or course</mat-label>
+            <input matInput [(ngModel)]="searchText">
+        </mat-form-field>
+        <button class="search-btn" mat-raised-button (click)="searchResources()">Search</button>
+    </div>
     <div class="list">
         <mat-card *ngFor="let question_set of resources" (click)="onCardClick(question_set)" matRipple>
             <mat-card-header>
