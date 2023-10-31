@@ -65,7 +65,7 @@ class PublicQuestionSetViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = StandardPagination
     filter_backends = [filters.SearchFilter]
-    search_fields = ["name", "course__name", "owner__username"]
+    search_fields = ["name", "course__name", "owner__username", "description"]
 
 
 class CourseViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
