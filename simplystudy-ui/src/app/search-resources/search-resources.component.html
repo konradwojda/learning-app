@@ -11,4 +11,11 @@
             <br>
         </mat-card>
     </div>
+    <mat-paginator #paginator
+    (page)="handlePageEvent($event)"
+    [length]="items_count"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageIndex]="pageIndex">
+</mat-paginator>
 </div>
