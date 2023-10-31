@@ -2,7 +2,7 @@ from typing import Any
 
 from django.db.models import Q
 from django.db.models.query import QuerySet
-from rest_framework import permissions, viewsets
+from rest_framework import permissions, viewsets, filters
 from rest_framework.pagination import PageNumberPagination
 
 from simplystudy.questions.models import Course, Question, QuestionSet, Test, TestQuestion
@@ -64,6 +64,8 @@ class PublicQuestionSetViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = QuestionSetDetailSerializer
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = StandardPagination
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["name", "course__name", "owner__username"]
 
 
 class CourseViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
