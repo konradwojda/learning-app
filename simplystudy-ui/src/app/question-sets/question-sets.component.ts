@@ -20,6 +20,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ErrorHandlingService } from '../error-handling.service';
 
 @Component({
   selector: 'app-question-sets',
@@ -33,7 +34,7 @@ export class QuestionSetsComponent implements OnInit {
   isOwner: boolean = false;
   private apiUrl = environment.apiUrl;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private snackbarService: SnackbarService, private router: Router, private authService: AuthService, public dialog: MatDialog) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private snackbarService: SnackbarService, private router: Router, private authService: AuthService, public dialog: MatDialog, private errorHandling: ErrorHandlingService) {
     this.questionSet = {
       id: '',
       name: '',
@@ -67,7 +68,7 @@ export class QuestionSetsComponent implements OnInit {
         }
       },
       error: (error) => {
-        this.snackbarService.showError(error);
+        this.errorHandling.handleError(error);
       }
     });
   }
@@ -79,7 +80,7 @@ export class QuestionSetsComponent implements OnInit {
         this.router.navigateByUrl('/dashboard');
       },
       error: (error) => {
-        this.snackbarService.showError(error);
+        this.errorHandling.handleError(error);
       }
     })
   }
@@ -95,7 +96,7 @@ export class QuestionSetsComponent implements OnInit {
           this.router.navigateByUrl(this.router.url);
         },
         error: (error) => {
-          this.snackbarService.showError(error);
+          this.errorHandling.handleError(error);
         }
       })
     })
@@ -131,7 +132,7 @@ export class QuestionSetsComponent implements OnInit {
         error: (error) => {
           this.ngOnInit();
           this.router.navigateByUrl(this.router.url);
-          this.snackbarService.showError(error);
+          this.errorHandling.handleError(error);
         }
       })
     })
@@ -147,7 +148,7 @@ export class QuestionSetsComponent implements OnInit {
       error: (error) => {
         this.ngOnInit();
         this.router.navigateByUrl(this.router.url);
-        this.snackbarService.showError(error);
+        this.errorHandling.handleError(error);
       }
     })
   }

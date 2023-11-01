@@ -16,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { CsvService } from '../csv.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ErrorHandlingService } from '../error-handling.service';
 
 @Component({
   selector: 'app-create-question-set',
@@ -45,7 +46,7 @@ export class CreateQuestionSetComponent implements OnInit {
   questions = this.questionsData.get('questions') as FormArray;
 
   constructor(private _formBuilder: FormBuilder, private authService: AuthService, private http: HttpClient,
-    private snackbarService: SnackbarService, private router: Router, private csv: CsvService) {
+    private snackbarService: SnackbarService, private router: Router, private csv: CsvService, private errorHandling: ErrorHandlingService) {
 
   }
 
@@ -56,7 +57,7 @@ export class CreateQuestionSetComponent implements OnInit {
         this.courseList = data;
       },
       error: (error) => {
-        this.snackbarService.showError(error);
+        this.errorHandling.handleError(error);
       }
     })
   }
@@ -116,7 +117,7 @@ export class CreateQuestionSetComponent implements OnInit {
         };
       },
       error: (error) => {
-        this.snackbarService.showError(error);
+        this.errorHandling.handleError(error);
       }
     })
   }

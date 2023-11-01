@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
+import { ErrorHandlingService } from '../error-handling.service';
 
 @Component({
   selector: 'app-courses',
@@ -27,7 +28,7 @@ export class CoursesComponent implements OnInit {
   courses: Course[] = [];
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private authService: AuthService, private snackbarService: SnackbarService, public dialog: MatDialog, private router: Router) {
+  constructor(private http: HttpClient, private authService: AuthService, private snackbarService: SnackbarService, public dialog: MatDialog, private router: Router, private errorHandling: ErrorHandlingService) {
   }
 
   deleteCourse(course_id: number): void {
@@ -38,7 +39,7 @@ export class CoursesComponent implements OnInit {
         this.router.navigateByUrl(this.router.url);
       },
       error: (error) => {
-        this.snackbarService.showError(error);
+        this.errorHandling.handleError(error);
       }
     })
   }
@@ -88,7 +89,7 @@ export class CoursesComponent implements OnInit {
         this.courses = data;
       },
       error: (error) => {
-        this.snackbarService.showError(error);
+        this.errorHandling.handleError(error);
       }
     })
   }

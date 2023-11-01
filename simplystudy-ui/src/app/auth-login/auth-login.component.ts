@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { SnackbarService } from '../snackbar.service';
 import { Router } from '@angular/router';
+import { ErrorHandlingService } from '../error-handling.service';
 
 @Component({
   selector: 'app-auth-login',
@@ -18,7 +19,7 @@ import { Router } from '@angular/router';
 })
 export class AuthLoginComponent implements OnInit {
   logInForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private snackbarService: SnackbarService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private snackbarService: SnackbarService, private router: Router, private errorHandling: ErrorHandlingService) {
     this.logInForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -38,7 +39,7 @@ export class AuthLoginComponent implements OnInit {
         this.router.navigateByUrl('/dashboard');
       },
       error: (error) => {
-        this.snackbarService.showError(error);
+        this.errorHandling.handleError(error);
       }
     }
     );

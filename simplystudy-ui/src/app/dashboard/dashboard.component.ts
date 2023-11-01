@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatRippleModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
+import { ErrorHandlingService } from '../error-handling.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +30,7 @@ export class DashboardComponent implements OnInit {
   filterText: string = '';
   private apiUrl = environment.apiUrl;
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService, private snackbarService: SnackbarService) {
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService, private snackbarService: SnackbarService, private errorHandling: ErrorHandlingService) {
   }
 
   applyFilter() {
@@ -50,7 +51,7 @@ export class DashboardComponent implements OnInit {
         this.filteredQuestionSets = data;
       },
       error: (error) => {
-        this.snackbarService.showError(error);
+        this.errorHandling.handleError(error);
       }
     });
   };

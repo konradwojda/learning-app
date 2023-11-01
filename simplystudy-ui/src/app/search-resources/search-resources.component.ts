@@ -11,6 +11,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { ErrorHandlingService } from '../error-handling.service';
 
 @Component({
   selector: 'app-search-resources',
@@ -33,7 +34,7 @@ export class SearchResourcesComponent implements OnInit {
   searchUrl: string = ''
 
 
-  constructor(private http: HttpClient, private snackbarService: SnackbarService, private router: Router) {
+  constructor(private http: HttpClient, private snackbarService: SnackbarService, private router: Router, private errorHandling: ErrorHandlingService) {
 
   }
 
@@ -44,7 +45,7 @@ export class SearchResourcesComponent implements OnInit {
         this.resources = data.results;
       },
       error: (error) => {
-        this.snackbarService.showError(error);
+        this.errorHandling.handleError(error);
       }
     })
   }
