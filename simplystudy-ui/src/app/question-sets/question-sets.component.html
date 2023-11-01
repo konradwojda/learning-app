@@ -9,6 +9,7 @@
         <mat-card-actions>
             <button mat-button>Learn</button>
             <button mat-button>Test yourself</button>
+            <button mat-button (click)="addToResources(questionSet.id)" *ngIf="!isOwner">Add to resources</button>
             <button mat-button (click)="editQuestionSet()" *ngIf="isOwner">Edit</button>
             <button mat-button (click)="deleteQuestionSet(questionSet.id)" *ngIf="isOwner">Delete</button>
         </mat-card-actions>

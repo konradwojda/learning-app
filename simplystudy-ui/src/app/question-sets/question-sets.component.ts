@@ -152,6 +152,18 @@ export class QuestionSetsComponent implements OnInit {
       }
     })
   }
+
+  addToResources(question_set_id: string): void {
+    let username = this.authService.getUsername();
+    this.http.post(this.apiUrl + '/api/user_resources/', { user: username, question_set: question_set_id }).subscribe({
+      next: (data) => {
+
+      },
+      error: (error) => {
+        this.errorHandling.handleError(error);
+      }
+    })
+  }
 }
 
 
