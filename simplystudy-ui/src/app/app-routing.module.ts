@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateQuestionSetComponent } from './create-question-set/create-question-set.component';
 import { CoursesComponent } from './courses/courses.component';
 import { SearchResourcesComponent } from './search-resources/search-resources.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
     { path: '', component: LandingPageComponent },
@@ -18,6 +19,8 @@ const routes: Routes = [
     { path: 'create_question_set', component: CreateQuestionSetComponent },
     { path: 'courses', component: CoursesComponent },
     { path: 'search_resources', component: SearchResourcesComponent },
+    { path: '404', component: PageNotFoundComponent },
+    { path: '**', pathMatch: 'full', redirectTo: '/404' },
 ];
 
 @NgModule({
