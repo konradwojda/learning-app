@@ -33,6 +33,16 @@ class Question(models.Model):
     )
 
 
+class UserResource(models.Model):
+    """Klasa reprezentująca zasób zaobserwowany przez użytkownika"""
+
+    user = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE)
+    question_set = models.ForeignKey(to=QuestionSet, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ("user", "question_set")
+
+
 class Test(models.Model):
     """Klasa reprezentująca test dla danego zestawu pytań"""
 
