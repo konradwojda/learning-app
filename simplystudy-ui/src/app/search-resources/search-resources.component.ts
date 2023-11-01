@@ -69,12 +69,13 @@ export class SearchResourcesComponent implements OnInit {
   }
 
   searchResources(): void {
-    if (this.searchText) {
+    if (this.searchText !== '') {
       this.searchUrl = '&search=' + this.searchText;
       this.getResources();
     }
     else {
       this.searchUrl = '';
+      this.getResources();
     }
   }
 }
