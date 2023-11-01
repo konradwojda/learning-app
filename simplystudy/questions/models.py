@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -41,6 +42,13 @@ class UserResource(models.Model):
 
     class Meta:
         unique_together = ("user", "question_set")
+
+    def save(self, *args, **kwargs):
+        if self.question_set.owner == self.user:
+            raise ValidationError("You cannot add you own set to resources.")
+        if self.question_set.is_private:
+            raise ValidationError("This question set is private.")
+        return super().save(*args, **kwargs)
 
 
 class Test(models.Model):
