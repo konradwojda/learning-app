@@ -33,6 +33,7 @@ router.register(
 router.register(r"courses", views.CourseViewSet)
 router.register(r"tests", views.TestViewSet)
 router.register(r"test_questions", views.TestQuestionViewSet)
+router.register(r"user_resources", views.UserResourceViewSet)
 router.register(r"users", UserViewSet)
 
 urlpatterns = [
