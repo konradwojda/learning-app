@@ -20,6 +20,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { SearchResourcesComponent } from './search-resources/search-resources.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { SearchResourcesComponent } from './search-resources/search-resources.co
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
+    PageNotFoundComponent,
     ReactiveFormsModule,
     HttpClientXsrfModule.withOptions({ cookieName: 'csrftoken', headerName: 'X-CSRFToken' })
   ],
