@@ -5,7 +5,14 @@ from django.db.models.query import QuerySet
 from rest_framework import filters, permissions, viewsets
 from rest_framework.pagination import PageNumberPagination
 
-from simplystudy.questions.models import Course, Question, QuestionSet, Test, TestQuestion
+from simplystudy.questions.models import (
+    Course,
+    Question,
+    QuestionSet,
+    Test,
+    TestQuestion,
+    UserResource,
+)
 from simplystudy.questions.permissions import (
     OwnerPermissions,
     QuestionPermissions,
@@ -18,6 +25,7 @@ from simplystudy.questions.serializers import (
     QuestionSetDetailSerializer,
     TestQuestionSerializer,
     TestSerializer,
+    UserResourceSerializer,
 )
 
 
@@ -80,6 +88,21 @@ class CourseViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestor
         username = self.request.query_params.get("username")
         if username is not None:
             return queryset.filter(owner__username=username)
+        return queryset
+
+
+class UserResourceViewSet(viewsets.ModelViewSet):
+    """ViewSet dla modelu UserResource"""
+
+    queryset = UserResource.objects.all()
+    serializer_class = UserResourceSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self) -> QuerySet:
+        queryset = self.queryset
+        username = self.request.query_params.get("username")
+        if username is not None:
+            return queryset.filter(user__username=username)
         return queryset
 
 
