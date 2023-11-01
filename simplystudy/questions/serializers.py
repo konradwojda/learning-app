@@ -1,10 +1,17 @@
 from rest_framework import serializers
 
-from simplystudy.questions.models import Course, Question, QuestionSet, Test, TestQuestion
+from simplystudy.questions.models import (
+    Course,
+    Question,
+    QuestionSet,
+    Test,
+    TestQuestion,
+    UserResource,
+)
 from simplystudy.users.models import User
 
 
-class OwnerUsernameField(serializers.CharField):
+class UsernameField(serializers.CharField):
     """Pole reprezentujące nazwę użytkownika właściciela obiektu."""
 
     def to_internal_value(self, data):
@@ -17,7 +24,7 @@ class OwnerUsernameField(serializers.CharField):
 class CourseSerializer(serializers.ModelSerializer):
     """Serializer dla Course"""
 
-    owner = OwnerUsernameField()
+    owner = UsernameField()
 
     class Meta:
         model = Course
@@ -35,7 +42,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 class QuestionSetDetailSerializer(serializers.ModelSerializer):
     """Serializer dla modelu QuestionSet"""
 
-    owner = OwnerUsernameField()
+    owner = UsernameField()
     course = CourseSerializer()
     questions = QuestionSerializer(many=True, read_only=True)
 
@@ -47,7 +54,7 @@ class QuestionSetDetailSerializer(serializers.ModelSerializer):
 class QuestionSetCreateSerializer(serializers.ModelSerializer):
     """Serializer dla modelu QuestionSet"""
 
-    owner = OwnerUsernameField()
+    owner = UsernameField()
     course = serializers.PrimaryKeyRelatedField(queryset=Course.objects.all(), allow_null=True)
 
     class Meta:
@@ -68,4 +75,14 @@ class TestQuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TestQuestion
+        fields = "__all__"
+
+
+class UserResourceSerializer(serializers.ModelSerializer):
+    """Serializer dla UserResource"""
+
+    user = UsernameField()
+
+    class Meta:
+        model = UserResource
         fields = "__all__"
