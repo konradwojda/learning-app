@@ -17,7 +17,6 @@ export class ErrorHandlingService {
     }
     else {
       this.snackbarService.showError(error);
-      this.router.navigateByUrl("/404");
     }
   }
 }
