@@ -57,6 +57,8 @@ class UserResourcePremissions(permissions.BasePermission):
         return False
 
     def has_permission(self, request: Request, view: APIView) -> bool:
+        if request.user.is_superuser:
+            return True
         if request.method == "POST" and request.data.get("user") != request.user.username:
             return False
         return True
