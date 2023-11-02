@@ -62,6 +62,14 @@ class QuestionSetCreateSerializer(serializers.ModelSerializer):
         fields = ("id", "name", "description", "owner", "course", "is_private")
 
 
+class QuestionSetInfoSerializer(serializers.ModelSerializer):
+    """Serializer informacji o instancji modelu QuestionSet"""
+
+    class Meta:
+        model = QuestionSet
+        fields = ("id", "name", "description", "course")
+
+
 class TestSerializer(serializers.ModelSerializer):
     """Serializer dla Test"""
 
@@ -78,8 +86,19 @@ class TestQuestionSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class UserResourceSerializer(serializers.ModelSerializer):
-    """Serializer dla UserResource"""
+class UserResourceDetailSerializer(serializers.ModelSerializer):
+    """Serializer dla informacji o UserResource"""
+
+    user = UsernameField()
+    question_set = QuestionSetInfoSerializer()
+
+    class Meta:
+        model = UserResource
+        fields = "__all__"
+
+
+class UserResourceCreateSerializer(serializers.ModelSerializer):
+    """Serializer dla tworzenia UserResource"""
 
     user = UsernameField()
 

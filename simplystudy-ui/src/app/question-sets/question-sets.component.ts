@@ -81,7 +81,7 @@ export class QuestionSetsComponent implements OnInit {
     const username = this.authService.getUsername();
     this.http.get<UserResource[]>(this.apiUrl + '/api/user_resources/?username=' + username).subscribe({
       next: (data) => {
-        const userResource = data.find(resource => resource.question_set === this.questionSet.id);
+        const userResource = data.find(resource => resource.question_set.id === this.questionSet.id);
         if (userResource) {
           this.resource = userResource;
         }

@@ -26,7 +26,8 @@ from simplystudy.questions.serializers import (
     QuestionSetDetailSerializer,
     TestQuestionSerializer,
     TestSerializer,
-    UserResourceSerializer,
+    UserResourceCreateSerializer,
+    UserResourceDetailSerializer,
 )
 
 
@@ -96,8 +97,13 @@ class UserResourceViewSet(viewsets.ModelViewSet):
     """ViewSet dla modelu UserResource"""
 
     queryset = UserResource.objects.all()
-    serializer_class = UserResourceSerializer
     permission_classes = [permissions.IsAuthenticated, UserResourcePremissions]
+
+    def get_serializer_class(self):
+        if self.request.method in ["POST", "PATCH"]:
+            return UserResourceCreateSerializer
+        else:
+            return UserResourceDetailSerializer
 
     def get_queryset(self) -> QuerySet:
         queryset = self.queryset.all()
