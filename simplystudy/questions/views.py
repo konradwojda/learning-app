@@ -17,6 +17,7 @@ from simplystudy.questions.permissions import (
     OwnerPermissions,
     QuestionPermissions,
     QuestionSetPermissions,
+    UserResourcePremissions,
 )
 from simplystudy.questions.serializers import (
     CourseSerializer,
@@ -96,7 +97,7 @@ class UserResourceViewSet(viewsets.ModelViewSet):
 
     queryset = UserResource.objects.all()
     serializer_class = UserResourceSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, UserResourcePremissions]
 
     def get_queryset(self) -> QuerySet:
         queryset = self.queryset.all()
