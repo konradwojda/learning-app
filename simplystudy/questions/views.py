@@ -56,7 +56,7 @@ class QuestionSetViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-anc
             return QuestionSetDetailSerializer
 
     def get_queryset(self) -> QuerySet:
-        queryset = self.queryset
+        queryset = self.queryset.all()
         if not self.request.user.is_superuser:
             queryset = queryset.filter(Q(is_private=False) | Q(owner=self.request.user))
         username = self.request.query_params.get("username")
@@ -84,7 +84,7 @@ class CourseViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestor
     permission_classes = [permissions.IsAuthenticated, OwnerPermissions]
 
     def get_queryset(self) -> QuerySet:
-        queryset = self.queryset
+        queryset = self.queryset.all()
         username = self.request.query_params.get("username")
         if username is not None:
             return queryset.filter(owner__username=username)
@@ -99,7 +99,7 @@ class UserResourceViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self) -> QuerySet:
-        queryset = self.queryset
+        queryset = self.queryset.all()
         username = self.request.query_params.get("username")
         if username is not None:
             return queryset.filter(user__username=username)
