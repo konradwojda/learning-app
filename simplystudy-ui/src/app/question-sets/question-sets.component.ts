@@ -33,8 +33,8 @@ import { Observable, catchError, map, of } from 'rxjs';
 })
 export class QuestionSetsComponent implements OnInit {
   questionSet: QuestionSet;
+  resource: UserResource | null = null;
   isOwner: boolean = false;
-  isInResources: boolean = false;
   private apiUrl = environment.apiUrl;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private snackbarService: SnackbarService, private router: Router, private authService: AuthService, public dialog: MatDialog, private errorHandling: ErrorHandlingService) {
@@ -69,21 +69,27 @@ export class QuestionSetsComponent implements OnInit {
         if (this.questionSet.owner === this.authService.getUsername()) {
           this.isOwner = true;
         }
-        this.checkIfQuestionSetInResources(this.questionSet.id).subscribe({
-          next: (isInResources: any) => {
-            this.isInResources = isInResources;
-            console.log(this.isInResources);
-          },
-          error: (error) => {
-            this.errorHandling.handleError(error);
-          }
-        }
-        )
+        this.getUserResource();
       },
       error: (error) => {
         this.errorHandling.handleError(error);
       }
     });
+  }
+
+  getUserResource(): void {
+    const username = this.authService.getUsername();
+    this.http.get<UserResource[]>(this.apiUrl + '/api/user_resources/?username=' + username).subscribe({
+      next: (data) => {
+        const userResource = data.find(resource => resource.question_set === this.questionSet.id);
+        if (userResource) {
+          this.resource = userResource;
+        }
+      },
+      error: (error) => {
+        this.errorHandling.handleError(error);
+      }
+    })
   }
 
   deleteQuestionSet(id: string): void {
@@ -166,26 +172,27 @@ export class QuestionSetsComponent implements OnInit {
     })
   }
 
-  checkIfQuestionSetInResources(question_set_id: string): Observable<boolean> {
-    const username = this.authService.getUsername();
-
-    return this.http.get<UserResource[]>(this.apiUrl + '/api/user_resources/?username=' + username)
-      .pipe(
-        map((data: UserResource[]) => {
-          return data.some(resource => resource.question_set === question_set_id);
-        }),
-        catchError(error => {
-          this.errorHandling.handleError(error);
-          return of(false);
-        })
-      );
-  }
-
   addToResources(question_set_id: string): void {
     let username = this.authService.getUsername();
     this.http.post(this.apiUrl + '/api/user_resources/', { user: username, question_set: question_set_id }).subscribe({
       next: (data) => {
+        this.ngOnInit();
+        this.router.navigateByUrl(this.router.url);
+        this.snackbarService.showSnackbar("Added to resources")
+      },
+      error: (error) => {
+        this.errorHandling.handleError(error);
+      }
+    })
+  }
 
+  deleteFromResources(): void {
+    this.http.delete(this.apiUrl + '/api/user_resources/' + this.resource?.id).subscribe({
+      next: (data) => {
+        this.resource = null;
+        this.ngOnInit();
+        this.router.navigateByUrl(this.router.url);
+        this.snackbarService.showSnackbar("Deleted from resources")
       },
       error: (error) => {
         this.errorHandling.handleError(error);
