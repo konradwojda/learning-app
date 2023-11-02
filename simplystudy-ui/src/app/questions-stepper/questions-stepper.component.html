@@ -1,0 +1,12 @@
+<section class="container">
+    <header>
+        <h2>Question {{ selectedIndex + 1 }}/{{ steps.length }}</h2>
+    </header>
+
+    <div [ngTemplateOutlet]="selected ? selected.content : null"></div>
+
+    <footer class="navigation-bar">
+        <button mat-icon-button cdkStepperPrevious class="prev-button"><mat-icon>arrow_back</mat-icon></button>
+        <button mat-icon-button cdkStepperNext class="next-button"><mat-icon>arrow_forward</mat-icon></button>
+    </footer>
+</section>
