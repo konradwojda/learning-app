@@ -21,6 +21,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ErrorHandlingService } from '../error-handling.service';
+import { UserResource } from '../search-resources/user-resource';
+import { Observable, catchError, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-question-sets',
@@ -32,6 +34,7 @@ import { ErrorHandlingService } from '../error-handling.service';
 export class QuestionSetsComponent implements OnInit {
   questionSet: QuestionSet;
   isOwner: boolean = false;
+  isInResources: boolean = false;
   private apiUrl = environment.apiUrl;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private snackbarService: SnackbarService, private router: Router, private authService: AuthService, public dialog: MatDialog, private errorHandling: ErrorHandlingService) {
@@ -66,6 +69,16 @@ export class QuestionSetsComponent implements OnInit {
         if (this.questionSet.owner === this.authService.getUsername()) {
           this.isOwner = true;
         }
+        this.checkIfQuestionSetInResources(this.questionSet.id).subscribe({
+          next: (isInResources: any) => {
+            this.isInResources = isInResources;
+            console.log(this.isInResources);
+          },
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          }
+        }
+        )
       },
       error: (error) => {
         this.errorHandling.handleError(error);
@@ -151,6 +164,21 @@ export class QuestionSetsComponent implements OnInit {
         this.errorHandling.handleError(error);
       }
     })
+  }
+
+  checkIfQuestionSetInResources(question_set_id: string): Observable<boolean> {
+    const username = this.authService.getUsername();
+
+    return this.http.get<UserResource[]>(this.apiUrl + '/api/user_resources/?username=' + username)
+      .pipe(
+        map((data: UserResource[]) => {
+          return data.some(resource => resource.question_set === question_set_id);
+        }),
+        catchError(error => {
+          this.errorHandling.handleError(error);
+          return of(false);
+        })
+      );
   }
 
   addToResources(question_set_id: string): void {
