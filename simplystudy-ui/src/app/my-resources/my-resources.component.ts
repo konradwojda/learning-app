@@ -7,11 +7,14 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth.service';
 import { ErrorHandlingService } from '../error-handling.service';
 import { QuestionSet } from '../question-sets/question-set';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatRippleModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-my-resources',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatCardModule, MatRippleModule, MatTabsModule],
   templateUrl: './my-resources.component.html',
   styleUrls: ['./my-resources.component.css']
 })
@@ -50,6 +53,10 @@ export class MyResourcesComponent implements OnInit {
   ngOnInit(): void {
     this.getUserResources();
     this.getUserQuestionSets();
+  }
+
+  public onCardClick(event: any) {
+    this.router.navigateByUrl('/question_sets/' + event.id);
   }
 
 }
