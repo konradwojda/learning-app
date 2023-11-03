@@ -4,6 +4,13 @@
         "Username": "Nazwa użytkownika",
         "Password": "Hasło"
     },
+    "Register": {
+        "Register": "Zarejestruj się",
+        "Username": "Nazwa użytkownika",
+        "Password": "Hasło",
+        "Retype": "Powtórz hasło",
+        "Email": "Adres email"
+    },
     "Dashboard": {
         "FilterText": "Szukaj swoich zestawów",
         "AddSet": "Nowy zestaw"

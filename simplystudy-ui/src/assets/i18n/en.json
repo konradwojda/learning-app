@@ -4,6 +4,13 @@
         "Username": "Username",
         "Password": "Password"
     },
+    "Register": {
+        "Register": "Register",
+        "Username": "Username",
+        "Password": "Password",
+        "Retype": "Retype password",
+        "Email": "Email"
+    },
     "Dashboard": {
         "FilterText": "Filter your resources",
         "AddSet": "New set"
