@@ -70,7 +70,8 @@
                 <div>
                     <input #csvInput type="file" style="display:none" (change)="importCsvQuestions($event)"
                         [accept]="'.csv'">
-                    <button mat-button (click)="csvInput.click()" matTooltip="Import questions">Import
+                    <button mat-button (click)="csvInput.click()"
+                        matTooltip="File should be a CSV with two columns. It should have headers content,answer.">Import
                         questions</button>
                     <button mat-button (click)="addQuestion()">Add question</button>
                     <button mat-button matStepperPrevious>Back</button>
