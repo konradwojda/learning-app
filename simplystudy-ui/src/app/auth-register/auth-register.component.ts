@@ -35,9 +35,8 @@ export class AuthRegisterComponent implements OnInit {
   registerUser(user: RegisterUserData): void {
     this.authService.registerUser(user.username, user.password, user.re_password, user.email).subscribe({
       next: (data) => {
-        this.snackbarService.showSnackbar('Registered successfully');
-        console.log(data);
-        this.router.navigateByUrl('/dashboard');
+        this.snackbarService.showSnackbar('Registered successfully. You may now log in.');
+        this.router.navigateByUrl('/login');
       },
       error: (error) => {
         this.errorHandling.handleError(error);
