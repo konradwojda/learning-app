@@ -1,17 +1,17 @@
-<p>
-    <mat-toolbar>
-        <span class="profile-spacer"></span>
-        <button mat-icon-button class="material-icons">
-            <mat-icon>person</mat-icon>
-        </button>
-    </mat-toolbar>
-</p>
-
 <div class="navigation-container" [class.is-mobile]="mobileQuery.matches">
     <mat-toolbar color="primary" class="navigation-toolbar">
         <button mat-icon-button (click)="sidenav.toggle()" *ngIf="isAuthenticated"><mat-icon>menu</mat-icon></button>
         <button mat-button routerLink="/"><span>SimplyStudy</span></button>
         <span class="profile-spacer"></span>
+
+        <button mat-icon-button [matMenuTriggerFor]="language" class="material-icons"
+            *ngIf="isAuthenticated"><mat-icon>language</mat-icon></button>
+        <mat-menu #language="matMenu">
+            <div *ngFor="let language of languages">
+                <button mat-menu-item (click)="changeLang(language)">{{language}}</button>
+            </div>
+        </mat-menu>
+
         <button mat-icon-button [matMenuTriggerFor]="menu" class="material-icons"
             *ngIf="isAuthenticated"><mat-icon>person</mat-icon></button>
         <mat-menu #menu="matMenu">

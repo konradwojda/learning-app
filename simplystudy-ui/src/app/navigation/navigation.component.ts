@@ -9,23 +9,28 @@ import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router'
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css'],
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, RouterModule, MatMenuModule, NgIf],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, RouterModule, MatMenuModule, NgIf, NgFor],
   standalone: true,
 })
 export class NavigationComponent implements OnDestroy, OnInit {
   mobileQuery: MediaQueryList;
   isAuthenticated: boolean = false;
   username: string = '';
+  languages: string[];
+  selectedLang!: string;
 
   private _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private authService: AuthService, private router: Router) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private authService: AuthService, private router: Router, private appComponent: AppComponent) {
+    this.languages = appComponent.getAllLanguages();
+    appComponent.getcurrentLanguage().subscribe((language) => { this.selectedLang = language; })
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
@@ -54,6 +59,10 @@ export class NavigationComponent implements OnDestroy, OnInit {
       }
     }
     );
+  }
+
+  changeLang(language: string) {
+    this.appComponent.changeLanguage(language);
   }
 
   ngOnDestroy(): void {
