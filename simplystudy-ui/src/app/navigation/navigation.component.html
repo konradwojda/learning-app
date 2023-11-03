@@ -4,8 +4,8 @@
         <button mat-button routerLink="/"><span>SimplyStudy</span></button>
         <span class="profile-spacer"></span>
 
-        <button mat-icon-button [matMenuTriggerFor]="language" class="material-icons"
-            *ngIf="isAuthenticated"><mat-icon>language</mat-icon></button>
+        <button mat-icon-button [matMenuTriggerFor]="language"
+            class="material-icons"><mat-icon>language</mat-icon></button>
         <mat-menu #language="matMenu">
             <div *ngFor="let language of languages">
                 <button mat-menu-item (click)="changeLang(language)">{{language}}</button>
