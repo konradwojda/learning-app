@@ -11,6 +11,7 @@ import { SearchResourcesComponent } from './search-resources/search-resources.co
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MyResourcesComponent } from './my-resources/my-resources.component';
 import { CdkCustomStepperWithoutFormExample } from './questions-stepper/questions-stepper.component';
+import { LearnComponent } from './learn/learn.component';
 
 const routes: Routes = [
     { path: '', component: LandingPageComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
     { path: 'courses', component: CoursesComponent },
     { path: 'search_resources', component: SearchResourcesComponent },
     { path: 'my_resources', component: MyResourcesComponent },
+    { path: 'learn/:id', component: LearnComponent },
     { path: 'test_question_stepper', component: CdkCustomStepperWithoutFormExample },
     { path: '404', component: PageNotFoundComponent },
     { path: '**', pathMatch: 'full', redirectTo: '/404' },
