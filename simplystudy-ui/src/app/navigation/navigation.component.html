@@ -1,6 +1,5 @@
 <p>
     <mat-toolbar>
-        <span>SimplyStudy</span>
         <span class="profile-spacer"></span>
         <button mat-icon-button class="material-icons">
             <mat-icon>person</mat-icon>
@@ -11,7 +10,7 @@
 <div class="navigation-container" [class.is-mobile]="mobileQuery.matches">
     <mat-toolbar color="primary" class="navigation-toolbar">
         <button mat-icon-button (click)="sidenav.toggle()" *ngIf="isAuthenticated"><mat-icon>menu</mat-icon></button>
-        <span class="app-name">SimplyStudy</span>
+        <button mat-button routerLink="/"><span>SimplyStudy</span></button>
         <span class="profile-spacer"></span>
         <button mat-icon-button [matMenuTriggerFor]="menu" class="material-icons"
             *ngIf="isAuthenticated"><mat-icon>person</mat-icon></button>
