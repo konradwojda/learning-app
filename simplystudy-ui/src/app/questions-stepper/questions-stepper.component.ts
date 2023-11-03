@@ -13,7 +13,4 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [NgTemplateOutlet, CdkStepperModule, NgFor, MatIconModule, MatButtonModule],
 })
 export class QuestionsStepperComponent extends CdkStepper {
-  selectStepByIndex(index: number): void {
-    this.selectedIndex = index;
-  }
 }
