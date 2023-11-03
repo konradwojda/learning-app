@@ -5,8 +5,13 @@
 
 .navigation-bar {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     margin-top: 10px;
+}
+
+.question-count {
+    display: flex;
+    justify-content: center;
 }
 
 .prev-button,
