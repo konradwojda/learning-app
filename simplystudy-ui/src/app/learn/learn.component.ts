@@ -9,11 +9,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth.service';
 import { ErrorHandlingService } from '../error-handling.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-learn',
   standalone: true,
-  imports: [CommonModule, forwardRef(() => QuestionsStepperComponent), CdkStepperModule, MatCardModule],
+  imports: [CommonModule, forwardRef(() => QuestionsStepperComponent), CdkStepperModule, MatCardModule, MatButtonModule],
   templateUrl: './learn.component.html',
   styleUrls: ['./learn.component.css']
 })
@@ -55,5 +56,10 @@ export class LearnComponent implements OnInit {
 
   ngOnInit(): void {
     this.getQuestionSet();
+  }
+
+  showSet(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.router.navigateByUrl('/question_sets/' + id);
   }
 }
