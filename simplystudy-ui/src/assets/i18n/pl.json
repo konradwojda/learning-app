@@ -2,7 +2,10 @@
     "Utils": {
         "New": "Nowy",
         "Submit": "Zapisz",
-        "Close": "Zamknij"
+        "Close": "Zamknij",
+        "Next": "Dalej",
+        "Remove": "Usuń",
+        "Back": "Wróć"
     },
     "Login": {
         "Login": "Zaloguj",
@@ -25,5 +28,21 @@
     "Dashboard": {
         "FilterText": "Szukaj swoich zestawów",
         "AddSet": "Nowy zestaw"
+    },
+    "QuestionSetCreate": {
+        "FillData": "Uzupełnij dane zestawu",
+        "Private": "Czy zestaw jest prywatny?",
+        "Name": "Nazwa",
+        "Description": "Opis",
+        "Course": "Kurs",
+        "AddQuestions": "Dodaj pytania",
+        "Content": "Treść pytania",
+        "Answer": "Odpowiedź",
+        "AddQuestion": "Nowe pytanie",
+        "ImportQuestions": "Importuj z CSV",
+        "UploadImage": "Dodaj obraz",
+        "DeleteImage": "Usuń obraz",
+        "ImgLoaded": "załadowany",
+        "CSVInfo": "Plik powinien być w formacie CSV. Powinien zawierać nagłówek w postaci: content,answer."
     }
 }

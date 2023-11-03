@@ -2,22 +2,22 @@
     <mat-stepper #stepper>
         <mat-step [stepControl]="questionSetData">
             <form [formGroup]="questionSetData">
-                <ng-template matStepLabel>Fill the question set data</ng-template>
+                <ng-template matStepLabel>{{'QuestionSetCreate.FillData' | translate}}</ng-template>
                 <div class="is-private-slide">
-                    <mat-slide-toggle formControlName="is_private" [(ngModel)]="isPrivate">Should this set be
-                        private?</mat-slide-toggle>
+                    <mat-slide-toggle formControlName="is_private" [(ngModel)]="isPrivate">{{'QuestionSetCreate.Private'
+                        | translate}}</mat-slide-toggle>
                 </div>
                 <mat-form-field>
-                    <mat-label>Name</mat-label>
+                    <mat-label>{{'QuestionSetCreate.Name' | translate}}</mat-label>
                     <input matInput formControlName="name" required>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>Description</mat-label>
+                    <mat-label>{{'QuestionSetCreate.Description' | translate}}</mat-label>
                     <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5"
                         formControlName="description"></textarea>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>Course</mat-label>
+                    <mat-label>{{'QuestionSetCreate.Course' | translate}}</mat-label>
                     <mat-select formControlName="course">
                         <mat-option></mat-option>
                         <mat-option *ngFor="let course of courseList" [value]="course">
@@ -26,56 +26,59 @@
                     </mat-select>
                 </mat-form-field>
                 <div>
-                    <button mat-button matStepperNext>Next</button>
+                    <button mat-button matStepperNext>{{'Utils.Next' | translate}}</button>
                 </div>
             </form>
         </mat-step>
         <mat-step [stepControl]="questionsData">
             <form [formGroup]="questionsData" enctype="multipart/form-data">
-                <ng-template matStepLabel>Add questions to this set</ng-template>
+                <ng-template matStepLabel>{{'QuestionSetCreate.AddQuestions' | translate}}</ng-template>
                 <div formArrayName="questions">
                     <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i">
                         <div class="question-container">
                             <div class="question-contents">
                                 <mat-form-field>
-                                    <mat-label>Content</mat-label>
+                                    <mat-label>{{'QuestionSetCreate.Content' | translate}}</mat-label>
                                     <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5"
                                         formControlName="content"></textarea>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <mat-label>Answer</mat-label>
+                                    <mat-label>{{'QuestionSetCreate.Answer' | translate}}</mat-label>
                                     <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5"
                                         formControlName="answer"></textarea>
                                 </mat-form-field>
                             </div>
                             <div class="question-img">
-                                <button mat-icon-button (click)="fileInput.click()" matTooltip="Upload image"
+                                <button mat-icon-button (click)="fileInput.click()"
+                                    matTooltip="{{'QuestionSetCreate.UploadImage' | translate}}"
                                     *ngIf="!question.get('image')?.value">
                                     <mat-icon>image</mat-icon>
                                 </button>
                                 <input #fileInput type="file" name="image" style="display:none"
                                     (change)="onImageUpload($event, i)">
                                 <div class="check-icon" *ngIf="question.get('image')?.value">
-                                    <mat-icon matTooltip="File {{question.get('image')?.value.name}} loaded"
+                                    <mat-icon
+                                        matTooltip="{{question.get('image')?.value.name}} {{'QuestionSetCreate.ImgLoaded' | translate}}"
                                         [matTooltipPosition]="'above'">check</mat-icon>
-                                    <button mat-icon-button matTooltip="Delete image" (click)="deleteImage(i)">
+                                    <button mat-icon-button matTooltip="{{'QuestionSetCreate.DeleteImage' | translate}}"
+                                        (click)="deleteImage(i)">
                                         <mat-icon>delete</mat-icon>
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <button mat-button (click)="removeQuestion(i)">Remove</button>
+                        <button mat-button (click)="removeQuestion(i)">{{'Utils.Remove' | translate}}</button>
                     </div>
                 </div>
                 <div>
                     <input #csvInput type="file" style="display:none" (change)="importCsvQuestions($event)"
                         [accept]="'.csv'">
                     <button mat-button (click)="csvInput.click()"
-                        matTooltip="File should be a CSV with two columns. It should have headers content,answer.">Import
-                        questions</button>
-                    <button mat-button (click)="addQuestion()">Add question</button>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button (click)="postQuestionSet()">Save</button>
+                        matTooltip="{{'QuestionSetCreate.CSVInfo' | translate}}">{{'QuestionSetCreate.ImportQuestions'
+                        | translate}}</button>
+                    <button mat-button (click)="addQuestion()">{{'QuestionSetCreate.AddQuestion' | translate}}</button>
+                    <button mat-button matStepperPrevious>{{'Utils.Back' | translate}}</button>
+                    <button mat-button (click)="postQuestionSet()">{{'Utils.Submit' | translate}}</button>
                 </div>
             </form>
         </mat-step>

@@ -2,7 +2,10 @@
     "Utils": {
         "New": "New",
         "Submit": "Submit",
-        "Close": "Close"
+        "Close": "Close",
+        "Next": "Next",
+        "Remove": "Remove",
+        "Back": "Back"
     },
     "Login": {
         "Login": "Log in",
@@ -25,5 +28,21 @@
     "Dashboard": {
         "FilterText": "Filter your resources",
         "AddSet": "New set"
+    },
+    "QuestionSetCreate": {
+        "FillData": "Fill question set data",
+        "Private": "Should this set be private?",
+        "Name": "Name",
+        "Description": "Description",
+        "Course": "Course",
+        "AddQuestions": "Add questions to set",
+        "Content": "Content",
+        "Answer": "Answer",
+        "AddQuestion": "Add new question",
+        "ImportQuestions": "Import questions",
+        "UploadImage": "Upload image",
+        "DeleteImage": "Delete image",
+        "ImgLoaded": "loaded",
+        "CSVInfo": "File should be a CSV with two columns. It should have headers content,answer."
     }
 }

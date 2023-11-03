@@ -17,13 +17,14 @@ import { Router } from '@angular/router';
 import { CsvService } from '../csv.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ErrorHandlingService } from '../error-handling.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-question-set',
   standalone: true,
   templateUrl: './create-question-set.component.html',
   styleUrls: ['./create-question-set.component.css'],
-  imports: [CommonModule, MatStepperModule, MatButtonModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatInputModule, MatSelectModule, MatIconModule, MatTooltipModule, MatSlideToggleModule],
+  imports: [CommonModule, MatStepperModule, MatButtonModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatInputModule, MatSelectModule, MatIconModule, MatTooltipModule, MatSlideToggleModule, TranslateModule],
 })
 export class CreateQuestionSetComponent implements OnInit {
   @ViewChild('csvInput', { static: false }) csvInput: ElementRef | undefined;
