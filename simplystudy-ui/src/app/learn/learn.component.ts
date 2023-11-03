@@ -10,16 +10,18 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth.service';
 import { ErrorHandlingService } from '../error-handling.service';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-learn',
   standalone: true,
-  imports: [CommonModule, forwardRef(() => QuestionsStepperComponent), CdkStepperModule, MatCardModule, MatButtonModule],
+  imports: [CommonModule, forwardRef(() => QuestionsStepperComponent), CdkStepperModule, MatCardModule, MatButtonModule, MatRippleModule],
   templateUrl: './learn.component.html',
   styleUrls: ['./learn.component.css']
 })
 export class LearnComponent implements OnInit {
   questionSet: QuestionSet;
+  answerCardVisible: boolean[] = [];
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthService, private errorHandling: ErrorHandlingService, private router: Router) {
@@ -32,6 +34,10 @@ export class LearnComponent implements OnInit {
       owner: '',
       is_private: null,
     }
+  }
+
+  toggleAnswerCard(index: number): void {
+    this.answerCardVisible[index] = !this.answerCardVisible[index];
   }
 
   getQuestionSet(): void {
