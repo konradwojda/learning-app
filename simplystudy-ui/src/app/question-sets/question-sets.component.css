@@ -1,12 +1,12 @@
 .question-set-container {
-    padding: 20px 40px;
+    padding: 1em;
 }
 
 .question-list {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px 40px;
+    padding: 1em;
 
 }
 
