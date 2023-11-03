@@ -1,4 +1,9 @@
 {
+    "Login": {
+        "Login": "Zaloguj",
+        "Username": "Nazwa użytkownika",
+        "Password": "Hasło"
+    },
     "Dashboard": {
         "FilterText": "Szukaj swoich zestawów",
         "AddSet": "Nowy zestaw"

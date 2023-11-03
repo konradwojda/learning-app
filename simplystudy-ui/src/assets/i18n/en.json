@@ -1,4 +1,9 @@
 {
+    "Login": {
+        "Login": "Log in",
+        "Username": "Username",
+        "Password": "Password"
+    },
     "Dashboard": {
         "FilterText": "Filter your resources",
         "AddSet": "New set"

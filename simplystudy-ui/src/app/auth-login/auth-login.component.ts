@@ -9,13 +9,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { SnackbarService } from '../snackbar.service';
 import { Router } from '@angular/router';
 import { ErrorHandlingService } from '../error-handling.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-auth-login',
   templateUrl: './auth-login.component.html',
   styleUrls: ['./auth-login.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, ReactiveFormsModule]
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, ReactiveFormsModule, TranslateModule]
 })
 export class AuthLoginComponent implements OnInit {
   logInForm: FormGroup;
