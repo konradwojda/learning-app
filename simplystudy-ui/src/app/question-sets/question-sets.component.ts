@@ -199,6 +199,10 @@ export class QuestionSetsComponent implements OnInit {
       }
     })
   }
+
+  learn(question_set_id: string): void {
+    this.router.navigateByUrl('/learn/' + question_set_id);
+  }
 }
 
 
