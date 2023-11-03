@@ -1,5 +1,6 @@
 {
     "Dashboard": {
-        "FilterText": "Filter your resources"
+        "FilterText": "Filter your resources",
+        "AddSet": "New set"
     }
 }
