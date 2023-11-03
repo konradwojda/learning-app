@@ -1,10 +1,11 @@
 <div class="container">
     <div class="search">
         <mat-form-field class="search-field">
-            <mat-label>Filter your resources</mat-label>
+            <mat-label>{{'Dashboard.FilterText' | translate}}</mat-label>
             <input matInput [(ngModel)]="filterText" (ngModelChange)="applyFilter()">
         </mat-form-field>
-        <button class="new-set-btn" mat-raised-button routerLink="/create_question_set/">Add new set</button>
+        <button class="new-set-btn" mat-raised-button
+            routerLink="/create_question_set/">{{'Dashboard.AddSet'|translate}}</button>
     </div>
     <div class="grid">
         <mat-card class="question_set" *ngFor="let question_set of filteredQuestionSets" matRipple
