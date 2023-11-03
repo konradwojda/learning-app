@@ -1,4 +1,9 @@
 {
+    "Utils": {
+        "New": "Nowy",
+        "Submit": "Zapisz",
+        "Close": "Zamknij"
+    },
     "Login": {
         "Login": "Zaloguj",
         "Username": "Nazwa użytkownika",
@@ -10,6 +15,12 @@
         "Password": "Hasło",
         "Retype": "Powtórz hasło",
         "Email": "Adres email"
+    },
+    "Courses": {
+        "Course": "Kurs",
+        "Name": "Nazwa kursu",
+        "University": "Nazwa szkoły",
+        "Description": "Opis"
     },
     "Dashboard": {
         "FilterText": "Szukaj swoich zestawów",

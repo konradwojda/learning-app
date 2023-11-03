@@ -16,13 +16,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { ErrorHandlingService } from '../error-handling.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css'],
-  imports: [CommonModule, MatDividerModule, MatRippleModule, MatButtonModule, MatIconModule, MatDialogModule, MatIconModule, MatCardModule],
+  imports: [CommonModule, MatDividerModule, MatRippleModule, MatButtonModule, MatIconModule, MatDialogModule, MatIconModule, MatCardModule, TranslateModule],
 })
 export class CoursesComponent implements OnInit {
   courses: Course[] = [];
@@ -100,7 +101,7 @@ export class CoursesComponent implements OnInit {
   templateUrl: 'courses-edit-dialog.html',
   styleUrls: ['./courses.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, TranslateModule],
 })
 export class CourseEditDialog {
 

@@ -1,5 +1,5 @@
 <div class="container">
-    <button mat-raised-button color="primary" (click)="createCourse()">Create new</button>
+    <button mat-raised-button color="primary" (click)="createCourse()">{{'Utils.New' | translate}}</button>
     <div class="list">
         <div class="list-elem" *ngFor="let course of courses">
             <mat-card (click)="editCourse(course)" matRipple>

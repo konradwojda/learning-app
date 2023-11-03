@@ -1,4 +1,9 @@
 {
+    "Utils": {
+        "New": "New",
+        "Submit": "Submit",
+        "Close": "Close"
+    },
     "Login": {
         "Login": "Log in",
         "Username": "Username",
@@ -10,6 +15,12 @@
         "Password": "Password",
         "Retype": "Retype password",
         "Email": "Email"
+    },
+    "Courses": {
+        "Course": "Course",
+        "Name": "Course name",
+        "University": "University name",
+        "Description": "Description"
     },
     "Dashboard": {
         "FilterText": "Filter your resources",
