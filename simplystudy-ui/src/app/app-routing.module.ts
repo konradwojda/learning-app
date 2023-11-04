@@ -11,18 +11,19 @@ import { SearchResourcesComponent } from './search-resources/search-resources.co
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MyResourcesComponent } from './my-resources/my-resources.component';
 import { LearnComponent } from './learn/learn.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
     { path: '', component: LandingPageComponent },
     { path: 'login', component: AuthLoginComponent },
     { path: 'register', component: AuthRegisterComponent },
-    { path: 'dashboard', component: DashboardComponent },
-    { path: 'question_sets/:id', component: QuestionSetsComponent },
-    { path: 'create_question_set', component: CreateQuestionSetComponent },
-    { path: 'courses', component: CoursesComponent },
-    { path: 'search_resources', component: SearchResourcesComponent },
-    { path: 'my_resources', component: MyResourcesComponent },
-    { path: 'learn/:id', component: LearnComponent },
+    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: 'question_sets/:id', component: QuestionSetsComponent, canActivate: [AuthGuard] },
+    { path: 'create_question_set', component: CreateQuestionSetComponent, canActivate: [AuthGuard] },
+    { path: 'courses', component: CoursesComponent, canActivate: [AuthGuard] },
+    { path: 'search_resources', component: SearchResourcesComponent, canActivate: [AuthGuard] },
+    { path: 'my_resources', component: MyResourcesComponent, canActivate: [AuthGuard] },
+    { path: 'learn/:id', component: LearnComponent, canActivate: [AuthGuard] },
     { path: '404', component: PageNotFoundComponent },
     { path: '**', pathMatch: 'full', redirectTo: '/404' },
 ];
