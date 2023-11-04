@@ -1,15 +1,15 @@
-<h1 mat-dialog-title>Question</h1>
+<h1 mat-dialog-title>{{'Utils.Question' | translate}}</h1>
 <div mat-dialog-content>
     <mat-form-field>
-        <mat-label>Content</mat-label>
+        <mat-label>{{'QuestionSetCreate.Content'|translate}}</mat-label>
         <input matInput [(ngModel)]="data.content" required>
     </mat-form-field>
     <mat-form-field>
-        <mat-label>Answer</mat-label>
+        <mat-label>{{'QuestionSetCreate.Answer'|translate}}</mat-label>
         <textarea matInput [(ngModel)]="data.answer"></textarea>
     </mat-form-field>
     <div class="question-img" *ngIf="!data.image">
-        <button mat-icon-button (click)="fileInput.click()" matTooltip="Upload image">
+        <button mat-icon-button (click)="fileInput.click()" matTooltip="{{'QuestionSetCreate.UploadImage'|translate}}">
             <mat-icon>image</mat-icon>
         </button>
         <input #fileInput type="file" name="image" style="display:none" (change)="onImageUpload($event)">
@@ -19,13 +19,13 @@
             <img src={{data.image}} alt="" />
         </div>
         <div class="delete-img">
-            <button mat-icon-button (click)="deleteImage()" matTooltip="Delete image">
+            <button mat-icon-button (click)="deleteImage()" matTooltip="{{'QuestionSetCreate.DeleteImage'|translate}}">
                 <mat-icon>delete</mat-icon>
             </button>
         </div>
     </div>
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Close</button>
-    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Submit</button>
+    <button mat-button (click)="onNoClick()">{{'Utils.Close'|translate}}</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>{{'Utils.Submit'|translate}}</button>
 </div>

@@ -23,13 +23,14 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ErrorHandlingService } from '../error-handling.service';
 import { UserResource } from '../search-resources/user-resource';
 import { Observable, catchError, map, of } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-question-sets',
   templateUrl: './question-sets.component.html',
   styleUrls: ['./question-sets.component.css'],
   standalone: true,
-  imports: [MatButtonModule, MatCardModule, MatListModule, NgFor, MatIconModule, MatDialogModule, NgIf]
+  imports: [MatButtonModule, MatCardModule, MatListModule, NgFor, MatIconModule, MatDialogModule, NgIf, TranslateModule]
 })
 export class QuestionSetsComponent implements OnInit {
   questionSet: QuestionSet;
@@ -211,7 +212,7 @@ export class QuestionSetsComponent implements OnInit {
   templateUrl: 'question-set-edit-dialog.html',
   styleUrls: ['./question-sets.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatOptionModule, MatSelectModule, NgFor, MatSlideToggleModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatOptionModule, MatSelectModule, NgFor, MatSlideToggleModule, TranslateModule],
 })
 export class QuestionSetEditDialog {
   private apiUrl = environment.apiUrl;
@@ -253,7 +254,7 @@ export class QuestionSetEditDialog {
   templateUrl: 'question-edit-dialog.html',
   styleUrls: ['./question-sets.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatOptionModule, MatSelectModule, NgFor, MatIconModule, NgIf, MatTooltipModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatOptionModule, MatSelectModule, NgFor, MatIconModule, NgIf, MatTooltipModule, TranslateModule],
 })
 export class QuestionEditDialog {
 
@@ -297,7 +298,7 @@ export class QuestionEditDialog {
   templateUrl: 'question-create-dialog.html',
   styleUrls: ['./question-sets.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatOptionModule, MatSelectModule, NgFor, MatIconModule, NgIf, MatTooltipModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatOptionModule, MatSelectModule, NgFor, MatIconModule, NgIf, MatTooltipModule, TranslateModule],
 })
 export class QuestionCreateDialog {
 
