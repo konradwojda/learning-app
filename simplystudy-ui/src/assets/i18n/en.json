@@ -49,8 +49,8 @@
         "CSVInfo": "File should be a CSV with two columns. It should have headers content,answer."
     },
     "Landing": {
-        "Welcome": "Witaj w SimplyStudy",
-        "Desc": "Zacznij naukę teraz!"
+        "Welcome": "Welcome to SimplyStudy",
+        "Desc": "Start learning now!"
     },
     "Learn": {
         "ShowSet": "Show set",
