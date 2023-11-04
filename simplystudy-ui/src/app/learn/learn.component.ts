@@ -11,11 +11,12 @@ import { AuthService } from '../auth.service';
 import { ErrorHandlingService } from '../error-handling.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-learn',
   standalone: true,
-  imports: [CommonModule, forwardRef(() => QuestionsStepperComponent), CdkStepperModule, MatCardModule, MatButtonModule, MatRippleModule],
+  imports: [CommonModule, forwardRef(() => QuestionsStepperComponent), CdkStepperModule, MatCardModule, MatButtonModule, MatRippleModule, TranslateModule],
   templateUrl: './learn.component.html',
   styleUrls: ['./learn.component.css']
 })

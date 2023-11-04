@@ -5,7 +5,9 @@
         "Close": "Close",
         "Next": "Next",
         "Remove": "Remove",
-        "Back": "Back"
+        "Back": "Back",
+        "Question": "Question",
+        "Answer": "Answer"
     },
     "Login": {
         "Login": "Log in",
@@ -48,5 +50,10 @@
     "Landing": {
         "Welcome": "Witaj w SimplyStudy",
         "Desc": "Zacznij naukę teraz!"
+    },
+    "Learn": {
+        "ShowSet": "Show set",
+        "Test": "Test yourself",
+        "ShowAnswer": "Show answer"
     }
 }
