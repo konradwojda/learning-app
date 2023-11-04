@@ -44,5 +44,9 @@
         "DeleteImage": "Delete image",
         "ImgLoaded": "loaded",
         "CSVInfo": "File should be a CSV with two columns. It should have headers content,answer."
+    },
+    "Landing": {
+        "Welcome": "Witaj w SimplyStudy",
+        "Desc": "Zacznij naukę teraz!"
     }
 }
