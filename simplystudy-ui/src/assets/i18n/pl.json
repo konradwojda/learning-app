@@ -55,5 +55,9 @@
         "ShowSet": "Podgląd zestawu",
         "Test": "Pokaż testy",
         "ShowAnswer": "Pokaż odpowiedź"
+    },
+    "MyResources": {
+        "QuestionSets": "Moje zestawy",
+        "Resources": "Inne zasoby"
     }
 }

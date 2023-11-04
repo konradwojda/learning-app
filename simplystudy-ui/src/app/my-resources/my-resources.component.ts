@@ -10,11 +10,12 @@ import { QuestionSet } from '../question-sets/question-set';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatRippleModule } from '@angular/material/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-my-resources',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatRippleModule, MatTabsModule],
+  imports: [CommonModule, MatCardModule, MatRippleModule, MatTabsModule, TranslateModule],
   templateUrl: './my-resources.component.html',
   styleUrls: ['./my-resources.component.css']
 })

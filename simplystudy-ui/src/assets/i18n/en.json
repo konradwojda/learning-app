@@ -55,5 +55,9 @@
         "ShowSet": "Show set",
         "Test": "Test yourself",
         "ShowAnswer": "Show answer"
+    },
+    "MyResources": {
+        "QuestionSets": "My question sets",
+        "Resources": "Other resources"
     }
 }
