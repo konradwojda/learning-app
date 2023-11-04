@@ -70,5 +70,11 @@
     "404": {
         "404": "Strony nie znaleziono.",
         "Main": "Powrót do strony głównej."
+    },
+    "SearchResources": {
+        "SearchLabel": "Wyszukaj po nazwie, opisie, autorze lub kursie",
+        "Search": "Wyszukaj",
+        "Questions": "Liczba pytań",
+        "Author": "Autor"
     }
 }

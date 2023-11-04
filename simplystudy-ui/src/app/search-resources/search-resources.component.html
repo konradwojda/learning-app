@@ -1,28 +1,27 @@
 <div class="container">
     <div class="search-bar">
         <mat-form-field class="search-field">
-            <mat-label>Search by name, description, author or course</mat-label>
+            <mat-label>{{'SearchResources.SearchLabel'|translate}}</mat-label>
             <input matInput [(ngModel)]="searchText">
         </mat-form-field>
-        <button class="search-btn" mat-raised-button (click)="searchResources()">Search</button>
+        <button class="search-btn" mat-raised-button
+            (click)="searchResources()">{{'SearchResources.Search'|translate}}</button>
     </div>
     <div class="list">
         <mat-card *ngFor="let question_set of resources" (click)="onCardClick(question_set)" matRipple>
             <mat-card-header>
                 <mat-card-title>{{question_set.name}}</mat-card-title><br />
                 <mat-card-subtitle>{{question_set.description}}</mat-card-subtitle>
-                <mat-card-subtitle>Author: {{question_set.owner}}</mat-card-subtitle>
-                <mat-card-subtitle *ngIf="question_set.course">Course: {{question_set.course.name}}</mat-card-subtitle>
-                <mat-card-subtitle>{{question_set.questions.length}} questions</mat-card-subtitle>
+                <mat-card-subtitle>{{'SearchResources.Author'|translate}}: {{question_set.owner}}</mat-card-subtitle>
+                <mat-card-subtitle *ngIf="question_set.course">{{'Courses.Course' | translate}}:
+                    {{question_set.course.name}}</mat-card-subtitle>
+                <mat-card-subtitle>{{'SearchResources.Questions'|translate}}:
+                    {{question_set.questions.length}}</mat-card-subtitle>
             </mat-card-header>
             <br>
         </mat-card>
     </div>
-    <mat-paginator #paginator
-    (page)="handlePageEvent($event)"
-    [length]="items_count"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="pageSizeOptions"
-    [pageIndex]="pageIndex">
-</mat-paginator>
+    <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="items_count" [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex">
+    </mat-paginator>
 </div>

@@ -12,13 +12,14 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { ErrorHandlingService } from '../error-handling.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-search-resources',
   templateUrl: './search-resources.component.html',
   styleUrls: ['./search-resources.component.css'],
   standalone: true,
-  imports: [NgFor, MatCardModule, MatRippleModule, NgIf, MatPaginatorModule, MatInputModule, FormsModule, MatButtonModule]
+  imports: [NgFor, MatCardModule, MatRippleModule, NgIf, MatPaginatorModule, MatInputModule, FormsModule, MatButtonModule, TranslateModule]
 })
 export class SearchResourcesComponent implements OnInit {
 
