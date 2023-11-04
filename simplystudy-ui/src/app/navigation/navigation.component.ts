@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,15 +11,16 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router'
 import { NgFor, NgIf } from '@angular/common';
 import { AppComponent } from '../app.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css'],
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, RouterModule, MatMenuModule, NgIf, NgFor],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, RouterModule, MatMenuModule, NgIf, NgFor, TranslateModule],
   standalone: true,
 })
-export class NavigationComponent implements OnDestroy, OnInit {
+export class NavigationComponent implements OnDestroy, OnInit, AfterViewChecked {
   mobileQuery: MediaQueryList;
   isAuthenticated: boolean = false;
   username: string = '';
@@ -67,5 +68,9 @@ export class NavigationComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener)
+  }
+
+  ngAfterViewChecked() {
+    window.dispatchEvent(new Event('resize'));
   }
 }

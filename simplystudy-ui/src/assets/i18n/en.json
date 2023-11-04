@@ -59,5 +59,12 @@
     "MyResources": {
         "QuestionSets": "My question sets",
         "Resources": "Other resources"
+    },
+    "Navigation": {
+        "LogOut": "Log out",
+        "Dashboard": "Dashboard",
+        "Resources": "My resources",
+        "Search": "Search resources",
+        "Courses": "My courses"
     }
 }
