@@ -1,6 +1,6 @@
 <section class="container">
     <header class="question-count">
-        <h2>Question {{ selectedIndex + 1 }}/{{ steps.length }}</h2>
+        <h2>{{'Utils.Question' | translate}} {{ selectedIndex + 1 }}/{{ steps.length }}</h2>
     </header>
 
     <div [ngTemplateOutlet]="selected ? selected.content : null"></div>
