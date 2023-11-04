@@ -66,5 +66,9 @@
         "Resources": "My resources",
         "Search": "Search resources",
         "Courses": "My courses"
+    },
+    "404": {
+        "404": "Cannot find this page.",
+        "Main": "Back to homepage."
     }
 }

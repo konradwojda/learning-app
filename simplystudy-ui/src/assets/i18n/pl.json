@@ -66,5 +66,9 @@
         "Resources": "Moje zasoby",
         "Search": "Wyszukaj zasoby",
         "Courses": "Moje kursy"
+    },
+    "404": {
+        "404": "Strony nie znaleziono.",
+        "Main": "Powrót do strony głównej."
     }
 }
