@@ -69,4 +69,12 @@ export class AuthService {
   logOut(): Observable<any> {
     return this.http.post(this.apiUrl + '/auth/token/logout/', {}) as Observable<any>;
   }
+
+  activate(uid: string, token: string): Observable<any> {
+    return this.http.post<any>(this.apiUrl + '/auth/users/activation/', { uid, token });
+  }
+
+  resendActivation(email: string): Observable<any> {
+    return this.http.post<any>(this.apiUrl + '/auth/users/resend_activation/', { email });
+  }
 }

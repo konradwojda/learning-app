@@ -84,5 +84,10 @@
         "AddToResources": "Dodaj do zasobów",
         "DeleteFromResources": "Usuń z zasobów",
         "QuestionSet": "Zestaw pytań"
+    },
+    "Activation": {
+        "Activation": "Aktywuj swoje konto",
+        "Email": "Adres email",
+        "Resend": "Wyślij ponownie"
     }
 }

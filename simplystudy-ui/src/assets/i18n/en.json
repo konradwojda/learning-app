@@ -84,5 +84,10 @@
         "AddToResources": "Add to resources",
         "DeleteFromResources": "Delete from resources",
         "QuestionSet": "Question set"
+    },
+    "Activation": {
+        "Activation": "Activate your account",
+        "Email": "Email",
+        "Resend": "Resend"
     }
 }
