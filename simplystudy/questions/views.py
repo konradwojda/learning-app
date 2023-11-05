@@ -96,7 +96,7 @@ class CourseViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestor
 class UserResourceViewSet(viewsets.ModelViewSet):
     """ViewSet dla modelu UserResource"""
 
-    queryset = UserResource.objects.all()
+    queryset = UserResource.objects.filter(question_set__is_private=False)
     permission_classes = [permissions.IsAuthenticated, UserResourcePremissions]
 
     def get_serializer_class(self):
