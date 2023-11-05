@@ -126,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-USER_CREATE_PASSWORD_RETYPE = True
+DJOSER = {"USER_CREATE_PASSWORD_RETYPE": True}
 
 
 # Internationalization
