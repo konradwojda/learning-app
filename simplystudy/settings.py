@@ -126,7 +126,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-DJOSER = {"USER_CREATE_PASSWORD_RETYPE": True}
+DJOSER = {
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "ACTIVATION_URL": "activate/{uid}/{token}",
+    "SEND_ACTIVATION_EMAIL": True,
+}
 
 
 # Internationalization
@@ -166,3 +170,10 @@ WHITENOISE_INDEX_FILE = True
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:4200", "http://localhost:4200"]
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "simplystudy.app@gmail.com"
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS")
+EMAIL_USE_TLS = True
