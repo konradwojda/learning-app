@@ -13,7 +13,10 @@
     "Login": {
         "Login": "Log in",
         "Username": "Username",
-        "Password": "Password"
+        "Password": "Password",
+        "ResetPassword": "Reset your password",
+        "Email": "Email",
+        "Send": "Send"
     },
     "Register": {
         "Register": "Register",

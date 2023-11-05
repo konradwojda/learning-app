@@ -77,4 +77,8 @@ export class AuthService {
   resendActivation(email: string): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/auth/users/resend_activation/', { email });
   }
+
+  resetPassword(email: string): Observable<any> {
+    return this.http.post<any>(this.apiUrl + '/auth/users/reset_password/', { email });
+  }
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { AuthService } from "../auth.service";
 import { UserCredentials } from "../auth";
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,21 +10,28 @@ import { SnackbarService } from '../snackbar.service';
 import { Router } from '@angular/router';
 import { ErrorHandlingService } from '../error-handling.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-auth-login',
   templateUrl: './auth-login.component.html',
   styleUrls: ['./auth-login.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, ReactiveFormsModule, TranslateModule]
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, ReactiveFormsModule, TranslateModule, NgIf]
 })
 export class AuthLoginComponent implements OnInit {
   logInForm: FormGroup;
+  resetPasswordForm: FormGroup;
+  showResetPassword: boolean = false;
+
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private snackbarService: SnackbarService, private router: Router, private errorHandling: ErrorHandlingService) {
     this.logInForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+    this.resetPasswordForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]]
+    })
   }
 
   ngOnInit(): void {
@@ -52,5 +59,20 @@ export class AuthLoginComponent implements OnInit {
     } else {
       this.logInUser(formData);
     }
+  }
+
+  setShowResetPassword(): void {
+    this.showResetPassword = !this.showResetPassword;
+  }
+
+  resetPassword(data: any): void {
+    this.authService.resetPassword(data.email).subscribe({
+      next: (data) => {
+        this.snackbarService.showSnackbar("We sent you an email. Use link in this email to reset password.");
+      },
+      error: (error) => {
+        this.errorHandling.handleError(error);
+      }
+    })
   }
 }

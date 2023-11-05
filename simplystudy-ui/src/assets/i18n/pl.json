@@ -13,7 +13,10 @@
     "Login": {
         "Login": "Zaloguj",
         "Username": "Nazwa użytkownika",
-        "Password": "Hasło"
+        "Password": "Hasło",
+        "ResetPassword": "Zresetuj swoje hasło",
+        "Email": "Adres email",
+        "Send": "Wyślij"
     },
     "Register": {
         "Register": "Zarejestruj się",
