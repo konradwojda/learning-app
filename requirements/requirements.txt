@@ -4,3 +4,4 @@ django-cors-headers
 djoser
 whitenoise
 pillow
+python-dotenv
