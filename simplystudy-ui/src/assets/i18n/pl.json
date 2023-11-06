@@ -92,5 +92,10 @@
         "Activation": "Aktywuj swoje konto",
         "Email": "Adres email",
         "Resend": "Wyślij ponownie"
+    },
+    "PasswordReset": {
+        "Password": "Hasło",
+        "RePassword": "Powtórz hasło",
+        "Reset": "Zresetuj hasło"
     }
 }

@@ -92,5 +92,10 @@
         "Activation": "Activate your account",
         "Email": "Email",
         "Resend": "Resend"
+    },
+    "PasswordReset": {
+        "Password": "Password",
+        "RePassword": "Retype password",
+        "Reset": "Reset password"
     }
 }
