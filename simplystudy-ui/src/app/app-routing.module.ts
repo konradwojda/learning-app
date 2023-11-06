@@ -13,6 +13,7 @@ import { MyResourcesComponent } from './my-resources/my-resources.component';
 import { LearnComponent } from './learn/learn.component';
 import { AuthGuard } from './auth.guard';
 import { AuthActivationComponent } from './auth-activation/auth-activation.component';
+import { AuthResetPasswordComponent } from './auth-reset-password/auth-reset-password.component';
 
 const routes: Routes = [
     { path: '', component: LandingPageComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
     { path: 'register', component: AuthRegisterComponent },
     { path: 'activate/:uid/:token', component: AuthActivationComponent },
     { path: 'activate', component: AuthActivationComponent },
+    { path: 'reset_password/:uid/:token', component: AuthResetPasswordComponent },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'question_sets/:id', component: QuestionSetsComponent, canActivate: [AuthGuard] },
     { path: 'create_question_set', component: CreateQuestionSetComponent, canActivate: [AuthGuard] },
