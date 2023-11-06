@@ -82,7 +82,7 @@ export class AuthService {
     return this.http.post<any>(this.apiUrl + '/auth/users/reset_password/', { email });
   }
 
-  resetPasswordConfirmation(password: string, re_password: string, uid: string, token: string): Observable<any> {
-    return this.http.post(this.apiUrl + '/auth/users/reset_password_confirmation/', { uid, token, password, re_password });
+  resetPasswordConfirmation(new_password: string, re_new_password: string, uid: string, token: string): Observable<any> {
+    return this.http.post(this.apiUrl + '/auth/users/reset_password_confirm/', { uid, token, new_password, re_new_password });
   }
 }
