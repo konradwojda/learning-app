@@ -46,7 +46,7 @@ export class CoursesComponent implements OnInit {
   }
 
   editCourse(course: Course): void {
-    const dialogRef = this.dialog.open(CourseEditDialog, { data: { name: course.name, description: course.description, university: course.university } });
+    const dialogRef = this.dialog.open(CourseEditDialogComponent, { data: { name: course.name, description: course.description, university: course.university } });
     dialogRef.afterClosed().subscribe(result => {
       result.owner = this.authService.getUsername();
       this.http.put(this.apiUrl + '/api/courses/' + course.id + '/', result).subscribe({
@@ -65,7 +65,7 @@ export class CoursesComponent implements OnInit {
   }
 
   createCourse(): void {
-    const dialogRef = this.dialog.open(CourseEditDialog, { data: { name: '', description: '', university: '' } });
+    const dialogRef = this.dialog.open(CourseEditDialogComponent, { data: { name: '', description: '', university: '' } });
     dialogRef.afterClosed().subscribe(result => {
       result.owner = this.authService.getUsername();
       this.http.post(this.apiUrl + '/api/courses/', result).subscribe({
@@ -103,10 +103,10 @@ export class CoursesComponent implements OnInit {
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, TranslateModule],
 })
-export class CourseEditDialog {
+export class CourseEditDialogComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<CourseEditDialog>,
+    public dialogRef: MatDialogRef<CourseEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Course,
   ) { }
 
