@@ -34,7 +34,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 export class QuestionSetsComponent implements OnInit {
   questionSet: QuestionSet;
   resource: UserResource | null = null;
-  isOwner: boolean = false;
+  isOwner = false;
   private apiUrl = environment.apiUrl;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private snackbarService: SnackbarService, private router: Router, private authService: AuthService, public dialog: MatDialog, private errorHandling: ErrorHandlingService, private translate: TranslateService) {
@@ -107,7 +107,7 @@ export class QuestionSetsComponent implements OnInit {
   editQuestionSet(): void {
     const dialogRef = this.dialog.open(QuestionSetEditDialog, { data: { name: this.questionSet.name, description: this.questionSet.description, course: this.questionSet.course as Course, is_private: this.questionSet.is_private } });
     dialogRef.afterClosed().subscribe(result => {
-      let username = this.authService.getUsername();
+      const username = this.authService.getUsername();
       this.http.patch(this.apiUrl + '/api/question_sets/' + this.questionSet.id + '/', { name: result.name, description: result.description, course: result.course ? result.course.id : null, owner: username, is_private: result.is_private }).subscribe({
         next: (data) => {
           this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QSUpdated"));
@@ -137,7 +137,7 @@ export class QuestionSetsComponent implements OnInit {
   addQuestion(question_set_id: string): void {
     const dialogRef = this.dialog.open(QuestionCreateDialog, { data: { content: '', answer: '', image: '', } });
     dialogRef.afterClosed().subscribe(result => {
-      let question_form = new FormData();
+      const question_form = new FormData();
       question_form.append('content', result.content)
       question_form.append('answer', result.answer)
       question_form.append('image', result.image)
@@ -173,7 +173,7 @@ export class QuestionSetsComponent implements OnInit {
   }
 
   addToResources(question_set_id: string): void {
-    let username = this.authService.getUsername();
+    const username = this.authService.getUsername();
     this.http.post(this.apiUrl + '/api/user_resources/', { user: username, question_set: question_set_id }).subscribe({
       next: (data) => {
         this.ngOnInit();
@@ -231,7 +231,7 @@ export class QuestionSetEditDialog {
   }
 
   getCourses(): void {
-    let username = this.authService.getUsername();
+    const username = this.authService.getUsername();
     this.http.get<Course[]>(this.apiUrl + '/api/courses/?username=' + username).subscribe({
       next: (data: Course[]) => {
         this.courses = data;
@@ -276,7 +276,7 @@ export class QuestionEditDialog {
       const img = files[0];
       this.data.image = img;
     }
-    let question_form = new FormData();
+    const question_form = new FormData();
     question_form.append('image', this.data.image);
     this.http.patch(this.apiUrl + '/api/questions/' + this.data.id + '/', question_form).subscribe({
       next: (result: any) => {

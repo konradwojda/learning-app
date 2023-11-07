@@ -28,7 +28,7 @@ export class MyResourcesComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient, private authService: AuthService, private errorHandling: ErrorHandlingService) { }
 
   private getUserResources(): void {
-    let username = this.authService.getUsername();
+    const username = this.authService.getUsername();
     this.http.get<UserResource[]>(this.apiUrl + '/api/user_resources/?username=' + username).subscribe({
       next: (data: UserResource[]) => {
         this.resources = data;
@@ -40,7 +40,7 @@ export class MyResourcesComponent implements OnInit {
   }
 
   private getUserQuestionSets(): void {
-    let username = this.authService.getUsername();
+    const username = this.authService.getUsername();
     this.http.get<Array<QuestionSet>>(this.apiUrl + '/api/question_sets/?username=' + username).subscribe({
       next: (data: Array<QuestionSet>) => {
         this.question_sets = data;

@@ -10,7 +10,7 @@ import { LanguageService } from './language.service';
 
 @Injectable()
 export class LanguageInterceptor implements HttpInterceptor {
-  selectedLang: string = '';
+  selectedLang = '';
 
   constructor(private languageService: LanguageService) { }
 

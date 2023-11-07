@@ -56,7 +56,7 @@ export class CoursesComponent implements OnInit {
           this.router.navigateByUrl(this.router.url);
         },
         error: (error) => {
-          for (var err in error.error) {
+          for (const err in error.error) {
             this.snackbarService.showSnackbar(err + ': ' + error.error[err][0]);
           }
         }
@@ -75,7 +75,7 @@ export class CoursesComponent implements OnInit {
           this.router.navigateByUrl(this.router.url);
         },
         error: (error) => {
-          for (var err in error.error) {
+          for (const err in error.error) {
             this.snackbarService.showSnackbar(err + ': ' + error.error[err][0]);
           }
         }
@@ -84,7 +84,7 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let username = this.authService.getUsername();
+    const username = this.authService.getUsername();
     this.http.get<Course[]>(this.apiUrl + '/api/courses/?username=' + username).subscribe({
       next: (data: Course[]) => {
         this.courses = data;

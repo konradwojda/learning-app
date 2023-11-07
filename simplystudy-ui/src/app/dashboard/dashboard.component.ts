@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
 
   questionSets: Array<QuestionSet> = [];
   filteredQuestionSets: Array<QuestionSet> = [];
-  filterText: string = '';
+  filterText = '';
   private apiUrl = environment.apiUrl;
 
   constructor(private router: Router, private http: HttpClient, private authService: AuthService, private snackbarService: SnackbarService, private errorHandling: ErrorHandlingService) {
@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let username = this.authService.getUsername();
+    const username = this.authService.getUsername();
     this.http.get<Array<QuestionSet>>(this.apiUrl + '/api/question_sets/?username=' + username).subscribe({
       next: (data: Array<QuestionSet>) => {
         this.questionSets = data;
@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
         this.errorHandling.handleError(error);
       }
     });
-  };
+  }
 
   public onCardClick(event: any) {
     this.router.navigateByUrl('/question_sets/' + event.id);

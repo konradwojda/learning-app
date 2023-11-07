@@ -22,8 +22,8 @@ import { LanguageService } from '../language.service';
 })
 export class NavigationComponent implements OnDestroy, OnInit, AfterViewChecked {
   mobileQuery: MediaQueryList;
-  isAuthenticated: boolean = false;
-  username: string = '';
+  isAuthenticated = false;
+  username = '';
   languages: string[];
   selectedLang!: string;
 
@@ -35,7 +35,7 @@ export class NavigationComponent implements OnDestroy, OnInit, AfterViewChecked 
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
-  };
+  }
 
   ngOnInit(): void {
     this.authService.isAuthenticated$().subscribe((isAuthenticated) => {

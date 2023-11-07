@@ -31,7 +31,7 @@ export class CreateQuestionSetComponent implements OnInit {
   private apiUrl = environment.apiUrl;
 
   courseList: Array<Course> = [];
-  isPrivate: boolean = true;
+  isPrivate = true;
 
   questionSetData = this._formBuilder.group({
     name: ['', Validators.required],
@@ -52,7 +52,7 @@ export class CreateQuestionSetComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let username = this.authService.getUsername();
+    const username = this.authService.getUsername();
     this.http.get<Course[]>(this.apiUrl + '/api/courses/?username=' + username).subscribe({
       next: (data: Course[]) => {
         this.courseList = data;
@@ -93,13 +93,13 @@ export class CreateQuestionSetComponent implements OnInit {
   }
 
   postQuestionSet(): void {
-    let formValue = this.questionSetData.value;
-    let username = this.authService.getUsername();
+    const formValue = this.questionSetData.value;
+    const username = this.authService.getUsername();
     this.http.post(this.apiUrl + '/api/question_sets/', { name: formValue.name, description: formValue.description, course: formValue.course ? formValue.course.id : null, owner: username, is_private: formValue.is_private }).subscribe({
       next: (set_data: any) => {
-        let questionsArr: Array<any> = this.questionsData.value.questions;
-        for (var question of questionsArr) {
-          let question_form = new FormData();
+        const questionsArr: Array<any> = this.questionsData.value.questions;
+        for (const question of questionsArr) {
+          const question_form = new FormData();
           question_form.append('content', question.content)
           question_form.append('answer', question.answer)
           question_form.append('image', question.image)
@@ -113,7 +113,7 @@ export class CreateQuestionSetComponent implements OnInit {
               this.errorHandling.handleError(error);
             }
           })
-        };
+        }
       },
       error: (error) => {
         this.errorHandling.handleError(error);
@@ -122,10 +122,10 @@ export class CreateQuestionSetComponent implements OnInit {
   }
 
   async importCsvQuestions(event: Event) {
-    let csvString = await this.getTextFromFile(event);
-    let questions = this.csv.importCSV(csvString);
+    const csvString = await this.getTextFromFile(event);
+    const questions = this.csv.importCSV(csvString);
     const questionArray = this.questionsData.get('questions') as FormArray;
-    for (var question of questions) {
+    for (const question of questions) {
       questionArray.push(this._formBuilder.group({
         content: [question.content, Validators.required],
         answer: [question.answer, Validators.required],
@@ -139,7 +139,7 @@ export class CreateQuestionSetComponent implements OnInit {
 
   private async getTextFromFile(event: any) {
     const file: File = event.target.files[0];
-    let fileContent = await file.text();
+    const fileContent = await file.text();
 
     return fileContent;
   }

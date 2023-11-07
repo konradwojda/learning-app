@@ -43,7 +43,7 @@ export class AuthRegisterComponent implements OnInit {
         this.errorHandling.handleError(error);
       }
     }
-    );;
+    );
   }
 
   onSubmit(formData: RegisterUserData): void {

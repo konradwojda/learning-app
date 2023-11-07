@@ -19,7 +19,7 @@ export class CsvService {
 
     for (let i = 1; i < lines.length; i++) {
       const values = lines[i].split(',');
-      let object: any = {};
+      const object: any = {};
 
       if (values.length !== headers.length) {
         throw new Error(`CSV data is not valid on line ${i + 1}. The number of columns doesn't match the header.`);

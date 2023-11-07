@@ -22,7 +22,7 @@ import { NgIf } from '@angular/common';
 export class AuthLoginComponent implements OnInit {
   logInForm: FormGroup;
   resetPasswordForm: FormGroup;
-  showResetPassword: boolean = false;
+  showResetPassword = false;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private snackbarService: SnackbarService, private router: Router, private errorHandling: ErrorHandlingService, private translate: TranslateService) {
     this.logInForm = this.formBuilder.group({

@@ -26,13 +26,13 @@ export class SearchResourcesComponent implements OnInit {
   resources: Array<QuestionSet> = [];
   private apiUrl = environment.apiUrl;
 
-  items_count: number = 0;
-  pageSize: number = 10;
-  pageIndex: number = 0;
+  items_count = 0;
+  pageSize = 10;
+  pageIndex = 0;
   pageSizeOptions: number[] = [10, 20, 50, 75];
 
-  searchText: string = '';
-  searchUrl: string = ''
+  searchText = '';
+  searchUrl = ''
 
 
   constructor(private http: HttpClient, private snackbarService: SnackbarService, private router: Router, private errorHandling: ErrorHandlingService) {
@@ -58,7 +58,7 @@ export class SearchResourcesComponent implements OnInit {
   handlePageEvent(e: PageEvent) {
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
-    let query_idx = e.pageIndex + 1;
+    const query_idx = e.pageIndex + 1;
     this.http.get(this.apiUrl + '/api/public_question_sets/?page=' + query_idx + '&' + 'page_size=' + this.pageSize + this.searchUrl).subscribe({
       next: (data: any) => {
         this.resources = data.results;
