@@ -97,5 +97,25 @@
         "Password": "Password",
         "RePassword": "Retype password",
         "Reset": "Reset password"
+    },
+    "Snackbar": {
+        "AccountActivate": "Account has been activated.",
+        "ActivationEmailSent": "Activation email has been sent.",
+        "InvalidForm": "Form is invalid.",
+        "LoggedIn": "Logged in successufully.",
+        "PasswordResetEmailSent": "We sent you an email. Use link in this email to reset password.",
+        "RegisterActivation": "We sent you an activation email. Activate your account using link provided in this email. Use a form below to resend email.",
+        "PasswordChangedSuccess": "Your password has been changed. You can now log in.",
+        "CourseDeleted": "Deleted course.",
+        "CourseUpdated": "Successfully updated course",
+        "CourseAdded": "Successfully added new course",
+        "QSAdded": "Added new question set.",
+        "QSDeleted": "Question set has been deleted.",
+        "QSUpdated": "Question set has been updated.",
+        "QuestionUpdated": "Question has been updated.",
+        "QuestionAdded": "Question added.",
+        "QuestionDeleted": "Question has been deleted.",
+        "AddedToResoures": "Question set has been added to resources.",
+        "DeletedFromResources": "Question set has been deleted from resources."
     }
 }

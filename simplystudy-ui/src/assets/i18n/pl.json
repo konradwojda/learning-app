@@ -97,5 +97,25 @@
         "Password": "Hasło",
         "RePassword": "Powtórz hasło",
         "Reset": "Zresetuj hasło"
+    },
+    "Snackbar": {
+        "AccountActivate": "Konto zostało aktywowane.",
+        "ActivationEmailSent": "Email aktywacyjny został wysłany.",
+        "InvalidForm": "Formularz został wypełniony niepoprawnie.",
+        "LoggedIn": "Pomyślnie zalogowano.",
+        "PasswordResetEmailSent": "Wysłaliśmy email z linkiem. Użyj go w celu zresetowania hasła.",
+        "RegisterActivation": "Email aktywacyjny został wysłany. Aktywuj konto używając zawartego w nim linku.",
+        "PasswordChangedSuccess": "Twoje hasło zostało zmienione. Możesz się zalogować.",
+        "CourseDeleted": "Usunięto kurs.",
+        "CourseUpdated": "Kurs został zaktualizowany.",
+        "CourseAdded": "Kurs został dodany.",
+        "QSAdded": "Zestaw pytań został stworzony.",
+        "QSDeleted": "Usunięto zestaw pytań.",
+        "QSUpdated": "Zestaw pytań został zaktualizowany.",
+        "QuestionUpdated": "Pytanie zostało zaktualizowane.",
+        "QuestionAdded": "Pytanie zostało dodane.",
+        "QuestionDeleted": "Pytanie zostało usunięte.",
+        "AddedToResoures": "Zestaw pytań dostał dodany do zasobów.",
+        "DeletedFromResources": "Zestaw pytań został usunięty z zasobów."
     }
 }

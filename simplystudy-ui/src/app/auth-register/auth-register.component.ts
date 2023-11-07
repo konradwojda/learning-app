@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { SnackbarService } from '../snackbar.service';
 import { Router } from '@angular/router';
 import { ErrorHandlingService } from '../error-handling.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-auth-register',
@@ -21,7 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class AuthRegisterComponent implements OnInit {
   registerForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private snackbarService: SnackbarService, private router: Router, private errorHandling: ErrorHandlingService) {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private snackbarService: SnackbarService, private router: Router, private errorHandling: ErrorHandlingService, private translate: TranslateService) {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -36,7 +36,7 @@ export class AuthRegisterComponent implements OnInit {
   registerUser(user: RegisterUserData): void {
     this.authService.registerUser(user.username, user.password, user.re_password, user.email).subscribe({
       next: (data) => {
-        this.snackbarService.showSnackbar("We sent you an activation email. Activate your account using link provided in this email. Use a form below to resend email.")
+        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.RegisterActivation"))
         this.router.navigateByUrl('/activate');
       },
       error: (error) => {

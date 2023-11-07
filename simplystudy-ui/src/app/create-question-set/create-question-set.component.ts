@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 import { CsvService } from '../csv.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ErrorHandlingService } from '../error-handling.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-question-set',
@@ -47,7 +47,7 @@ export class CreateQuestionSetComponent implements OnInit {
   questions = this.questionsData.get('questions') as FormArray;
 
   constructor(private _formBuilder: FormBuilder, private authService: AuthService, private http: HttpClient,
-    private snackbarService: SnackbarService, private router: Router, private csv: CsvService, private errorHandling: ErrorHandlingService) {
+    private snackbarService: SnackbarService, private router: Router, private csv: CsvService, private errorHandling: ErrorHandlingService, private translate: TranslateService) {
 
   }
 
@@ -106,13 +106,11 @@ export class CreateQuestionSetComponent implements OnInit {
           question_form.append('question_set', set_data.id)
           this.http.post(this.apiUrl + '/api/questions/', question_form).subscribe({
             next: (data) => {
-              this.snackbarService.showSnackbar("Added new question set");
+              this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QSAdded"));
               this.router.navigateByUrl('/question_sets/' + set_data.id);
             },
             error: (error) => {
-              for (var err in error.error) {
-                this.snackbarService.showSnackbar(err + ': ' + error.error[err][0]);
-              }
+              this.errorHandling.handleError(error);
             }
           })
         };

@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { AuthService } from "../auth.service";
 import { UserCredentials } from "../auth";
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { SnackbarService } from '../snackbar.service';
 import { Router } from '@angular/router';
 import { ErrorHandlingService } from '../error-handling.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -24,7 +24,7 @@ export class AuthLoginComponent implements OnInit {
   resetPasswordForm: FormGroup;
   showResetPassword: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private snackbarService: SnackbarService, private router: Router, private errorHandling: ErrorHandlingService) {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private snackbarService: SnackbarService, private router: Router, private errorHandling: ErrorHandlingService, private translate: TranslateService) {
     this.logInForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -43,7 +43,7 @@ export class AuthLoginComponent implements OnInit {
         data.username = user.username;
         this.authService.setLoggedInUser(data);
         this.authService.setIsAuthenticated(true);
-        this.snackbarService.showSnackbar('Logged in successfully');
+        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.LoggedIn"));
         this.router.navigateByUrl('/dashboard');
       },
       error: (error) => {
@@ -68,7 +68,7 @@ export class AuthLoginComponent implements OnInit {
   resetPassword(data: any): void {
     this.authService.resetPassword(data.email).subscribe({
       next: (data) => {
-        this.snackbarService.showSnackbar("We sent you an email. Use link in this email to reset password.");
+        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.PasswordResetEmailSent"));
       },
       error: (error) => {
         this.errorHandling.handleError(error);

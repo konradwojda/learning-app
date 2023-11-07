@@ -16,7 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { ErrorHandlingService } from '../error-handling.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-courses',
@@ -29,13 +29,13 @@ export class CoursesComponent implements OnInit {
   courses: Course[] = [];
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private authService: AuthService, private snackbarService: SnackbarService, public dialog: MatDialog, private router: Router, private errorHandling: ErrorHandlingService) {
+  constructor(private http: HttpClient, private authService: AuthService, private snackbarService: SnackbarService, public dialog: MatDialog, private router: Router, private errorHandling: ErrorHandlingService, private translate: TranslateService) {
   }
 
   deleteCourse(course_id: number): void {
     this.http.delete(this.apiUrl + '/api/courses/' + course_id + '/').subscribe({
       next: (data) => {
-        this.snackbarService.showSnackbar("Deleted course");
+        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.CourseDeleted"));
         this.ngOnInit();
         this.router.navigateByUrl(this.router.url);
       },
@@ -51,7 +51,7 @@ export class CoursesComponent implements OnInit {
       result.owner = this.authService.getUsername();
       this.http.put(this.apiUrl + '/api/courses/' + course.id + '/', result).subscribe({
         next: (data) => {
-          this.snackbarService.showSnackbar("Successfully updated course");
+          this.snackbarService.showSnackbar(this.translate.instant("Snackbar.CourseUpdated"));
           this.ngOnInit();
           this.router.navigateByUrl(this.router.url);
         },
@@ -70,7 +70,7 @@ export class CoursesComponent implements OnInit {
       result.owner = this.authService.getUsername();
       this.http.post(this.apiUrl + '/api/courses/', result).subscribe({
         next: (data) => {
-          this.snackbarService.showSnackbar("Successfully added new course");
+          this.snackbarService.showSnackbar(this.translate.instant("Snackbar.CourseAdded"));
           this.ngOnInit();
           this.router.navigateByUrl(this.router.url);
         },

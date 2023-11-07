@@ -9,7 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-auth-activation',
@@ -22,7 +22,7 @@ export class AuthActivationComponent implements OnInit {
   activationForm: FormGroup;
   isWaiting = true;
 
-  constructor(private _formBuilder: FormBuilder, private _authService: AuthService, private snackbarService: SnackbarService, private router: Router, private route: ActivatedRoute, private errorHandling: ErrorHandlingService) {
+  constructor(private _formBuilder: FormBuilder, private _authService: AuthService, private snackbarService: SnackbarService, private router: Router, private route: ActivatedRoute, private errorHandling: ErrorHandlingService, private translate: TranslateService) {
     this.activationForm = this._formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
     })
@@ -41,7 +41,7 @@ export class AuthActivationComponent implements OnInit {
   activate(uid: string, token: string) {
     this._authService.activate(uid, token).subscribe({
       next: (data) => {
-        this.snackbarService.showSnackbar("Activated account.");
+        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.AccountActivate"));
         this.router.navigateByUrl("/login");
       },
       error: (error) => {
@@ -53,7 +53,7 @@ export class AuthActivationComponent implements OnInit {
   resendActivation(email: string) {
     this._authService.resendActivation(email).subscribe({
       next: (data) => {
-        this.snackbarService.showSnackbar("Activation email sent.");
+        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.ActivationEmailSent"));
       },
       error: (error) => {
         this.errorHandling.handleError(error);
@@ -65,7 +65,7 @@ export class AuthActivationComponent implements OnInit {
     if (this.activationForm.valid) {
       this.resendActivation(data.email);
     } else {
-      this.snackbarService.showSnackbar("Form is invalid.");
+      this.snackbarService.showSnackbar(this.translate.instant("Snackbar.InvalidForm"));
     }
   }
 }

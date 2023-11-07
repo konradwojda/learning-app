@@ -14,7 +14,7 @@ import { Course } from '../courses/course';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
@@ -22,8 +22,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ErrorHandlingService } from '../error-handling.service';
 import { UserResource } from '../search-resources/user-resource';
-import { Observable, catchError, map, of } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-question-sets',
@@ -38,7 +37,7 @@ export class QuestionSetsComponent implements OnInit {
   isOwner: boolean = false;
   private apiUrl = environment.apiUrl;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private snackbarService: SnackbarService, private router: Router, private authService: AuthService, public dialog: MatDialog, private errorHandling: ErrorHandlingService) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private snackbarService: SnackbarService, private router: Router, private authService: AuthService, public dialog: MatDialog, private errorHandling: ErrorHandlingService, private translate: TranslateService) {
     this.questionSet = {
       id: '',
       name: '',
@@ -96,7 +95,7 @@ export class QuestionSetsComponent implements OnInit {
   deleteQuestionSet(id: string): void {
     this.http.delete(this.apiUrl + '/api/question_sets/' + id + '/').subscribe({
       next: (data) => {
-        this.snackbarService.showSnackbar("Deleted course");
+        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QSDeleted"));
         this.router.navigateByUrl('/dashboard');
       },
       error: (error) => {
@@ -111,7 +110,7 @@ export class QuestionSetsComponent implements OnInit {
       let username = this.authService.getUsername();
       this.http.patch(this.apiUrl + '/api/question_sets/' + this.questionSet.id + '/', { name: result.name, description: result.description, course: result.course ? result.course.id : null, owner: username, is_private: result.is_private }).subscribe({
         next: (data) => {
-          this.snackbarService.showSnackbar("Saved question set");
+          this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QSUpdated"));
           this.ngOnInit();
           this.router.navigateByUrl(this.router.url);
         },
@@ -127,7 +126,7 @@ export class QuestionSetsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.http.patch(this.apiUrl + '/api/questions/' + question.id + '/', { content: result.content, answer: result.answer }).subscribe({
         next: (data) => {
-          this.snackbarService.showSnackbar("Updated question");
+          this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QuestionUpdated"));
           this.ngOnInit();
           this.router.navigateByUrl(this.router.url);
         }
@@ -145,7 +144,7 @@ export class QuestionSetsComponent implements OnInit {
       question_form.append('question_set', question_set_id)
       this.http.post(this.apiUrl + "/api/questions/", question_form).subscribe({
         next: (data) => {
-          this.snackbarService.showSnackbar("Added question");
+          this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QuestionAdded"));
           this.ngOnInit();
           this.router.navigateByUrl(this.router.url);
         },
@@ -163,7 +162,7 @@ export class QuestionSetsComponent implements OnInit {
       next: (data) => {
         this.ngOnInit();
         this.router.navigateByUrl(this.router.url);
-        this.snackbarService.showSnackbar("Deleted question");
+        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QuestionDeleted"));
       },
       error: (error) => {
         this.ngOnInit();
@@ -179,7 +178,7 @@ export class QuestionSetsComponent implements OnInit {
       next: (data) => {
         this.ngOnInit();
         this.router.navigateByUrl(this.router.url);
-        this.snackbarService.showSnackbar("Added to resources")
+        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.AddedToResources"))
       },
       error: (error) => {
         this.errorHandling.handleError(error);
@@ -193,7 +192,7 @@ export class QuestionSetsComponent implements OnInit {
         this.resource = null;
         this.ngOnInit();
         this.router.navigateByUrl(this.router.url);
-        this.snackbarService.showSnackbar("Deleted from resources")
+        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.DeletedFromResources"))
       },
       error: (error) => {
         this.errorHandling.handleError(error);

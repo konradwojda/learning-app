@@ -6,7 +6,7 @@ import { SnackbarService } from '../snackbar.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlingService } from '../error-handling.service';
 import { MatCardModule } from '@angular/material/card';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,7 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 export class AuthResetPasswordComponent {
   resetPasswordForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private snackbarService: SnackbarService, private router: Router, private route: ActivatedRoute, private errorHandling: ErrorHandlingService) {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private snackbarService: SnackbarService, private router: Router, private route: ActivatedRoute, private errorHandling: ErrorHandlingService, private translate: TranslateService) {
     this.resetPasswordForm = this.formBuilder.group({
       password: ['', Validators.required],
       re_password: ['', Validators.required],
@@ -33,7 +33,7 @@ export class AuthResetPasswordComponent {
     const token = this.route.snapshot.params["token"];
     this.authService.resetPasswordConfirmation(password, re_password, uid, token).subscribe({
       next: (data) => {
-        this.snackbarService.showSnackbar("Your password has been changed. You can now log in.");
+        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.PasswordChangedSuccess"));
         this.router.navigateByUrl("/login");
       },
       error: (error) => {
