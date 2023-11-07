@@ -5,8 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class CsvService {
 
-  constructor() { }
-
   public importCSV(csvString: string): Array<any> {
     const lines = csvString.split('\n');
 
