@@ -8,7 +8,7 @@ describe('AuthActivationComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [AuthActivationComponent]
+      imports: [AuthActivationComponent],
     });
     fixture = TestBed.createComponent(AuthActivationComponent);
     component = fixture.componentInstance;

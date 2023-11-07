@@ -11,7 +11,13 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./questions-stepper.component.css'],
   providers: [{ provide: CdkStepper, useExisting: QuestionsStepperComponent }],
   standalone: true,
-  imports: [NgTemplateOutlet, CdkStepperModule, NgFor, MatIconModule, MatButtonModule, TranslateModule],
+  imports: [
+    NgTemplateOutlet,
+    CdkStepperModule,
+    NgFor,
+    MatIconModule,
+    MatButtonModule,
+    TranslateModule,
+  ],
 })
-export class QuestionsStepperComponent extends CdkStepper {
-}
+export class QuestionsStepperComponent extends CdkStepper {}

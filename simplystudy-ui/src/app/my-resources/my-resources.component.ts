@@ -15,40 +15,58 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-my-resources',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatRippleModule, MatTabsModule, TranslateModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatRippleModule,
+    MatTabsModule,
+    TranslateModule,
+  ],
   templateUrl: './my-resources.component.html',
-  styleUrls: ['./my-resources.component.css']
+  styleUrls: ['./my-resources.component.css'],
 })
 export class MyResourcesComponent implements OnInit {
-
   resources: UserResource[] = [];
   question_sets: QuestionSet[] = [];
   private apiUrl = environment.apiUrl;
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService, private errorHandling: ErrorHandlingService) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private authService: AuthService,
+    private errorHandling: ErrorHandlingService,
+  ) {}
 
   private getUserResources(): void {
     const username = this.authService.getUsername();
-    this.http.get<UserResource[]>(this.apiUrl + '/api/user_resources/?username=' + username).subscribe({
-      next: (data: UserResource[]) => {
-        this.resources = data;
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
-    })
+    this.http
+      .get<UserResource[]>(
+        this.apiUrl + '/api/user_resources/?username=' + username,
+      )
+      .subscribe({
+        next: (data: UserResource[]) => {
+          this.resources = data;
+        },
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+      });
   }
 
   private getUserQuestionSets(): void {
     const username = this.authService.getUsername();
-    this.http.get<Array<QuestionSet>>(this.apiUrl + '/api/question_sets/?username=' + username).subscribe({
-      next: (data: Array<QuestionSet>) => {
-        this.question_sets = data;
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
-    });
+    this.http
+      .get<Array<QuestionSet>>(
+        this.apiUrl + '/api/question_sets/?username=' + username,
+      )
+      .subscribe({
+        next: (data: Array<QuestionSet>) => {
+          this.question_sets = data;
+        },
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+      });
   }
 
   ngOnInit(): void {
@@ -59,5 +77,4 @@ export class MyResourcesComponent implements OnInit {
   public onCardClick(event: any) {
     this.router.navigateByUrl('/question_sets/' + event.id);
   }
-
 }

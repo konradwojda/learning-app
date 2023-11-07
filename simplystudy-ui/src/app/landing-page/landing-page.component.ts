@@ -9,10 +9,13 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.css'],
   standalone: true,
-  imports: [MatButtonModule, RouterModule, TranslateModule]
+  imports: [MatButtonModule, RouterModule, TranslateModule],
 })
 export class LandingPageComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {

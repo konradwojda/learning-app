@@ -7,10 +7,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationComponent } from './navigation/navigation.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthLoginComponent } from './auth-login/auth-login.component';
-import { HTTP_INTERCEPTORS, HttpBackend, HttpClient, HttpClientModule, HttpClientXsrfModule } from "@angular/common/http";
-import { MatInputModule } from "@angular/material/input";
-import { MatButtonModule } from "@angular/material/button";
-import { ReactiveFormsModule } from "@angular/forms";
+import {
+  HTTP_INTERCEPTORS,
+  HttpBackend,
+  HttpClient,
+  HttpClientModule,
+  HttpClientXsrfModule,
+} from '@angular/common/http';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AuthTokenInterceptor } from './auth-token.interceptor';
 import { CsrfTokenInterceptor } from './csrf-token.interceptor';
 import { AuthRegisterComponent } from './auth-register/auth-register.component';
@@ -26,9 +32,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LanguageInterceptor } from './language.interceptor';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     AuthLoginComponent,
     AuthRegisterComponent,
@@ -47,12 +51,15 @@ import { LanguageInterceptor } from './language.interceptor';
     MatSnackBarModule,
     PageNotFoundComponent,
     ReactiveFormsModule,
-    HttpClientXsrfModule.withOptions({ cookieName: 'csrftoken', headerName: 'X-CSRFToken' }),
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'csrftoken',
+      headerName: 'X-CSRFToken',
+    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpBackend]
+        deps: [HttpBackend],
       },
     }),
   ],
@@ -60,12 +67,14 @@ import { LanguageInterceptor } from './language.interceptor';
     { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: CsrfTokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LanguageInterceptor, multi: true },
-    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { width: '70%' } }
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { width: '70%' } },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 
-export function HttpLoaderFactory(httpHandler: HttpBackend): TranslateHttpLoader {
+export function HttpLoaderFactory(
+  httpHandler: HttpBackend,
+): TranslateHttpLoader {
   return new TranslateHttpLoader(new HttpClient(httpHandler));
 }

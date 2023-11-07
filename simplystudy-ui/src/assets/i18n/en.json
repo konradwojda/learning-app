@@ -1,121 +1,121 @@
 {
-    "Utils": {
-        "New": "New",
-        "Submit": "Submit",
-        "Close": "Close",
-        "Next": "Next",
-        "Remove": "Remove",
-        "Back": "Back",
-        "Question": "Question",
-        "Answer": "Answer",
-        "Edit": "Edit"
-    },
-    "Login": {
-        "Login": "Log in",
-        "Username": "Username",
-        "Password": "Password",
-        "ResetPassword": "Reset your password",
-        "Email": "Email",
-        "Send": "Send"
-    },
-    "Register": {
-        "Register": "Register",
-        "Username": "Username",
-        "Password": "Password",
-        "Retype": "Retype password",
-        "Email": "Email"
-    },
-    "Courses": {
-        "Course": "Course",
-        "Name": "Course name",
-        "University": "University name",
-        "Description": "Description"
-    },
-    "Dashboard": {
-        "FilterText": "Filter your resources",
-        "AddSet": "New set"
-    },
-    "QuestionSetCreate": {
-        "FillData": "Fill question set data",
-        "Private": "Should this set be private?",
-        "Name": "Name",
-        "Description": "Description",
-        "Course": "Course",
-        "AddQuestions": "Add questions to set",
-        "Content": "Content",
-        "Answer": "Answer",
-        "AddQuestion": "Add new question",
-        "ImportQuestions": "Import questions",
-        "UploadImage": "Upload image",
-        "DeleteImage": "Delete image",
-        "ImgLoaded": "loaded",
-        "CSVInfo": "File should be a CSV with two columns. It should have headers content,answer."
-    },
-    "Landing": {
-        "Welcome": "Welcome to SimplyStudy",
-        "Desc": "Start learning now!"
-    },
-    "Learn": {
-        "ShowSet": "Show set",
-        "Test": "Test yourself",
-        "ShowAnswer": "Show answer"
-    },
-    "MyResources": {
-        "QuestionSets": "My question sets",
-        "Resources": "Other resources"
-    },
-    "Navigation": {
-        "LogOut": "Log out",
-        "Dashboard": "Dashboard",
-        "Resources": "My resources",
-        "Search": "Search resources",
-        "Courses": "My courses"
-    },
-    "404": {
-        "404": "Cannot find this page.",
-        "Main": "Back to homepage."
-    },
-    "SearchResources": {
-        "SearchLabel": "Search by name, description, author or course",
-        "Search": "Search",
-        "Questions": "Number of questions",
-        "Author": "Author"
-    },
-    "QuestionSets": {
-        "Learn": "Learn",
-        "Test": "Test yourself",
-        "AddToResources": "Add to resources",
-        "DeleteFromResources": "Delete from resources",
-        "QuestionSet": "Question set"
-    },
-    "Activation": {
-        "Activation": "Activate your account",
-        "Email": "Email",
-        "Resend": "Resend"
-    },
-    "PasswordReset": {
-        "Password": "Password",
-        "RePassword": "Retype password",
-        "Reset": "Reset password"
-    },
-    "Snackbar": {
-        "AccountActivate": "Account has been activated.",
-        "ActivationEmailSent": "Activation email has been sent.",
-        "InvalidForm": "Form is invalid.",
-        "LoggedIn": "Logged in successufully.",
-        "PasswordResetEmailSent": "We sent you an email. Use link in this email to reset password.",
-        "RegisterActivation": "We sent you an activation email. Activate your account using link provided in this email. Use a form below to resend email.",
-        "PasswordChangedSuccess": "Your password has been changed. You can now log in.",
-        "CourseDeleted": "Deleted course.",
-        "CourseUpdated": "Successfully updated course",
-        "CourseAdded": "Successfully added new course",
-        "QSAdded": "Added new question set.",
-        "QSDeleted": "Question set has been deleted.",
-        "QSUpdated": "Question set has been updated.",
-        "QuestionUpdated": "Question has been updated.",
-        "QuestionAdded": "Question added.",
-        "QuestionDeleted": "Question has been deleted.",
-        "AddedToResoures": "Question set has been added to resources.",
-        "DeletedFromResources": "Question set has been deleted from resources."
-    }
+  "Utils": {
+    "New": "New",
+    "Submit": "Submit",
+    "Close": "Close",
+    "Next": "Next",
+    "Remove": "Remove",
+    "Back": "Back",
+    "Question": "Question",
+    "Answer": "Answer",
+    "Edit": "Edit"
+  },
+  "Login": {
+    "Login": "Log in",
+    "Username": "Username",
+    "Password": "Password",
+    "ResetPassword": "Reset your password",
+    "Email": "Email",
+    "Send": "Send"
+  },
+  "Register": {
+    "Register": "Register",
+    "Username": "Username",
+    "Password": "Password",
+    "Retype": "Retype password",
+    "Email": "Email"
+  },
+  "Courses": {
+    "Course": "Course",
+    "Name": "Course name",
+    "University": "University name",
+    "Description": "Description"
+  },
+  "Dashboard": {
+    "FilterText": "Filter your resources",
+    "AddSet": "New set"
+  },
+  "QuestionSetCreate": {
+    "FillData": "Fill question set data",
+    "Private": "Should this set be private?",
+    "Name": "Name",
+    "Description": "Description",
+    "Course": "Course",
+    "AddQuestions": "Add questions to set",
+    "Content": "Content",
+    "Answer": "Answer",
+    "AddQuestion": "Add new question",
+    "ImportQuestions": "Import questions",
+    "UploadImage": "Upload image",
+    "DeleteImage": "Delete image",
+    "ImgLoaded": "loaded",
+    "CSVInfo": "File should be a CSV with two columns. It should have headers content,answer."
+  },
+  "Landing": {
+    "Welcome": "Welcome to SimplyStudy",
+    "Desc": "Start learning now!"
+  },
+  "Learn": {
+    "ShowSet": "Show set",
+    "Test": "Test yourself",
+    "ShowAnswer": "Show answer"
+  },
+  "MyResources": {
+    "QuestionSets": "My question sets",
+    "Resources": "Other resources"
+  },
+  "Navigation": {
+    "LogOut": "Log out",
+    "Dashboard": "Dashboard",
+    "Resources": "My resources",
+    "Search": "Search resources",
+    "Courses": "My courses"
+  },
+  "404": {
+    "404": "Cannot find this page.",
+    "Main": "Back to homepage."
+  },
+  "SearchResources": {
+    "SearchLabel": "Search by name, description, author or course",
+    "Search": "Search",
+    "Questions": "Number of questions",
+    "Author": "Author"
+  },
+  "QuestionSets": {
+    "Learn": "Learn",
+    "Test": "Test yourself",
+    "AddToResources": "Add to resources",
+    "DeleteFromResources": "Delete from resources",
+    "QuestionSet": "Question set"
+  },
+  "Activation": {
+    "Activation": "Activate your account",
+    "Email": "Email",
+    "Resend": "Resend"
+  },
+  "PasswordReset": {
+    "Password": "Password",
+    "RePassword": "Retype password",
+    "Reset": "Reset password"
+  },
+  "Snackbar": {
+    "AccountActivate": "Account has been activated.",
+    "ActivationEmailSent": "Activation email has been sent.",
+    "InvalidForm": "Form is invalid.",
+    "LoggedIn": "Logged in successufully.",
+    "PasswordResetEmailSent": "We sent you an email. Use link in this email to reset password.",
+    "RegisterActivation": "We sent you an activation email. Activate your account using link provided in this email. Use a form below to resend email.",
+    "PasswordChangedSuccess": "Your password has been changed. You can now log in.",
+    "CourseDeleted": "Deleted course.",
+    "CourseUpdated": "Successfully updated course",
+    "CourseAdded": "Successfully added new course",
+    "QSAdded": "Added new question set.",
+    "QSDeleted": "Question set has been deleted.",
+    "QSUpdated": "Question set has been updated.",
+    "QuestionUpdated": "Question has been updated.",
+    "QuestionAdded": "Question added.",
+    "QuestionDeleted": "Question has been deleted.",
+    "AddedToResoures": "Question set has been added to resources.",
+    "DeletedFromResources": "Question set has been deleted from resources."
+  }
 }

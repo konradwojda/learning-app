@@ -1,4 +1,10 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,7 +14,7 @@ import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../language.service';
@@ -17,10 +23,23 @@ import { LanguageService } from '../language.service';
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css'],
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, RouterModule, MatMenuModule, NgIf, NgFor, TranslateModule],
+  imports: [
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+    RouterModule,
+    MatMenuModule,
+    NgIf,
+    NgFor,
+    TranslateModule,
+  ],
   standalone: true,
 })
-export class NavigationComponent implements OnDestroy, OnInit, AfterViewChecked {
+export class NavigationComponent
+  implements OnDestroy, OnInit, AfterViewChecked
+{
   mobileQuery: MediaQueryList;
   isAuthenticated = false;
   username = '';
@@ -29,9 +48,17 @@ export class NavigationComponent implements OnDestroy, OnInit, AfterViewChecked 
 
   private _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private authService: AuthService, private router: Router, private languageService: LanguageService) {
+  constructor(
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    private authService: AuthService,
+    private router: Router,
+    private languageService: LanguageService,
+  ) {
     this.languages = this.languageService.getAllLanguages();
-    this.languageService.getcurrentLanguage().subscribe((language) => { this.selectedLang = language; })
+    this.languageService.getcurrentLanguage().subscribe((language) => {
+      this.selectedLang = language;
+    });
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
@@ -43,7 +70,7 @@ export class NavigationComponent implements OnDestroy, OnInit, AfterViewChecked 
     });
     this.authService.getUsername$().subscribe((username) => {
       this.username = username;
-    })
+    });
     this.authService.setAuthenticated();
   }
 
@@ -57,9 +84,8 @@ export class NavigationComponent implements OnDestroy, OnInit, AfterViewChecked 
       },
       error: (error) => {
         console.log(error);
-      }
-    }
-    );
+      },
+    });
   }
 
   changeLang(language: string) {
@@ -67,7 +93,7 @@ export class NavigationComponent implements OnDestroy, OnInit, AfterViewChecked 
   }
 
   ngOnDestroy(): void {
-    this.mobileQuery.removeEventListener('change', this._mobileQueryListener)
+    this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
 
   ngAfterViewChecked() {

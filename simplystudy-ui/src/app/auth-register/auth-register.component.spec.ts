@@ -8,7 +8,7 @@ describe('AuthRegisterComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AuthRegisterComponent]
+      declarations: [AuthRegisterComponent],
     });
     fixture = TestBed.createComponent(AuthRegisterComponent);
     component = fixture.componentInstance;

@@ -1,27 +1,33 @@
 <h1 mat-dialog-title>{{'QuestionSets.QuestionSet' | translate}}</h1>
 <div mat-dialog-content>
-    <mat-form-field>
-        <mat-label>{{'QuestionSetCreate.Name' | translate}}</mat-label>
-        <input matInput [(ngModel)]="data.name" required>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>{{'QuestionSetCreate.Description' | translate}}</mat-label>
-        <textarea matInput [(ngModel)]="data.description"></textarea>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>{{'QuestionSetCreate.Course' | translate}}</mat-label>
-        <mat-select [(ngModel)]="data.course" [compareWith]="compareById">
-            <mat-option></mat-option>
-            <mat-option *ngFor="let course of courses" [value]="course">
-                {{course.name}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <div class="is-private-slide">
-        <mat-slide-toggle [(ngModel)]="data.is_private">{{'QuestionSetCreate.Private' | translate}}</mat-slide-toggle>
-    </div>
+  <mat-form-field>
+    <mat-label>{{'QuestionSetCreate.Name' | translate}}</mat-label>
+    <input matInput [(ngModel)]="data.name" required />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>{{'QuestionSetCreate.Description' | translate}}</mat-label>
+    <textarea matInput [(ngModel)]="data.description"></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>{{'QuestionSetCreate.Course' | translate}}</mat-label>
+    <mat-select [(ngModel)]="data.course" [compareWith]="compareById">
+      <mat-option></mat-option>
+      <mat-option *ngFor="let course of courses" [value]="course">
+        {{course.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="is-private-slide">
+    <mat-slide-toggle [(ngModel)]="data.is_private"
+      >{{'QuestionSetCreate.Private' | translate}}</mat-slide-toggle
+    >
+  </div>
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">{{'Utils.Close' | translate}}</button>
-    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>{{'Utils.Submit' | translate}}</button>
+  <button mat-button (click)="onNoClick()">
+    {{'Utils.Close' | translate}}
+  </button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
+    {{'Utils.Submit' | translate}}
+  </button>
 </div>

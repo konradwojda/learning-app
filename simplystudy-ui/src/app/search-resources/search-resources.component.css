@@ -1,25 +1,25 @@
 .container {
-    padding: 1em;
+  padding: 1em;
 }
 
 .list {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .search-bar {
-    display: inline-flex;
-    width: 100%;
-    align-items: center;
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
 }
 
 .search-field {
-    flex: 8;
-    margin-right: 30px;
+  flex: 8;
+  margin-right: 30px;
 }
 
 .search-btn {
-    margin-bottom: 20px;
-    flex: 1;
+  margin-bottom: 20px;
+  flex: 1;
 }

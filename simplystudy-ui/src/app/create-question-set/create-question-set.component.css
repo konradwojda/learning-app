@@ -1,42 +1,42 @@
 .container {
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 mat-form-field {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
 .is-private-slide {
-    padding: 10px;
+  padding: 10px;
 }
 
 .question-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .question-contents {
-    flex: 95%;
-    display: flex;
-    flex-direction: column;
+  flex: 95%;
+  display: flex;
+  flex-direction: column;
 }
 
 .question-img {
-    flex: 5%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  flex: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .check-icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

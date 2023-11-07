@@ -1,25 +1,25 @@
 .container {
-    padding: 1em;
+  padding: 1em;
 }
 
 .search {
-    display: inline-flex;
-    width: 100%;
-    align-items: center;
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
 }
 
 .search-field {
-    flex: 8;
-    margin-right: 30px;
+  flex: 8;
+  margin-right: 30px;
 }
 
 .new-set-btn {
-    margin-bottom: 20px;
-    flex: 1;
+  margin-bottom: 20px;
+  flex: 1;
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 24px;
 }

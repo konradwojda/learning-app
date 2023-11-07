@@ -8,7 +8,7 @@ describe('LearnComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [LearnComponent]
+      imports: [LearnComponent],
     });
     fixture = TestBed.createComponent(LearnComponent);
     component = fixture.componentInstance;

@@ -11,7 +11,12 @@ import { environment } from 'src/environments/environment';
 import { SnackbarService } from '../snackbar.service';
 import { Router } from '@angular/router';
 import { Course } from '../courses/course';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,7 +34,16 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   templateUrl: './question-sets.component.html',
   styleUrls: ['./question-sets.component.css'],
   standalone: true,
-  imports: [MatButtonModule, MatCardModule, MatListModule, NgFor, MatIconModule, MatDialogModule, NgIf, TranslateModule]
+  imports: [
+    MatButtonModule,
+    MatCardModule,
+    MatListModule,
+    NgFor,
+    MatIconModule,
+    MatDialogModule,
+    NgIf,
+    TranslateModule,
+  ],
 })
 export class QuestionSetsComponent implements OnInit {
   questionSet: QuestionSet;
@@ -37,7 +51,16 @@ export class QuestionSetsComponent implements OnInit {
   isOwner = false;
   private apiUrl = environment.apiUrl;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private snackbarService: SnackbarService, private router: Router, private authService: AuthService, public dialog: MatDialog, private errorHandling: ErrorHandlingService, private translate: TranslateService) {
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private snackbarService: SnackbarService,
+    private router: Router,
+    private authService: AuthService,
+    public dialog: MatDialog,
+    private errorHandling: ErrorHandlingService,
+    private translate: TranslateService,
+  ) {
     this.questionSet = {
       id: '',
       name: '',
@@ -46,7 +69,7 @@ export class QuestionSetsComponent implements OnInit {
       questions: '',
       owner: '',
       is_private: null,
-    }
+    };
   }
 
   ngOnInit(): void {
@@ -55,96 +78,144 @@ export class QuestionSetsComponent implements OnInit {
 
   getQuestionSet(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.http.get<QuestionSet>(this.apiUrl + '/api/question_sets/' + id + '/').subscribe({
-      next: (data: QuestionSet) => {
-        this.questionSet = {
-          id: data.id,
-          name: data.name,
-          description: data.description,
-          course: data.course,
-          questions: data.questions,
-          owner: data.owner,
-          is_private: data.is_private,
-        }
-        if (this.questionSet.owner === this.authService.getUsername()) {
-          this.isOwner = true;
-        }
-        this.getUserResource();
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
-    });
+    this.http
+      .get<QuestionSet>(this.apiUrl + '/api/question_sets/' + id + '/')
+      .subscribe({
+        next: (data: QuestionSet) => {
+          this.questionSet = {
+            id: data.id,
+            name: data.name,
+            description: data.description,
+            course: data.course,
+            questions: data.questions,
+            owner: data.owner,
+            is_private: data.is_private,
+          };
+          if (this.questionSet.owner === this.authService.getUsername()) {
+            this.isOwner = true;
+          }
+          this.getUserResource();
+        },
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+      });
   }
 
   getUserResource(): void {
     const username = this.authService.getUsername();
-    this.http.get<UserResource[]>(this.apiUrl + '/api/user_resources/?username=' + username).subscribe({
-      next: (data) => {
-        const userResource = data.find(resource => resource.question_set.id === this.questionSet.id);
-        if (userResource) {
-          this.resource = userResource;
-        }
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
-    })
+    this.http
+      .get<UserResource[]>(
+        this.apiUrl + '/api/user_resources/?username=' + username,
+      )
+      .subscribe({
+        next: (data) => {
+          const userResource = data.find(
+            (resource) => resource.question_set.id === this.questionSet.id,
+          );
+          if (userResource) {
+            this.resource = userResource;
+          }
+        },
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+      });
   }
 
   deleteQuestionSet(id: string): void {
     this.http.delete(this.apiUrl + '/api/question_sets/' + id + '/').subscribe({
       next: (data) => {
-        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QSDeleted"));
+        this.snackbarService.showSnackbar(
+          this.translate.instant('Snackbar.QSDeleted'),
+        );
         this.router.navigateByUrl('/dashboard');
       },
       error: (error) => {
         this.errorHandling.handleError(error);
-      }
-    })
+      },
+    });
   }
 
   editQuestionSet(): void {
-    const dialogRef = this.dialog.open(QuestionSetEditDialogComponent, { data: { name: this.questionSet.name, description: this.questionSet.description, course: this.questionSet.course as Course, is_private: this.questionSet.is_private } });
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(QuestionSetEditDialogComponent, {
+      data: {
+        name: this.questionSet.name,
+        description: this.questionSet.description,
+        course: this.questionSet.course as Course,
+        is_private: this.questionSet.is_private,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
       const username = this.authService.getUsername();
-      this.http.patch(this.apiUrl + '/api/question_sets/' + this.questionSet.id + '/', { name: result.name, description: result.description, course: result.course ? result.course.id : null, owner: username, is_private: result.is_private }).subscribe({
-        next: (data) => {
-          this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QSUpdated"));
-          this.ngOnInit();
-          this.router.navigateByUrl(this.router.url);
-        },
-        error: (error) => {
-          this.errorHandling.handleError(error);
-        }
-      })
-    })
+      this.http
+        .patch(
+          this.apiUrl + '/api/question_sets/' + this.questionSet.id + '/',
+          {
+            name: result.name,
+            description: result.description,
+            course: result.course ? result.course.id : null,
+            owner: username,
+            is_private: result.is_private,
+          },
+        )
+        .subscribe({
+          next: (data) => {
+            this.snackbarService.showSnackbar(
+              this.translate.instant('Snackbar.QSUpdated'),
+            );
+            this.ngOnInit();
+            this.router.navigateByUrl(this.router.url);
+          },
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          },
+        });
+    });
   }
 
   editQuestion(question: any): void {
-    const dialogRef = this.dialog.open(QuestionEditDialogComponent, { data: { content: question.content, answer: question.answer, image: question.image, id: question.id } })
-    dialogRef.afterClosed().subscribe(result => {
-      this.http.patch(this.apiUrl + '/api/questions/' + question.id + '/', { content: result.content, answer: result.answer }).subscribe({
-        next: (data) => {
-          this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QuestionUpdated"));
-          this.ngOnInit();
-          this.router.navigateByUrl(this.router.url);
-        }
-      })
-    })
+    const dialogRef = this.dialog.open(QuestionEditDialogComponent, {
+      data: {
+        content: question.content,
+        answer: question.answer,
+        image: question.image,
+        id: question.id,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.http
+        .patch(this.apiUrl + '/api/questions/' + question.id + '/', {
+          content: result.content,
+          answer: result.answer,
+        })
+        .subscribe({
+          next: (data) => {
+            this.snackbarService.showSnackbar(
+              this.translate.instant('Snackbar.QuestionUpdated'),
+            );
+            this.ngOnInit();
+            this.router.navigateByUrl(this.router.url);
+          },
+        });
+    });
   }
 
   addQuestion(question_set_id: string): void {
-    const dialogRef = this.dialog.open(QuestionCreateDialogComponent, { data: { content: '', answer: '', image: '', } });
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(QuestionCreateDialogComponent, {
+      data: { content: '', answer: '', image: '' },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
       const question_form = new FormData();
-      question_form.append('content', result.content)
-      question_form.append('answer', result.answer)
-      question_form.append('image', result.image)
-      question_form.append('question_set', question_set_id)
-      this.http.post(this.apiUrl + "/api/questions/", question_form).subscribe({
+      question_form.append('content', result.content);
+      question_form.append('answer', result.answer);
+      question_form.append('image', result.image);
+      question_form.append('question_set', question_set_id);
+      this.http.post(this.apiUrl + '/api/questions/', question_form).subscribe({
         next: (data) => {
-          this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QuestionAdded"));
+          this.snackbarService.showSnackbar(
+            this.translate.instant('Snackbar.QuestionAdded'),
+          );
           this.ngOnInit();
           this.router.navigateByUrl(this.router.url);
         },
@@ -152,52 +223,67 @@ export class QuestionSetsComponent implements OnInit {
           this.ngOnInit();
           this.router.navigateByUrl(this.router.url);
           this.errorHandling.handleError(error);
-        }
-      })
-    })
+        },
+      });
+    });
   }
 
   deleteQuestion(question_id: string): void {
-    this.http.delete(this.apiUrl + '/api/questions/' + question_id + '/').subscribe({
-      next: (data) => {
-        this.ngOnInit();
-        this.router.navigateByUrl(this.router.url);
-        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QuestionDeleted"));
-      },
-      error: (error) => {
-        this.ngOnInit();
-        this.router.navigateByUrl(this.router.url);
-        this.errorHandling.handleError(error);
-      }
-    })
+    this.http
+      .delete(this.apiUrl + '/api/questions/' + question_id + '/')
+      .subscribe({
+        next: (data) => {
+          this.ngOnInit();
+          this.router.navigateByUrl(this.router.url);
+          this.snackbarService.showSnackbar(
+            this.translate.instant('Snackbar.QuestionDeleted'),
+          );
+        },
+        error: (error) => {
+          this.ngOnInit();
+          this.router.navigateByUrl(this.router.url);
+          this.errorHandling.handleError(error);
+        },
+      });
   }
 
   addToResources(question_set_id: string): void {
     const username = this.authService.getUsername();
-    this.http.post(this.apiUrl + '/api/user_resources/', { user: username, question_set: question_set_id }).subscribe({
-      next: (data) => {
-        this.ngOnInit();
-        this.router.navigateByUrl(this.router.url);
-        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.AddedToResources"))
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
-    })
+    this.http
+      .post(this.apiUrl + '/api/user_resources/', {
+        user: username,
+        question_set: question_set_id,
+      })
+      .subscribe({
+        next: (data) => {
+          this.ngOnInit();
+          this.router.navigateByUrl(this.router.url);
+          this.snackbarService.showSnackbar(
+            this.translate.instant('Snackbar.AddedToResources'),
+          );
+        },
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+      });
   }
 
   deleteFromResources(): void {
-    this.http.delete(this.apiUrl + '/api/user_resources/' + this.resource?.id).subscribe({
-      next: (data) => {
-        this.resource = null;
-        this.ngOnInit();
-        this.router.navigateByUrl(this.router.url);
-        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.DeletedFromResources"))
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
-    })
+    this.http
+      .delete(this.apiUrl + '/api/user_resources/' + this.resource?.id)
+      .subscribe({
+        next: (data) => {
+          this.resource = null;
+          this.ngOnInit();
+          this.router.navigateByUrl(this.router.url);
+          this.snackbarService.showSnackbar(
+            this.translate.instant('Snackbar.DeletedFromResources'),
+          );
+        },
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+      });
   }
 
   learn(question_set_id: string): void {
@@ -205,13 +291,24 @@ export class QuestionSetsComponent implements OnInit {
   }
 }
 
-
 @Component({
   selector: 'app-question-sets-edit-dialog',
   templateUrl: 'question-set-edit-dialog.html',
   styleUrls: ['./question-sets.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatOptionModule, MatSelectModule, NgFor, MatSlideToggleModule, TranslateModule],
+  imports: [
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatOptionModule,
+    MatSelectModule,
+    NgFor,
+    MatSlideToggleModule,
+    TranslateModule,
+  ],
 })
 export class QuestionSetEditDialogComponent {
   private apiUrl = environment.apiUrl;
@@ -233,20 +330,21 @@ export class QuestionSetEditDialogComponent {
 
   getCourses(): void {
     const username = this.authService.getUsername();
-    this.http.get<Course[]>(this.apiUrl + '/api/courses/?username=' + username).subscribe({
-      next: (data: Course[]) => {
-        this.courses = data;
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
-    })
+    this.http
+      .get<Course[]>(this.apiUrl + '/api/courses/?username=' + username)
+      .subscribe({
+        next: (data: Course[]) => {
+          this.courses = data;
+        },
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+      });
   }
 
   compareById(c1: Course, c2: Course): boolean {
     return c1 && c2 && c1.id === c2.id;
   }
-
 }
 
 @Component({
@@ -254,17 +352,30 @@ export class QuestionSetEditDialogComponent {
   templateUrl: 'question-edit-dialog.html',
   styleUrls: ['./question-sets.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatOptionModule, MatSelectModule, NgFor, MatIconModule, NgIf, MatTooltipModule, TranslateModule],
+  imports: [
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatOptionModule,
+    MatSelectModule,
+    NgFor,
+    MatIconModule,
+    NgIf,
+    MatTooltipModule,
+    TranslateModule,
+  ],
 })
 export class QuestionEditDialogComponent {
-
   private apiUrl = environment.apiUrl;
 
   constructor(
     private http: HttpClient,
     public dialogRef: MatDialogRef<QuestionEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-  ) { }
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -279,18 +390,26 @@ export class QuestionEditDialogComponent {
     }
     const question_form = new FormData();
     question_form.append('image', this.data.image);
-    this.http.patch(this.apiUrl + '/api/questions/' + this.data.id + '/', question_form).subscribe({
-      next: (result: any) => {
-        this.data.image = result.image;
-      }
-    });
+    this.http
+      .patch(
+        this.apiUrl + '/api/questions/' + this.data.id + '/',
+        question_form,
+      )
+      .subscribe({
+        next: (result: any) => {
+          this.data.image = result.image;
+        },
+      });
   }
 
   deleteImage(): void {
     this.data.image = null;
-    this.http.patch(this.apiUrl + '/api/questions/' + this.data.id + '/', { image: null }).subscribe();
+    this.http
+      .patch(this.apiUrl + '/api/questions/' + this.data.id + '/', {
+        image: null,
+      })
+      .subscribe();
   }
-
 }
 
 @Component({
@@ -298,15 +417,27 @@ export class QuestionEditDialogComponent {
   templateUrl: 'question-create-dialog.html',
   styleUrls: ['./question-sets.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatOptionModule, MatSelectModule, NgFor, MatIconModule, NgIf, MatTooltipModule, TranslateModule],
+  imports: [
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatOptionModule,
+    MatSelectModule,
+    NgFor,
+    MatIconModule,
+    NgIf,
+    MatTooltipModule,
+    TranslateModule,
+  ],
 })
 export class QuestionCreateDialogComponent {
-
-
   constructor(
     public dialogRef: MatDialogRef<QuestionCreateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-  ) { }
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -325,5 +456,4 @@ export class QuestionCreateDialogComponent {
   deleteImage(): void {
     this.data.image = null;
   }
-
 }

@@ -1,17 +1,17 @@
 export interface UserCredentials {
-    username: string,
-    password: string
+  username: string;
+  password: string;
 }
 
 export interface LoggedUser {
-    id: number,
-    auth_token: string,
-    username: string
+  id: number;
+  auth_token: string;
+  username: string;
 }
 
 export interface RegisterUserData {
-    username: string,
-    password: string,
-    re_password: string,
-    email: string
+  username: string;
+  password: string;
+  re_password: string;
+  email: string;
 }

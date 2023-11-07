@@ -16,25 +16,45 @@ import { AuthActivationComponent } from './auth-activation/auth-activation.compo
 import { AuthResetPasswordComponent } from './auth-reset-password/auth-reset-password.component';
 
 const routes: Routes = [
-    { path: '', component: LandingPageComponent },
-    { path: 'login', component: AuthLoginComponent },
-    { path: 'register', component: AuthRegisterComponent },
-    { path: 'activate/:uid/:token', component: AuthActivationComponent },
-    { path: 'activate', component: AuthActivationComponent },
-    { path: 'reset_password/:uid/:token', component: AuthResetPasswordComponent },
-    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-    { path: 'question_sets/:id', component: QuestionSetsComponent, canActivate: [AuthGuard] },
-    { path: 'create_question_set', component: CreateQuestionSetComponent, canActivate: [AuthGuard] },
-    { path: 'courses', component: CoursesComponent, canActivate: [AuthGuard] },
-    { path: 'search_resources', component: SearchResourcesComponent, canActivate: [AuthGuard] },
-    { path: 'my_resources', component: MyResourcesComponent, canActivate: [AuthGuard] },
-    { path: 'learn/:id', component: LearnComponent, canActivate: [AuthGuard] },
-    { path: '404', component: PageNotFoundComponent },
-    { path: '**', pathMatch: 'full', redirectTo: '/404' },
+  { path: '', component: LandingPageComponent },
+  { path: 'login', component: AuthLoginComponent },
+  { path: 'register', component: AuthRegisterComponent },
+  { path: 'activate/:uid/:token', component: AuthActivationComponent },
+  { path: 'activate', component: AuthActivationComponent },
+  { path: 'reset_password/:uid/:token', component: AuthResetPasswordComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'question_sets/:id',
+    component: QuestionSetsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'create_question_set',
+    component: CreateQuestionSetComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'courses', component: CoursesComponent, canActivate: [AuthGuard] },
+  {
+    path: 'search_resources',
+    component: SearchResourcesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'my_resources',
+    component: MyResourcesComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'learn/:id', component: LearnComponent, canActivate: [AuthGuard] },
+  { path: '404', component: PageNotFoundComponent },
+  { path: '**', pathMatch: 'full', redirectTo: '/404' },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

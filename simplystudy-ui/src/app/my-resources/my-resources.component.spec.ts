@@ -8,7 +8,7 @@ describe('MyResourcesComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MyResourcesComponent]
+      imports: [MyResourcesComponent],
     });
     fixture = TestBed.createComponent(MyResourcesComponent);
     component = fixture.componentInstance;

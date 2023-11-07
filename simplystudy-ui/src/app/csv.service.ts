@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CsvService {
-
   public importCSV(csvString: string): Array<any> {
     const lines = csvString.split('\n');
 
     if (lines.length < 2) {
-      throw new Error("CSV data is not valid. It should have at least a header and one data row.");
+      throw new Error(
+        'CSV data is not valid. It should have at least a header and one data row.',
+      );
     }
 
     const headers = lines[0].split(',');
@@ -20,7 +21,11 @@ export class CsvService {
       const object: any = {};
 
       if (values.length !== headers.length) {
-        throw new Error(`CSV data is not valid on line ${i + 1}. The number of columns doesn't match the header.`);
+        throw new Error(
+          `CSV data is not valid on line ${
+            i + 1
+          }. The number of columns doesn't match the header.`,
+        );
       }
 
       for (let j = 0; j < headers.length; j++) {

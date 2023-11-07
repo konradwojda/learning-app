@@ -8,7 +8,7 @@ describe('QuestionsStepperComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [QuestionsStepperComponent]
+      imports: [QuestionsStepperComponent],
     });
     fixture = TestBed.createComponent(QuestionsStepperComponent);
     component = fixture.componentInstance;

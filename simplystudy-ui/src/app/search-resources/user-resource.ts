@@ -1,5 +1,5 @@
 export interface UserResource {
-    id: number,
-    user: string,
-    question_set: any,
+  id: number;
+  user: string;
+  question_set: any;
 }

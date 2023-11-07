@@ -1,27 +1,27 @@
 :host {
-    display: flex;
-    justify-content: center;
-    margin: 100px 0px;
+  display: flex;
+  justify-content: center;
+  margin: 100px 0px;
 }
 
 mat-card-title,
 mat-card-content {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .button {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 mat-form-field {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
 .reset-password {
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
 }

@@ -1,20 +1,34 @@
 <div class="container">
-    <div class="search">
-        <mat-form-field class="search-field">
-            <mat-label>{{'Dashboard.FilterText' | translate}}</mat-label>
-            <input matInput [(ngModel)]="filterText" (ngModelChange)="applyFilter()">
-        </mat-form-field>
-        <button class="new-set-btn" mat-raised-button
-            routerLink="/create_question_set/">{{'Dashboard.AddSet'|translate}}</button>
-    </div>
-    <div class="grid">
-        <mat-card class="question_set" *ngFor="let question_set of filteredQuestionSets" matRipple
-            (click)="onCardClick(question_set)">
-            <mat-card-header>
-                <mat-card-title>{{question_set.name}}</mat-card-title><br />
-                <mat-card-subtitle>{{question_set.description}}</mat-card-subtitle>
-            </mat-card-header>
-            <br>
-        </mat-card>
-    </div>
+  <div class="search">
+    <mat-form-field class="search-field">
+      <mat-label>{{ "Dashboard.FilterText" | translate }}</mat-label>
+      <input
+        matInput
+        [(ngModel)]="filterText"
+        (ngModelChange)="applyFilter()"
+      />
+    </mat-form-field>
+    <button
+      class="new-set-btn"
+      mat-raised-button
+      routerLink="/create_question_set/"
+    >
+      {{ "Dashboard.AddSet" | translate }}
+    </button>
+  </div>
+  <div class="grid">
+    <mat-card
+      class="question_set"
+      *ngFor="let question_set of filteredQuestionSets"
+      matRipple
+      (click)="onCardClick(question_set)"
+    >
+      <mat-card-header>
+        <mat-card-title>{{ question_set.name }}</mat-card-title
+        ><br />
+        <mat-card-subtitle>{{ question_set.description }}</mat-card-subtitle>
+      </mat-card-header>
+      <br />
+    </mat-card>
+  </div>
 </div>

@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { AuthService } from "../auth.service";
-import { UserCredentials } from "../auth";
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { UserCredentials } from '../auth';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
@@ -17,21 +22,36 @@ import { NgIf } from '@angular/common';
   templateUrl: './auth-login.component.html',
   styleUrls: ['./auth-login.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, ReactiveFormsModule, TranslateModule, NgIf]
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    NgIf,
+  ],
 })
 export class AuthLoginComponent {
   logInForm: FormGroup;
   resetPasswordForm: FormGroup;
   showResetPassword = false;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private snackbarService: SnackbarService, private router: Router, private errorHandling: ErrorHandlingService, private translate: TranslateService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private snackbarService: SnackbarService,
+    private router: Router,
+    private errorHandling: ErrorHandlingService,
+    private translate: TranslateService,
+  ) {
     this.logInForm = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
     this.resetPasswordForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]]
-    })
+      email: ['', [Validators.required, Validators.email]],
+    });
   }
 
   logInUser(user: UserCredentials): void {
@@ -40,14 +60,15 @@ export class AuthLoginComponent {
         data.username = user.username;
         this.authService.setLoggedInUser(data);
         this.authService.setIsAuthenticated(true);
-        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.LoggedIn"));
+        this.snackbarService.showSnackbar(
+          this.translate.instant('Snackbar.LoggedIn'),
+        );
         this.router.navigateByUrl('/dashboard');
       },
       error: (error) => {
         this.errorHandling.handleError(error);
-      }
-    }
-    );
+      },
+    });
   }
 
   onSubmit(formData: UserCredentials): void {
@@ -65,11 +86,13 @@ export class AuthLoginComponent {
   resetPassword(data: any): void {
     this.authService.resetPassword(data.email).subscribe({
       next: (data) => {
-        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.PasswordResetEmailSent"));
+        this.snackbarService.showSnackbar(
+          this.translate.instant('Snackbar.PasswordResetEmailSent'),
+        );
       },
       error: (error) => {
         this.errorHandling.handleError(error);
-      }
-    })
+      },
+    });
   }
 }

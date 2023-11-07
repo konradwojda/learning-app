@@ -1,42 +1,50 @@
 <div class="login-container">
-    <mat-card>
-        <mat-card-title>{{'Login.Login' | translate}}</mat-card-title>
-        <mat-card-content>
-            <form [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm.value)">
-                <p>
-                    <mat-form-field>
-                        <mat-label>{{'Login.Username' | translate}}</mat-label>
-                        <input matInput formControlName="username">
-                    </mat-form-field>
-                </p>
-                <p>
-                    <mat-form-field>
-                        <mat-label>{{'Login.Password' | translate}}</mat-label>
-                        <input matInput type="password" formControlName="password">
-                    </mat-form-field>
-                </p>
-                <div class="button">
-                    <button type="submit" mat-button>{{'Login.Login' | translate}}</button>
-                    <button mat-button (click)="setShowResetPassword()">{{'Login.ResetPassword' |
-                        translate }}</button>
-                </div>
-            </form>
-        </mat-card-content>
-    </mat-card>
-    <mat-card class="reset-password" *ngIf="showResetPassword">
-        <mat-card-title>{{'Login.ResetPassword' | translate}}</mat-card-title>
-        <mat-card-content>
-            <form [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword(resetPasswordForm.value)">
-                <p>
-                    <mat-form-field>
-                        <mat-label>{{'Login.Email' | translate}}</mat-label>
-                        <input matInput formControlName="email">
-                    </mat-form-field>
-                </p>
-                <div class="button">
-                    <button type="submit" mat-button>{{'Login.Send' | translate}}</button>
-                </div>
-            </form>
-        </mat-card-content>
-    </mat-card>
+  <mat-card>
+    <mat-card-title>{{ "Login.Login" | translate }}</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm.value)">
+        <p>
+          <mat-form-field>
+            <mat-label>{{ "Login.Username" | translate }}</mat-label>
+            <input matInput formControlName="username" />
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field>
+            <mat-label>{{ "Login.Password" | translate }}</mat-label>
+            <input matInput type="password" formControlName="password" />
+          </mat-form-field>
+        </p>
+        <div class="button">
+          <button type="submit" mat-button>
+            {{ "Login.Login" | translate }}
+          </button>
+          <button mat-button (click)="setShowResetPassword()">
+            {{ "Login.ResetPassword" | translate }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="reset-password" *ngIf="showResetPassword">
+    <mat-card-title>{{ "Login.ResetPassword" | translate }}</mat-card-title>
+    <mat-card-content>
+      <form
+        [formGroup]="resetPasswordForm"
+        (ngSubmit)="resetPassword(resetPasswordForm.value)"
+      >
+        <p>
+          <mat-form-field>
+            <mat-label>{{ "Login.Email" | translate }}</mat-label>
+            <input matInput formControlName="email" />
+          </mat-form-field>
+        </p>
+        <div class="button">
+          <button type="submit" mat-button>
+            {{ "Login.Send" | translate }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>

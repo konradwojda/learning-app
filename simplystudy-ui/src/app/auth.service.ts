@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject, Observable } from "rxjs";
-import { LoggedUser } from "./auth";
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { LoggedUser } from './auth';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   private apiUrl = environment.apiUrl;
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   private usernameSubject = new BehaviorSubject<string>('');
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   logIn(username: string, password: string): Observable<any> {
-    return this.http.post(
-      this.apiUrl + '/auth/token/login/', { username, password }
-    ) as Observable<any>;
+    return this.http.post(this.apiUrl + '/auth/token/login/', {
+      username,
+      password,
+    }) as Observable<any>;
   }
 
   setAuthenticated(): void {
@@ -62,27 +62,57 @@ export class AuthService {
     return '';
   }
 
-  registerUser(username: string, password: string, re_password: string, email: string): Observable<any> {
-    return this.http.post(this.apiUrl + '/auth/users/', { username, password, re_password, email });
+  registerUser(
+    username: string,
+    password: string,
+    re_password: string,
+    email: string,
+  ): Observable<any> {
+    return this.http.post(this.apiUrl + '/auth/users/', {
+      username,
+      password,
+      re_password,
+      email,
+    });
   }
 
   logOut(): Observable<any> {
-    return this.http.post(this.apiUrl + '/auth/token/logout/', {}) as Observable<any>;
+    return this.http.post(
+      this.apiUrl + '/auth/token/logout/',
+      {},
+    ) as Observable<any>;
   }
 
   activate(uid: string, token: string): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/auth/users/activation/', { uid, token });
+    return this.http.post<any>(this.apiUrl + '/auth/users/activation/', {
+      uid,
+      token,
+    });
   }
 
   resendActivation(email: string): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/auth/users/resend_activation/', { email });
+    return this.http.post<any>(this.apiUrl + '/auth/users/resend_activation/', {
+      email,
+    });
   }
 
   resetPassword(email: string): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/auth/users/reset_password/', { email });
+    return this.http.post<any>(this.apiUrl + '/auth/users/reset_password/', {
+      email,
+    });
   }
 
-  resetPasswordConfirmation(new_password: string, re_new_password: string, uid: string, token: string): Observable<any> {
-    return this.http.post(this.apiUrl + '/auth/users/reset_password_confirm/', { uid, token, new_password, re_new_password });
+  resetPasswordConfirmation(
+    new_password: string,
+    re_new_password: string,
+    uid: string,
+    token: string,
+  ): Observable<any> {
+    return this.http.post(this.apiUrl + '/auth/users/reset_password_confirm/', {
+      uid,
+      token,
+      new_password,
+      re_new_password,
+    });
   }
 }

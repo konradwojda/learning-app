@@ -1,6 +1,10 @@
 <div class="landing-page">
-    <h1>{{'Landing.Welcome' | translate}}</h1>
-    <h3>{{'Landing.Desc' | translate}}</h3>
-    <button mat-raised-button color="primary" routerLink="/login">{{'Login.Login' | translate}}</button>
-    <button mat-raised-button color="accent" routerLink="/register">{{'Register.Register' | translate}}</button>
+  <h1>{{ "Landing.Welcome" | translate }}</h1>
+  <h3>{{ "Landing.Desc" | translate }}</h3>
+  <button mat-raised-button color="primary" routerLink="/login">
+    {{ "Login.Login" | translate }}
+  </button>
+  <button mat-raised-button color="accent" routerLink="/register">
+    {{ "Register.Register" | translate }}
+  </button>
 </div>

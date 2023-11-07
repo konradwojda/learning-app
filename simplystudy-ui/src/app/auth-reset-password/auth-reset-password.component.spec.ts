@@ -8,7 +8,7 @@ describe('AuthResetPasswordComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [AuthResetPasswordComponent]
+      imports: [AuthResetPasswordComponent],
     });
     fixture = TestBed.createComponent(AuthResetPasswordComponent);
     component = fixture.componentInstance;

@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { AuthService } from "../auth.service";
-import { RegisterUserData } from "../auth";
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { RegisterUserData } from '../auth';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
@@ -16,12 +21,26 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   templateUrl: './auth-register.component.html',
   styleUrls: ['./auth-register.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, ReactiveFormsModule, TranslateModule]
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 export class AuthRegisterComponent {
   registerForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private snackbarService: SnackbarService, private router: Router, private errorHandling: ErrorHandlingService, private translate: TranslateService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private snackbarService: SnackbarService,
+    private router: Router,
+    private errorHandling: ErrorHandlingService,
+    private translate: TranslateService,
+  ) {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -31,16 +50,19 @@ export class AuthRegisterComponent {
   }
 
   registerUser(user: RegisterUserData): void {
-    this.authService.registerUser(user.username, user.password, user.re_password, user.email).subscribe({
-      next: (data) => {
-        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.RegisterActivation"))
-        this.router.navigateByUrl('/activate');
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
-    }
-    );
+    this.authService
+      .registerUser(user.username, user.password, user.re_password, user.email)
+      .subscribe({
+        next: (data) => {
+          this.snackbarService.showSnackbar(
+            this.translate.instant('Snackbar.RegisterActivation'),
+          );
+          this.router.navigateByUrl('/activate');
+        },
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+      });
   }
 
   onSubmit(formData: RegisterUserData): void {

@@ -1,70 +1,69 @@
 .question-set-container {
-    padding: 1em;
+  padding: 1em;
 }
 
 .question-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1em;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
 }
 
 .question-pair {
-    display: flex;
-    align-items: stretch;
-    margin-bottom: 16px;
-    width: 100%;
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 16px;
+  width: 100%;
 }
 
 .question-card,
 .answer-card {
-    flex: 1;
-    margin-right: 8px;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  margin-right: 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 .question-image {
-    max-width: 100%;
-    max-height: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .question-actions {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .check-icon {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 mat-form-field {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
 .is-private-slide {
-    padding: 10px;
+  padding: 10px;
 }
 
 .question-img {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .image {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .delete-img {
-    display: flex;
-    justify-content: center;
-    padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
 }

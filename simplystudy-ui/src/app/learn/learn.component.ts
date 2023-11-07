@@ -16,16 +16,30 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-learn',
   standalone: true,
-  imports: [CommonModule, forwardRef(() => QuestionsStepperComponent), CdkStepperModule, MatCardModule, MatButtonModule, MatRippleModule, TranslateModule],
+  imports: [
+    CommonModule,
+    forwardRef(() => QuestionsStepperComponent),
+    CdkStepperModule,
+    MatCardModule,
+    MatButtonModule,
+    MatRippleModule,
+    TranslateModule,
+  ],
   templateUrl: './learn.component.html',
-  styleUrls: ['./learn.component.css']
+  styleUrls: ['./learn.component.css'],
 })
 export class LearnComponent implements OnInit {
   questionSet: QuestionSet;
   answerCardVisible: boolean[] = [];
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthService, private errorHandling: ErrorHandlingService, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private errorHandling: ErrorHandlingService,
+    private router: Router,
+  ) {
     this.questionSet = {
       id: '',
       name: '',
@@ -34,7 +48,7 @@ export class LearnComponent implements OnInit {
       questions: '',
       owner: '',
       is_private: null,
-    }
+    };
   }
 
   toggleAnswerCard(index: number): void {
@@ -43,22 +57,24 @@ export class LearnComponent implements OnInit {
 
   getQuestionSet(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.http.get<QuestionSet>(this.apiUrl + '/api/question_sets/' + id + '/').subscribe({
-      next: (data: QuestionSet) => {
-        this.questionSet = {
-          id: data.id,
-          name: data.name,
-          description: data.description,
-          course: data.course,
-          questions: data.questions,
-          owner: data.owner,
-          is_private: data.is_private,
-        }
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
-    });
+    this.http
+      .get<QuestionSet>(this.apiUrl + '/api/question_sets/' + id + '/')
+      .subscribe({
+        next: (data: QuestionSet) => {
+          this.questionSet = {
+            id: data.id,
+            name: data.name,
+            description: data.description,
+            course: data.course,
+            questions: data.questions,
+            owner: data.owner,
+            is_private: data.is_private,
+          };
+        },
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+      });
   }
 
   ngOnInit(): void {

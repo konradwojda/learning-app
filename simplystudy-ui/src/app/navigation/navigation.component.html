@@ -1,41 +1,79 @@
 <div class="navigation-container" [class.is-mobile]="mobileQuery.matches">
-    <mat-toolbar color="primary" class="navigation-toolbar">
-        <button mat-icon-button (click)="sidenav.toggle()" *ngIf="isAuthenticated"><mat-icon>menu</mat-icon></button>
-        <button mat-button routerLink="/"><span>SimplyStudy</span></button>
-        <span class="profile-spacer"></span>
+  <mat-toolbar color="primary" class="navigation-toolbar">
+    <button mat-icon-button (click)="sidenav.toggle()" *ngIf="isAuthenticated">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <button mat-button routerLink="/"><span>SimplyStudy</span></button>
+    <span class="profile-spacer"></span>
 
-        <button mat-icon-button [matMenuTriggerFor]="language"
-            class="material-icons"><mat-icon>language</mat-icon></button>
-        <mat-menu #language="matMenu">
-            <div *ngFor="let language of languages">
-                <button mat-menu-item (click)="changeLang(language)">{{language}}</button>
-            </div>
-        </mat-menu>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="language"
+      class="material-icons"
+    >
+      <mat-icon>language</mat-icon>
+    </button>
+    <mat-menu #language="matMenu">
+      <div *ngFor="let language of languages">
+        <button mat-menu-item (click)="changeLang(language)">
+          {{ language }}
+        </button>
+      </div>
+    </mat-menu>
 
-        <button mat-icon-button [matMenuTriggerFor]="menu" class="material-icons"
-            *ngIf="isAuthenticated"><mat-icon>person</mat-icon></button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngIf="isAuthenticated">{{username}}<mat-icon>account_circle</mat-icon></button>
-            <button mat-menu-item (click)="logOut()" *ngIf="isAuthenticated">{{'Navigation.LogOut' |
-                translate}}<mat-icon>logout</mat-icon></button>
-        </mat-menu>
-    </mat-toolbar>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      class="material-icons"
+      *ngIf="isAuthenticated"
+    >
+      <mat-icon>person</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item *ngIf="isAuthenticated">
+        {{ username }}<mat-icon>account_circle</mat-icon>
+      </button>
+      <button mat-menu-item (click)="logOut()" *ngIf="isAuthenticated">
+        {{ "Navigation.LogOut" | translate }}<mat-icon>logout</mat-icon>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
 
-    <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-        <mat-sidenav #sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
-            fixedTopGap="56" [opened]="isAuthenticated&&!mobileQuery.matches">
-            <mat-nav-list>
-                <a mat-list-item routerLink="/dashboard">{{'Navigation.Dashboard' | translate}}</a>
-                <a mat-list-item routerLink="/my_resources">{{'Navigation.Resources' | translate}}</a>
-                <a mat-list-item routerLink="/search_resources">{{'Navigation.Search' | translate}}</a>
-                <a mat-list-item routerLink="/courses">{{'Navigation.Courses' | translate}}</a>
-                <a mat-list-item routerLink="/login" *ngIf="!isAuthenticated">{{'Login.Login' | translate}}</a>
-                <a mat-list-item routerLink="/register" *ngIf="!isAuthenticated">{{'Register.Register' | translate}}</a>
-            </mat-nav-list>
-        </mat-sidenav>
+  <mat-sidenav-container
+    class="sidenav-container"
+    [style.marginTop.px]="mobileQuery.matches ? 56 : 0"
+  >
+    <mat-sidenav
+      #sidenav
+      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56"
+      [opened]="isAuthenticated && !mobileQuery.matches"
+    >
+      <mat-nav-list>
+        <a mat-list-item routerLink="/dashboard">{{
+          "Navigation.Dashboard" | translate
+        }}</a>
+        <a mat-list-item routerLink="/my_resources">{{
+          "Navigation.Resources" | translate
+        }}</a>
+        <a mat-list-item routerLink="/search_resources">{{
+          "Navigation.Search" | translate
+        }}</a>
+        <a mat-list-item routerLink="/courses">{{
+          "Navigation.Courses" | translate
+        }}</a>
+        <a mat-list-item routerLink="/login" *ngIf="!isAuthenticated">{{
+          "Login.Login" | translate
+        }}</a>
+        <a mat-list-item routerLink="/register" *ngIf="!isAuthenticated">{{
+          "Register.Register" | translate
+        }}</a>
+      </mat-nav-list>
+    </mat-sidenav>
 
-        <mat-sidenav-content>
-            <router-outlet></router-outlet>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

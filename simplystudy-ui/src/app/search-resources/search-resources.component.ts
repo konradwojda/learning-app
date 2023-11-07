@@ -19,10 +19,19 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './search-resources.component.html',
   styleUrls: ['./search-resources.component.css'],
   standalone: true,
-  imports: [NgFor, MatCardModule, MatRippleModule, NgIf, MatPaginatorModule, MatInputModule, FormsModule, MatButtonModule, TranslateModule]
+  imports: [
+    NgFor,
+    MatCardModule,
+    MatRippleModule,
+    NgIf,
+    MatPaginatorModule,
+    MatInputModule,
+    FormsModule,
+    MatButtonModule,
+    TranslateModule,
+  ],
 })
 export class SearchResourcesComponent implements OnInit {
-
   resources: Array<QuestionSet> = [];
   private apiUrl = environment.apiUrl;
 
@@ -32,23 +41,32 @@ export class SearchResourcesComponent implements OnInit {
   pageSizeOptions: number[] = [10, 20, 50, 75];
 
   searchText = '';
-  searchUrl = ''
+  searchUrl = '';
 
-
-  constructor(private http: HttpClient, private snackbarService: SnackbarService, private router: Router, private errorHandling: ErrorHandlingService) {
-
-  }
+  constructor(
+    private http: HttpClient,
+    private snackbarService: SnackbarService,
+    private router: Router,
+    private errorHandling: ErrorHandlingService,
+  ) {}
 
   getResources(): void {
-    this.http.get(this.apiUrl + '/api/public_question_sets/?page_size=' + this.pageSize + this.searchUrl).subscribe({
-      next: (data: any) => {
-        this.items_count = data.count
-        this.resources = data.results;
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
-    })
+    this.http
+      .get(
+        this.apiUrl +
+          '/api/public_question_sets/?page_size=' +
+          this.pageSize +
+          this.searchUrl,
+      )
+      .subscribe({
+        next: (data: any) => {
+          this.items_count = data.count;
+          this.resources = data.results;
+        },
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+      });
   }
 
   ngOnInit(): void {
@@ -59,11 +77,21 @@ export class SearchResourcesComponent implements OnInit {
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
     const query_idx = e.pageIndex + 1;
-    this.http.get(this.apiUrl + '/api/public_question_sets/?page=' + query_idx + '&' + 'page_size=' + this.pageSize + this.searchUrl).subscribe({
-      next: (data: any) => {
-        this.resources = data.results;
-      }
-    })
+    this.http
+      .get(
+        this.apiUrl +
+          '/api/public_question_sets/?page=' +
+          query_idx +
+          '&' +
+          'page_size=' +
+          this.pageSize +
+          this.searchUrl,
+      )
+      .subscribe({
+        next: (data: any) => {
+          this.resources = data.results;
+        },
+      });
   }
 
   public onCardClick(event: any) {
@@ -74,8 +102,7 @@ export class SearchResourcesComponent implements OnInit {
     if (this.searchText !== '') {
       this.searchUrl = '&search=' + this.searchText;
       this.getResources();
-    }
-    else {
+    } else {
       this.searchUrl = '';
       this.getResources();
     }

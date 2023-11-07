@@ -3,7 +3,15 @@ import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../auth.service';
@@ -24,7 +32,20 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   standalone: true,
   templateUrl: './create-question-set.component.html',
   styleUrls: ['./create-question-set.component.css'],
-  imports: [CommonModule, MatStepperModule, MatButtonModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatInputModule, MatSelectModule, MatIconModule, MatTooltipModule, MatSlideToggleModule, TranslateModule],
+  imports: [
+    CommonModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatSlideToggleModule,
+    TranslateModule,
+  ],
 })
 export class CreateQuestionSetComponent implements OnInit {
   @ViewChild('csvInput', { static: false }) csvInput: ElementRef | undefined;
@@ -37,39 +58,48 @@ export class CreateQuestionSetComponent implements OnInit {
     name: ['', Validators.required],
     description: [''],
     course: new FormControl(),
-    is_private: ['', Validators.required]
-
+    is_private: ['', Validators.required],
   });
   questionsData = this._formBuilder.group({
-    questions: this._formBuilder.array([])
+    questions: this._formBuilder.array([]),
   }) as FormGroup;
 
   questions = this.questionsData.get('questions') as FormArray;
 
-  constructor(private _formBuilder: FormBuilder, private authService: AuthService, private http: HttpClient,
-    private snackbarService: SnackbarService, private router: Router, private csv: CsvService, private errorHandling: ErrorHandlingService, private translate: TranslateService) {
-
-  }
+  constructor(
+    private _formBuilder: FormBuilder,
+    private authService: AuthService,
+    private http: HttpClient,
+    private snackbarService: SnackbarService,
+    private router: Router,
+    private csv: CsvService,
+    private errorHandling: ErrorHandlingService,
+    private translate: TranslateService,
+  ) {}
 
   ngOnInit(): void {
     const username = this.authService.getUsername();
-    this.http.get<Course[]>(this.apiUrl + '/api/courses/?username=' + username).subscribe({
-      next: (data: Course[]) => {
-        this.courseList = data;
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
-    })
+    this.http
+      .get<Course[]>(this.apiUrl + '/api/courses/?username=' + username)
+      .subscribe({
+        next: (data: Course[]) => {
+          this.courseList = data;
+        },
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+      });
   }
 
   addQuestion(): void {
     const questionArray = this.questionsData.get('questions') as FormArray;
-    questionArray.push(this._formBuilder.group({
-      content: ['', Validators.required],
-      answer: ['', Validators.required],
-      image: new FormControl(''),
-    }))
+    questionArray.push(
+      this._formBuilder.group({
+        content: ['', Validators.required],
+        answer: ['', Validators.required],
+        image: new FormControl(''),
+      }),
+    );
   }
 
   removeQuestion(index: number) {
@@ -95,30 +125,42 @@ export class CreateQuestionSetComponent implements OnInit {
   postQuestionSet(): void {
     const formValue = this.questionSetData.value;
     const username = this.authService.getUsername();
-    this.http.post(this.apiUrl + '/api/question_sets/', { name: formValue.name, description: formValue.description, course: formValue.course ? formValue.course.id : null, owner: username, is_private: formValue.is_private }).subscribe({
-      next: (set_data: any) => {
-        const questionsArr: Array<any> = this.questionsData.value.questions;
-        for (const question of questionsArr) {
-          const question_form = new FormData();
-          question_form.append('content', question.content)
-          question_form.append('answer', question.answer)
-          question_form.append('image', question.image)
-          question_form.append('question_set', set_data.id)
-          this.http.post(this.apiUrl + '/api/questions/', question_form).subscribe({
-            next: (data) => {
-              this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QSAdded"));
-              this.router.navigateByUrl('/question_sets/' + set_data.id);
-            },
-            error: (error) => {
-              this.errorHandling.handleError(error);
-            }
-          })
-        }
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
-    })
+    this.http
+      .post(this.apiUrl + '/api/question_sets/', {
+        name: formValue.name,
+        description: formValue.description,
+        course: formValue.course ? formValue.course.id : null,
+        owner: username,
+        is_private: formValue.is_private,
+      })
+      .subscribe({
+        next: (set_data: any) => {
+          const questionsArr: Array<any> = this.questionsData.value.questions;
+          for (const question of questionsArr) {
+            const question_form = new FormData();
+            question_form.append('content', question.content);
+            question_form.append('answer', question.answer);
+            question_form.append('image', question.image);
+            question_form.append('question_set', set_data.id);
+            this.http
+              .post(this.apiUrl + '/api/questions/', question_form)
+              .subscribe({
+                next: (data) => {
+                  this.snackbarService.showSnackbar(
+                    this.translate.instant('Snackbar.QSAdded'),
+                  );
+                  this.router.navigateByUrl('/question_sets/' + set_data.id);
+                },
+                error: (error) => {
+                  this.errorHandling.handleError(error);
+                },
+              });
+          }
+        },
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+      });
   }
 
   async importCsvQuestions(event: Event) {
@@ -126,11 +168,13 @@ export class CreateQuestionSetComponent implements OnInit {
     const questions = this.csv.importCSV(csvString);
     const questionArray = this.questionsData.get('questions') as FormArray;
     for (const question of questions) {
-      questionArray.push(this._formBuilder.group({
-        content: [question.content, Validators.required],
-        answer: [question.answer, Validators.required],
-        image: new FormControl(''),
-      }))
+      questionArray.push(
+        this._formBuilder.group({
+          content: [question.content, Validators.required],
+          answer: [question.answer, Validators.required],
+          image: new FormControl(''),
+        }),
+      );
     }
     if (this.csvInput) {
       this.csvInput.nativeElement.value = '';

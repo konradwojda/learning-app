@@ -8,8 +8,6 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './page-not-found.component.html',
   styleUrls: ['./page-not-found.component.css'],
   standalone: true,
-  imports: [MatButtonModule, RouterModule, TranslateModule]
+  imports: [MatButtonModule, RouterModule, TranslateModule],
 })
-export class PageNotFoundComponent {
-
-}
+export class PageNotFoundComponent {}

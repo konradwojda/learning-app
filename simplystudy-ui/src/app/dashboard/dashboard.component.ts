@@ -22,17 +22,33 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
   standalone: true,
-  imports: [MatGridListModule, NgFor, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatListModule, MatRippleModule, FormsModule, RouterModule, TranslateModule]
+  imports: [
+    MatGridListModule,
+    NgFor,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatListModule,
+    MatRippleModule,
+    FormsModule,
+    RouterModule,
+    TranslateModule,
+  ],
 })
 export class DashboardComponent implements OnInit {
-
   questionSets: Array<QuestionSet> = [];
   filteredQuestionSets: Array<QuestionSet> = [];
   filterText = '';
   private apiUrl = environment.apiUrl;
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService, private snackbarService: SnackbarService, private errorHandling: ErrorHandlingService) {
-  }
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private authService: AuthService,
+    private snackbarService: SnackbarService,
+    private errorHandling: ErrorHandlingService,
+  ) {}
 
   applyFilter() {
     this.filteredQuestionSets = this.filterQuestionSetsByName(this.filterText);
@@ -40,21 +56,25 @@ export class DashboardComponent implements OnInit {
 
   private filterQuestionSetsByName(filterText: string): Array<QuestionSet> {
     return this.questionSets.filter((questionSet) =>
-      questionSet.name.toLowerCase().includes(filterText.toLowerCase())
+      questionSet.name.toLowerCase().includes(filterText.toLowerCase()),
     );
   }
 
   ngOnInit(): void {
     const username = this.authService.getUsername();
-    this.http.get<Array<QuestionSet>>(this.apiUrl + '/api/question_sets/?username=' + username).subscribe({
-      next: (data: Array<QuestionSet>) => {
-        this.questionSets = data;
-        this.filteredQuestionSets = data;
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
-    });
+    this.http
+      .get<Array<QuestionSet>>(
+        this.apiUrl + '/api/question_sets/?username=' + username,
+      )
+      .subscribe({
+        next: (data: Array<QuestionSet>) => {
+          this.questionSets = data;
+          this.filteredQuestionSets = data;
+        },
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+      });
   }
 
   public onCardClick(event: any) {
