@@ -221,6 +221,7 @@ export class QuestionSetEditDialogComponent {
     public dialogRef: MatDialogRef<QuestionSetEditDialogComponent>,
     private authService: AuthService,
     private http: HttpClient,
+    private errorHandling: ErrorHandlingService,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.getCourses();
@@ -237,7 +238,7 @@ export class QuestionSetEditDialogComponent {
         this.courses = data;
       },
       error: (error) => {
-
+        this.errorHandling.handleError(error);
       }
     })
   }
