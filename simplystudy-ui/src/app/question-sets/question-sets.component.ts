@@ -105,7 +105,7 @@ export class QuestionSetsComponent implements OnInit {
   }
 
   editQuestionSet(): void {
-    const dialogRef = this.dialog.open(QuestionSetEditDialog, { data: { name: this.questionSet.name, description: this.questionSet.description, course: this.questionSet.course as Course, is_private: this.questionSet.is_private } });
+    const dialogRef = this.dialog.open(QuestionSetEditDialogComponent, { data: { name: this.questionSet.name, description: this.questionSet.description, course: this.questionSet.course as Course, is_private: this.questionSet.is_private } });
     dialogRef.afterClosed().subscribe(result => {
       const username = this.authService.getUsername();
       this.http.patch(this.apiUrl + '/api/question_sets/' + this.questionSet.id + '/', { name: result.name, description: result.description, course: result.course ? result.course.id : null, owner: username, is_private: result.is_private }).subscribe({
@@ -122,7 +122,7 @@ export class QuestionSetsComponent implements OnInit {
   }
 
   editQuestion(question: any): void {
-    const dialogRef = this.dialog.open(QuestionEditDialog, { data: { content: question.content, answer: question.answer, image: question.image, id: question.id } })
+    const dialogRef = this.dialog.open(QuestionEditDialogComponent, { data: { content: question.content, answer: question.answer, image: question.image, id: question.id } })
     dialogRef.afterClosed().subscribe(result => {
       this.http.patch(this.apiUrl + '/api/questions/' + question.id + '/', { content: result.content, answer: result.answer }).subscribe({
         next: (data) => {
@@ -135,7 +135,7 @@ export class QuestionSetsComponent implements OnInit {
   }
 
   addQuestion(question_set_id: string): void {
-    const dialogRef = this.dialog.open(QuestionCreateDialog, { data: { content: '', answer: '', image: '', } });
+    const dialogRef = this.dialog.open(QuestionCreateDialogComponent, { data: { content: '', answer: '', image: '', } });
     dialogRef.afterClosed().subscribe(result => {
       const question_form = new FormData();
       question_form.append('content', result.content)
@@ -213,12 +213,12 @@ export class QuestionSetsComponent implements OnInit {
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatOptionModule, MatSelectModule, NgFor, MatSlideToggleModule, TranslateModule],
 })
-export class QuestionSetEditDialog {
+export class QuestionSetEditDialogComponent {
   private apiUrl = environment.apiUrl;
   courses: Array<Course> = [];
 
   constructor(
-    public dialogRef: MatDialogRef<QuestionSetEditDialog>,
+    public dialogRef: MatDialogRef<QuestionSetEditDialogComponent>,
     private authService: AuthService,
     private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -255,13 +255,13 @@ export class QuestionSetEditDialog {
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatOptionModule, MatSelectModule, NgFor, MatIconModule, NgIf, MatTooltipModule, TranslateModule],
 })
-export class QuestionEditDialog {
+export class QuestionEditDialogComponent {
 
   private apiUrl = environment.apiUrl;
 
   constructor(
     private http: HttpClient,
-    public dialogRef: MatDialogRef<QuestionEditDialog>,
+    public dialogRef: MatDialogRef<QuestionEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
@@ -299,11 +299,11 @@ export class QuestionEditDialog {
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatOptionModule, MatSelectModule, NgFor, MatIconModule, NgIf, MatTooltipModule, TranslateModule],
 })
-export class QuestionCreateDialog {
+export class QuestionCreateDialogComponent {
 
 
   constructor(
-    public dialogRef: MatDialogRef<QuestionCreateDialog>,
+    public dialogRef: MatDialogRef<QuestionCreateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
