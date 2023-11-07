@@ -19,7 +19,7 @@ import { NgIf } from '@angular/common';
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, ReactiveFormsModule, TranslateModule, NgIf]
 })
-export class AuthLoginComponent implements OnInit {
+export class AuthLoginComponent {
   logInForm: FormGroup;
   resetPasswordForm: FormGroup;
   showResetPassword = false;
@@ -32,9 +32,6 @@ export class AuthLoginComponent implements OnInit {
     this.resetPasswordForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     })
-  }
-
-  ngOnInit(): void {
   }
 
   logInUser(user: UserCredentials): void {

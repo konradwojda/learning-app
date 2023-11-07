@@ -18,7 +18,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, ReactiveFormsModule, TranslateModule]
 })
-export class AuthRegisterComponent implements OnInit {
+export class AuthRegisterComponent {
   registerForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private snackbarService: SnackbarService, private router: Router, private errorHandling: ErrorHandlingService, private translate: TranslateService) {
@@ -28,9 +28,6 @@ export class AuthRegisterComponent implements OnInit {
       re_password: ['', Validators.required],
       email: ['', Validators.required],
     });
-  }
-
-  ngOnInit(): void {
   }
 
   registerUser(user: RegisterUserData): void {
