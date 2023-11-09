@@ -73,9 +73,14 @@ class QuestionSetInfoSerializer(serializers.ModelSerializer):
 class TestSerializer(serializers.ModelSerializer):
     """Serializer dla Test"""
 
+    questions_count = serializers.SerializerMethodField()
+
     class Meta:
         model = Test
         fields = "__all__"
+
+    def get_questions_count(self, obj: Test):
+        return obj.test_questions.count()
 
 
 class TestQuestionSerializer(serializers.ModelSerializer):
