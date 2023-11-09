@@ -10,7 +10,7 @@
       <button mat-button (click)="learn(questionSet.id)">
         {{ "QuestionSets.Learn" | translate }}
       </button>
-      <button mat-button>{{ "QuestionSets.Test" | translate }}</button>
+      <button mat-button (click)="showTests(questionSet.id)">{{ "QuestionSets.Test" | translate }}</button>
       <button
         mat-button
         (click)="addToResources(questionSet.id)"

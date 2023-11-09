@@ -289,6 +289,10 @@ export class QuestionSetsComponent implements OnInit {
   learn(question_set_id: string): void {
     this.router.navigateByUrl('/learn/' + question_set_id);
   }
+
+  showTests(question_set_id: string): void {
+    this.router.navigateByUrl('/tests/' + question_set_id);
+  }
 }
 
 @Component({
@@ -375,7 +379,7 @@ export class QuestionEditDialogComponent {
     private http: HttpClient,
     public dialogRef: MatDialogRef<QuestionEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-  ) {}
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -437,7 +441,7 @@ export class QuestionCreateDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<QuestionCreateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-  ) {}
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close();
