@@ -69,6 +69,18 @@ class TestQuestion(models.Model):
         TEXT_ANSWER = "TEXT", _("Text answer")
         MULTIPLE_CHOICE = "MULTIPLE", _("Multiple choice")
         SINGLE_CHOICE = "SINGLE", _("Single choice")
+        TRUE_OR_FALSE = "TF", _("True or false")
 
     test = models.ForeignKey(to=Test, related_name="test_questions", on_delete=models.CASCADE)
     question_type = models.CharField(max_length=128, choices=TestQuestionType.choices)
+    question = models.TextField()
+
+
+class TestQuestionAnswer(models.Model):
+    """Klasa reprezentująca odpowiedź do pytania"""
+
+    question = models.ForeignKey(
+        to=TestQuestion, related_name="question_choices", on_delete=models.CASCADE
+    )
+    text = models.TextField()
+    is_correct = models.BooleanField(default=False)
