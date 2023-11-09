@@ -120,6 +120,13 @@ class TestViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
     serializer_class = TestSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def get_queryset(self) -> QuerySet:
+        queryset = self.queryset.all()
+        question_set_id = int(self.request.query_params.get("question_set"))
+        if question_set_id is not None:
+            return queryset.filter(question_set__id=question_set_id)
+        return queryset
+
 
 class TestQuestionViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
     """ViewSet dla modelu TestQuestion"""
