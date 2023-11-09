@@ -122,7 +122,7 @@ class TestViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
 
 
 class TestQuestionViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
-    """ViewSet dla modelu Course"""
+    """ViewSet dla modelu TestQuestion"""
 
     queryset = TestQuestion.objects.all()
     serializer_class = TestQuestionSerializer
