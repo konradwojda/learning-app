@@ -117,5 +117,10 @@
     "QuestionDeleted": "Pytanie zostało usunięte.",
     "AddedToResources": "Zestaw pytań dostał dodany do zasobów.",
     "DeletedFromResources": "Zestaw pytań został usunięty z zasobów."
+  },
+  "Tests": {
+    "QuestionCount": "Liczba pytań:",
+    "Export": "Pobierz test",
+    "Take": "Kliknij aby rozpocząć test"
   }
 }

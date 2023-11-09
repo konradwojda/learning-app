@@ -117,5 +117,10 @@
     "QuestionDeleted": "Question has been deleted.",
     "AddedToResources": "Question set has been added to resources.",
     "DeletedFromResources": "Question set has been deleted from resources."
+  },
+  "Tests": {
+    "QuestionCount": "Number of questions:",
+    "Export": "Download test",
+    "Take": "Click to take a test"
   }
 }

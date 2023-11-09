@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { QuestionSet } from '../question-sets/question-set';
 import { environment } from 'src/environments/environment';
@@ -7,11 +6,18 @@ import { AuthService } from '../auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { ErrorHandlingService } from '../error-handling.service';
 import { Test } from './test';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgFor } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRippleModule } from '@angular/material/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-tests',
   standalone: true,
-  imports: [CommonModule],
+  imports: [MatCardModule, MatButtonModule, TranslateModule, NgFor, MatIconModule, MatRippleModule, MatTooltipModule],
   templateUrl: './tests.component.html',
   styleUrls: ['./tests.component.css']
 })
