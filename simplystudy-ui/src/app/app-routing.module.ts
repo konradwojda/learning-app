@@ -14,6 +14,7 @@ import { LearnComponent } from './learn/learn.component';
 import { AuthGuard } from './auth.guard';
 import { AuthActivationComponent } from './auth-activation/auth-activation.component';
 import { AuthResetPasswordComponent } from './auth-reset-password/auth-reset-password.component';
+import { TestsComponent } from './tests/tests.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -49,6 +50,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'learn/:id', component: LearnComponent, canActivate: [AuthGuard] },
+  {
+    path: 'tests/:id',
+    component: TestsComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '404', component: PageNotFoundComponent },
   { path: '**', pathMatch: 'full', redirectTo: '/404' },
 ];
@@ -57,4 +63,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
