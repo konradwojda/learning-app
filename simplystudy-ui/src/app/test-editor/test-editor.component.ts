@@ -75,7 +75,6 @@ export class TestEditorComponent {
         questionArray.push(
           this._formBuilder.group({
             content: ['', Validators.required],
-            answers: this._formBuilder.array([]),
             type: ["TF", Validators.required],
           }),
         );
