@@ -11,11 +11,13 @@ import { NgFor, NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-test-editor',
   standalone: true,
-  imports: [MatFormFieldModule, MatStepperModule, ReactiveFormsModule, TranslateModule, NgFor, FormsModule, MatInputModule, MatButtonModule, MatSelectModule, NgIf],
+  imports: [MatFormFieldModule, MatStepperModule, ReactiveFormsModule, TranslateModule, NgFor, FormsModule, MatInputModule, MatButtonModule, MatSelectModule, NgIf, MatMenuModule, MatIconModule],
   templateUrl: './test-editor.component.html',
   styleUrls: ['./test-editor.component.css']
 })
@@ -39,20 +41,75 @@ export class TestEditorComponent {
 
   constructor(private http: HttpClient, private snackbarService: SnackbarService, private errorHandling: ErrorHandlingService, private _formBuilder: FormBuilder) { }
 
-  addQuestion(): void {
+  addQuestion(type: string): void {
     const questionArray = this.testQuestionsData.get('questions') as FormArray;
-    questionArray.push(
-      this._formBuilder.group({
-        content: ['', Validators.required],
-        answers: ['', Validators.required],
-        type: ["TEXT", Validators.required],
-      }),
-    );
+    switch (type) {
+      case "TEXT":
+        questionArray.push(
+          this._formBuilder.group({
+            content: ['', Validators.required],
+            answer: ['', Validators.required],
+            type: ["TEXT", Validators.required],
+          }),
+        );
+        break;
+      case "SINGLE":
+        questionArray.push(
+          this._formBuilder.group({
+            content: ['', Validators.required],
+            answers: this._formBuilder.array([]),
+            type: ["SINGLE", Validators.required],
+          }),
+        );
+        break;
+      case "MULTIPLE":
+        questionArray.push(
+          this._formBuilder.group({
+            content: ['', Validators.required],
+            answers: this._formBuilder.array([]),
+            type: ["MULTIPLE", Validators.required],
+          }),
+        );
+        break;
+      case "TF":
+        questionArray.push(
+          this._formBuilder.group({
+            content: ['', Validators.required],
+            answers: this._formBuilder.array([]),
+            type: ["TF", Validators.required],
+          }),
+        );
+        break;
+
+      default:
+        break;
+    }
   }
 
   removeQuestion(idx: number): void {
     const questionArray = this.testQuestionsData.get('questions') as FormArray;
     questionArray.removeAt(idx);
+  }
+
+  addOption(questionIndex: number): void {
+    const questionArray = this.testQuestionsData.get('questions') as FormArray;
+    const answers = (questionArray.at(questionIndex).get('answers') as FormArray);
+    answers.push(this._formBuilder.group({
+      answer: ['', Validators.required],
+      is_correct: ['', Validators.required],
+    }));
+  }
+
+  removeOption(questionIdx: number, answerIdx: number): void {
+    const questionArray = this.testQuestionsData.get('questions') as FormArray;
+    const answers = (questionArray.at(questionIdx).get('answers') as FormArray);
+    answers.removeAt(answerIdx);
+  }
+
+  getAnswerControls(questionIdx: number) {
+    const questionArray = this.testQuestionsData.get('questions') as FormArray;
+    const answers = (questionArray.at(questionIdx).get('answers') as FormArray);
+    return answers.controls;
   }
 
   postTest(): void {
