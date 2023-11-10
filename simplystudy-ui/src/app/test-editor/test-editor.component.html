@@ -1,0 +1,129 @@
+<div class="container">
+        <form [formGroup]="testData">
+          <mat-form-field>
+            <mat-label>{{ "QuestionSetCreate.Name" | translate }}</mat-label>
+            <input matInput formControlName="name" required />
+          </mat-form-field>
+        </form>
+        <form [formGroup]="testQuestionsData" enctype="multipart/form-data">
+          <div formArrayName="questions">
+            <div
+              *ngFor="let question of questions.controls; let i = index"
+              [formGroupName]="i"
+            >
+              <div class="question-container">
+                <div class="question-contents">
+                    <div class="text-question" *ngIf="question.get('type')?.value === 'TEXT'">
+                        <mat-form-field>
+                          <mat-label>{{
+                            "QuestionSetCreate.Content" | translate
+                          }}</mat-label>
+                          <textarea matInput
+                            cdkTextareaAutosize
+                            cdkAutosizeMinRows="5"
+                            formControlName="content"
+                          ></textarea>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>{{
+                            "QuestionSetCreate.Answer" | translate
+                          }}</mat-label>
+                          <textarea
+                            matInput
+                            cdkTextareaAutosize
+                            cdkAutosizeMinRows="5"
+                            formControlName="answer"
+                          ></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="text-question" *ngIf="question.get('type')?.value === 'SINGLE'">
+                        <mat-form-field>
+                          <mat-label>SINGLE</mat-label>
+                          <textarea
+                            matInput
+                            cdkTextareaAutosize
+                            cdkAutosizeMinRows="5"
+                            formControlName="content"
+                          ></textarea>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>{{
+                            "QuestionSetCreate.Answer" | translate
+                          }}</mat-label>
+                          <textarea
+                            matInput
+                            cdkTextareaAutosize
+                            cdkAutosizeMinRows="5"
+                            formControlName="answer"
+                          ></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="text-question" *ngIf="question.get('type')?.value === 'MULTIPLE'">
+                        <mat-form-field>
+                          <mat-label>MULTIPLE</mat-label>
+                          <textarea
+                            matInput
+                            cdkTextareaAutosize
+                            cdkAutosizeMinRows="5"
+                            formControlName="content"
+                          ></textarea>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>{{
+                            "QuestionSetCreate.Answer" | translate
+                          }}</mat-label>
+                          <textarea
+                            matInput
+                            cdkTextareaAutosize
+                            cdkAutosizeMinRows="5"
+                            formControlName="answer"
+                          ></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="text-question" *ngIf="question.get('type')?.value === 'TF'">
+                        <mat-form-field>
+                          <mat-label>TRUE/FALSE</mat-label>
+                          <textarea
+                            matInput
+                            cdkTextareaAutosize
+                            cdkAutosizeMinRows="5"
+                            formControlName="content"
+                          ></textarea>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>{{
+                            "QuestionSetCreate.Answer" | translate
+                          }}</mat-label>
+                          <textarea
+                            matInput
+                            cdkTextareaAutosize
+                            cdkAutosizeMinRows="5"
+                            formControlName="answer"
+                          ></textarea>
+                        </mat-form-field>
+                    </div>
+                  <mat-form-field>
+                    <mat-label>Typ pytania</mat-label>
+                    <mat-select formControlName="type">
+                        <mat-option *ngFor="let type of testQuestionTypes" [value]="type.type">
+                        {{ type.visible_type }}
+                        </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <button mat-button (click)="removeQuestion(i)">
+                {{ "Utils.Remove" | translate }}
+              </button>
+            </div>
+          </div>
+          <div>
+            <button mat-button (click)="addQuestion()">
+              {{ "QuestionSetCreate.AddQuestion" | translate }}
+            </button>
+            <button mat-button (click)="postTest()">
+              {{ "Utils.Submit" | translate }}
+            </button>
+          </div>
+        </form>
+</div>

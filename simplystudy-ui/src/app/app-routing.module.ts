@@ -15,6 +15,7 @@ import { AuthGuard } from './auth.guard';
 import { AuthActivationComponent } from './auth-activation/auth-activation.component';
 import { AuthResetPasswordComponent } from './auth-reset-password/auth-reset-password.component';
 import { TestsComponent } from './tests/tests.component';
+import { TestEditorComponent } from './test-editor/test-editor.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -54,6 +55,11 @@ const routes: Routes = [
     path: 'tests/:id',
     component: TestsComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'test-editor/new',
+    component: TestEditorComponent,
+    canActivate: [AuthGuard]
   },
   { path: '404', component: PageNotFoundComponent },
   { path: '**', pathMatch: 'full', redirectTo: '/404' },
