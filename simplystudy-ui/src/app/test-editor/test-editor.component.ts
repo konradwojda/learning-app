@@ -14,12 +14,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @Component({
   selector: 'app-test-editor',
   standalone: true,
-  imports: [MatFormFieldModule, MatStepperModule, ReactiveFormsModule, TranslateModule, NgFor, FormsModule, MatInputModule, MatButtonModule, MatSelectModule, NgIf, MatMenuModule, MatIconModule, MatRadioModule],
+  imports: [MatFormFieldModule, MatStepperModule, ReactiveFormsModule, TranslateModule, NgFor, FormsModule, MatInputModule, MatButtonModule, MatSelectModule, NgIf, MatMenuModule, MatIconModule, MatRadioModule, MatCheckboxModule],
   templateUrl: './test-editor.component.html',
   styleUrls: ['./test-editor.component.css']
 })
@@ -77,19 +78,9 @@ export class TestEditorComponent {
         questionArray.push(
           this._formBuilder.group({
             content: ['', Validators.required],
-            answers: this._formBuilder.array(
-              [
-                this._formBuilder.group({
-                  answer: [true, Validators.required],
-                  is_correct: ['', Validators.required],
-                }),
-                this._formBuilder.group({
-                  answer: [false, Validators.required],
-                  is_correct: ['', Validators.required],
-                })
-              ]),
-            type: ["TF", Validators.required],
-          }),
+            is_correct: [true, Validators.required],
+            type: ['TF', Validators.required],
+          })
         );
         break;
 
@@ -108,7 +99,7 @@ export class TestEditorComponent {
     const answers = (questionArray.at(questionIndex).get('answers') as FormArray);
     answers.push(this._formBuilder.group({
       answer: ['', Validators.required],
-      is_correct: ['', Validators.required],
+      is_correct: [false, Validators.required],
     }));
   }
 
@@ -124,7 +115,20 @@ export class TestEditorComponent {
     return answers.controls;
   }
 
-  postTest(): void {
+  onCheckCorrectSingle(questionIdx: number, answerIdx: number): void {
+    const questionArray = this.testQuestionsData.get('questions') as FormArray;
+    const answers = (questionArray.at(questionIdx).get('answers') as FormArray);
 
+    for (let i = 0; i < answers.length; i++) {
+      const answerControl = answers.at(i);
+      answerControl.patchValue({ is_correct: false });
+    }
+
+    const selectedAnswer = answers.at(answerIdx);
+    selectedAnswer.patchValue({ is_correct: true });
+  }
+
+  postTest(): void {
+    console.log(this.testQuestionsData.value)
   }
 }

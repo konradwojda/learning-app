@@ -38,6 +38,7 @@
                                       <mat-label>{{"QuestionSetCreate.Answer" | translate}}</mat-label>
                                       <input matInput formControlName="answer">
                                     </mat-form-field>
+                                    <mat-checkbox formControlName="is_correct" (change)="onCheckCorrectSingle(i, j)">Poprawna?</mat-checkbox>
                                     <button mat-icon-button (click)="removeOption(i, j)">
                                         <mat-icon>delete</mat-icon>
                                       </button>
@@ -59,6 +60,7 @@
                                       <mat-label>{{"QuestionSetCreate.Answer" | translate}}</mat-label>
                                       <input matInput formControlName="answer">
                                     </mat-form-field>
+                                    <mat-checkbox formControlName="is_correct">Poprawna?</mat-checkbox>
                                     <button mat-icon-button (click)="removeOption(i, j)">
                                         <mat-icon>delete</mat-icon>
                                       </button>
@@ -75,8 +77,8 @@
                                     formControlName="content"></textarea>
                             </mat-form-field>
                             <mat-radio-group formControlName="is_correct">
-                                <mat-radio-button value="true">Prawda</mat-radio-button>
-                                <mat-radio-button value="false">Fałsz</mat-radio-button>
+                                <mat-radio-button [value]="true">Prawda</mat-radio-button>
+                                <mat-radio-button [value]="false">Fałsz</mat-radio-button>
                             </mat-radio-group>
                         </div>
                     </div>
