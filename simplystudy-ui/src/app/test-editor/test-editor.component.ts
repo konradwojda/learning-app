@@ -13,11 +13,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
+
 
 @Component({
   selector: 'app-test-editor',
   standalone: true,
-  imports: [MatFormFieldModule, MatStepperModule, ReactiveFormsModule, TranslateModule, NgFor, FormsModule, MatInputModule, MatButtonModule, MatSelectModule, NgIf, MatMenuModule, MatIconModule],
+  imports: [MatFormFieldModule, MatStepperModule, ReactiveFormsModule, TranslateModule, NgFor, FormsModule, MatInputModule, MatButtonModule, MatSelectModule, NgIf, MatMenuModule, MatIconModule, MatRadioModule],
   templateUrl: './test-editor.component.html',
   styleUrls: ['./test-editor.component.css']
 })
@@ -75,6 +77,17 @@ export class TestEditorComponent {
         questionArray.push(
           this._formBuilder.group({
             content: ['', Validators.required],
+            answers: this._formBuilder.array(
+              [
+                this._formBuilder.group({
+                  answer: [true, Validators.required],
+                  is_correct: ['', Validators.required],
+                }),
+                this._formBuilder.group({
+                  answer: [false, Validators.required],
+                  is_correct: ['', Validators.required],
+                })
+              ]),
             type: ["TF", Validators.required],
           }),
         );
