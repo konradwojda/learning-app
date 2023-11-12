@@ -35,6 +35,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'question_sets/:id/test_editor/new',
+    component: TestEditorComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'create_question_set',
     component: CreateQuestionSetComponent,
     canActivate: [AuthGuard],
@@ -55,11 +60,6 @@ const routes: Routes = [
     path: 'tests/:id',
     component: TestsComponent,
     canActivate: [AuthGuard],
-  },
-  {
-    path: 'test-editor/new',
-    component: TestEditorComponent,
-    canActivate: [AuthGuard]
   },
   { path: '404', component: PageNotFoundComponent },
   { path: '**', pathMatch: 'full', redirectTo: '/404' },

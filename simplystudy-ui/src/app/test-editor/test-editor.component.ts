@@ -15,6 +15,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -25,6 +26,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   styleUrls: ['./test-editor.component.css']
 })
 export class TestEditorComponent {
+  questionSetId: number;
   testQuestionTypes: QuestionType[] = [
     { type: "TEXT", visible_type: "Tekstowe" },
     { type: "SINGLE", visible_type: "Pojedyńczy wybór" },
@@ -42,7 +44,9 @@ export class TestEditorComponent {
 
   questions = this.testQuestionsData.get('questions') as FormArray;
 
-  constructor(private http: HttpClient, private snackbarService: SnackbarService, private errorHandling: ErrorHandlingService, private _formBuilder: FormBuilder) { }
+  constructor(private http: HttpClient, private snackbarService: SnackbarService, private errorHandling: ErrorHandlingService, private _formBuilder: FormBuilder, private route: ActivatedRoute) {
+    this.questionSetId = Number(this.route.snapshot.paramMap.get('id'));
+   }
 
   addQuestion(type: string): void {
     const questionArray = this.testQuestionsData.get('questions') as FormArray;
