@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -27,6 +28,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TestEditorComponent {
   questionSetId: number;
+  private apiUrl = environment.apiUrl;
   testQuestionTypes: QuestionType[] = [
     { type: "TEXT", visible_type: "Tekstowe" },
     { type: "SINGLE", visible_type: "Pojedyńczy wybór" },
@@ -134,5 +136,15 @@ export class TestEditorComponent {
 
   postTest(): void {
     console.log(this.testQuestionsData.value)
+  }
+
+  postQuestion(data: TestQuestion): void {
+    this.http.post(this.apiUrl + '/api/test_questions/', {test: data.test_id, question: data.question, question_type: data.question_type}).subscribe({
+      next: (data) => {
+      },
+      error: (error) => {
+        this.errorHandling.handleError(error);
+      }
+    })
   }
 }
