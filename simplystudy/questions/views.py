@@ -11,6 +11,7 @@ from simplystudy.questions.models import (
     QuestionSet,
     Test,
     TestQuestion,
+    TestQuestionAnswer,
     UserResource,
 )
 from simplystudy.questions.permissions import (
@@ -24,6 +25,7 @@ from simplystudy.questions.serializers import (
     QuestionSerializer,
     QuestionSetCreateSerializer,
     QuestionSetDetailSerializer,
+    TestQuestionAnswerSerializer,
     TestQuestionSerializer,
     TestSerializer,
     UserResourceCreateSerializer,
@@ -133,4 +135,12 @@ class TestQuestionViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-an
 
     queryset = TestQuestion.objects.all()
     serializer_class = TestQuestionSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class TestQuestionAnswerViewSet(viewsets.ModelViewSet):
+    """ViewSet dla modelu TestQuestionAnswer"""
+
+    queryset = TestQuestionAnswer.objects.all()
+    serializer_class = TestQuestionAnswerSerializer
     permission_classes = [permissions.IsAuthenticated]

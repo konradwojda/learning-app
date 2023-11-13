@@ -6,6 +6,7 @@ from simplystudy.questions.models import (
     QuestionSet,
     Test,
     TestQuestion,
+    TestQuestionAnswer,
     UserResource,
 )
 from simplystudy.users.models import User
@@ -88,6 +89,14 @@ class TestQuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TestQuestion
+        fields = "__all__"
+
+
+class TestQuestionAnswerSerializer(serializers.ModelSerializer):
+    """Serializer dla TestQuestionAnswer"""
+
+    class Meta:
+        model = TestQuestionAnswer
         fields = "__all__"
 
 
