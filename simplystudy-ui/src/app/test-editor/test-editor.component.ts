@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TestQuestion, QuestionType, TestQuestionAnswer } from './questions';
+import { TestQuestion, QuestionType } from './questions';
 import { HttpClient } from '@angular/common/http';
 import { SnackbarService } from '../snackbar.service';
 import { ErrorHandlingService } from '../error-handling.service';
@@ -34,7 +34,6 @@ export class TestEditorComponent {
     { type: "SINGLE", visible_type: "Pojedyńczy wybór" },
     { type: "MULTIPLE", visible_type: "Wielokrotny wybór" },
     { type: "TF", visible_type: "Prawda/Fałsz" }];
-  testQuestions: TestQuestion[] = [];
 
   testData = this._formBuilder.group({
     name: ['', Validators.required],
@@ -135,12 +134,38 @@ export class TestEditorComponent {
   }
 
   postTest(): void {
-    console.log(this.testQuestionsData.value)
+    this.http.post(this.apiUrl + '/api/tests/', {name: this.testData.value.name, question_set: this.questionSetId}).subscribe({
+      next: (response: any) => {
+        for(const testQuestion of this.testQuestionsData.value.questions) {
+          const question: TestQuestion = {
+            test_id: response.id,
+            question: testQuestion.content,
+            question_type: testQuestion.type,
+            answers: testQuestion.answers,
+          }
+          this.postQuestion(question);
+        }
+      },
+      error: (error) => {
+        this.errorHandling.handleError(error);
+      }
+    })
   }
 
   postQuestion(data: TestQuestion): void {
     this.http.post(this.apiUrl + '/api/test_questions/', {test: data.test_id, question: data.question, question_type: data.question_type}).subscribe({
-      next: (data) => {
+      next: (response: any) => {
+        const answersArray = data.answers;
+        for (const answer of answersArray) {
+          this.http.post(this.apiUrl + '/api/test_questions_answers/', {text: answer.answer, is_correct: answer.is_correct, question: response.id}).subscribe({
+            next: (response: any) => {
+              this.snackbarService.showSnackbar("Added new test.");
+            },
+            error: (error) => {
+              this.errorHandling.handleError(error);
+            }
+          })
+        }
       },
       error: (error) => {
         this.errorHandling.handleError(error);
