@@ -1,0 +1,45 @@
+.container {
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+mat-card-title {
+    padding: 1em;
+}
+
+mat-form-field {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}
+
+::ng-deep .mat-form-field-wrapper{
+    margin-bottom: -1.25em;
+ }
+
+.answer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.answer-content {
+    flex: 95%;
+    display: flex;
+    flex-direction: column;
+}
+
+.answer-actions {
+    flex: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.answers {
+    display: flex;
+    flex-direction: column;
+}

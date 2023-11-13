@@ -17,12 +17,13 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { MatCardModule } from '@angular/material/card';
 
 
 @Component({
   selector: 'app-test-editor',
   standalone: true,
-  imports: [MatFormFieldModule, MatStepperModule, ReactiveFormsModule, TranslateModule, NgFor, FormsModule, MatInputModule, MatButtonModule, MatSelectModule, NgIf, MatMenuModule, MatIconModule, MatRadioModule, MatCheckboxModule],
+  imports: [MatFormFieldModule, MatStepperModule, ReactiveFormsModule, TranslateModule, NgFor, FormsModule, MatInputModule, MatButtonModule, MatSelectModule, NgIf, MatMenuModule, MatIconModule, MatRadioModule, MatCheckboxModule, MatCardModule],
   templateUrl: './test-editor.component.html',
   styleUrls: ['./test-editor.component.css']
 })
