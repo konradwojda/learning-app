@@ -30,6 +30,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LanguageInterceptor } from './language.interceptor';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [AppComponent],
@@ -68,6 +69,7 @@ import { LanguageInterceptor } from './language.interceptor';
     { provide: HTTP_INTERCEPTORS, useClass: CsrfTokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LanguageInterceptor, multi: true },
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { width: '70%' } },
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { subscriptSizing: 'dynamic' }},
   ],
   bootstrap: [AppComponent],
 })
