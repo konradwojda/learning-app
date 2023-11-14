@@ -122,5 +122,21 @@
     "QuestionCount": "Liczba pytań:",
     "Export": "Pobierz test",
     "Take": "Kliknij aby rozpocząć test"
+  },
+  "TestEditor": {
+    "Create": "Stwórz nowy test",
+    "Name": "Nazwa testu",
+    "QuestionContent": "Treść pytania",
+    "Answer": "Odpowiedź",
+    "IsCorrect": "Poprawna?",
+    "True": "Prawda",
+    "False": "Fałsz",
+    "AddAns": "Dodaj odpowiedź",
+    "RemoveQuestion": "Usuń pytanie",
+    "AddQuestion": "Dodaj pytanie",
+    "Text": "Pytanie tekstowe",
+    "Single": "Pytanie pojedyńczego wyboru",
+    "Multiple": "Pytanie wielokrotnego wyboru",
+    "TF": "Pytanie prawda/fałsz"
   }
 }

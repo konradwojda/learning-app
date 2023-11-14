@@ -122,5 +122,21 @@
     "QuestionCount": "Number of questions:",
     "Export": "Download test",
     "Take": "Click to take a test"
+  },
+  "TestEditor": {
+    "Create": "Create new test",
+    "Name": "Test name",
+    "QuestionContent": "Question content",
+    "Answer": "Answer",
+    "IsCorrect": "Correct?",
+    "True": "True",
+    "False": "False",
+    "AddAns": "Add answer",
+    "RemoveQuestion": "Remove question",
+    "AddQuestion": "Add new question",
+    "Text": "Text question",
+    "Single": "Single choice question",
+    "Multiple": "Multiple choice question",
+    "TF": "True/False question"
   }
 }

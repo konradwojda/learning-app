@@ -1,12 +1,12 @@
 <div class="container">
     <mat-card>
         <mat-card-title>
-            Stwórz nowy test
+            {{ "TestEditor.Create" | translate }}
         </mat-card-title>
         <mat-card-content>
             <form [formGroup]="testData">
                 <mat-form-field>
-                    <mat-label>{{ "QuestionSetCreate.Name" | translate }}</mat-label>
+                    <mat-label>{{ "TestEditor.Name" | translate }}</mat-label>
                     <input matInput formControlName="name" required />
                 </mat-form-field>
             </form>
@@ -17,23 +17,19 @@
                             <div class="question-contents">
                                 <div class="text-question" *ngIf="question.get('type')?.value === 'TEXT'">
                                     <mat-form-field>
-                                        <mat-label>{{
-                                            "QuestionSetCreate.Content" | translate
-                                            }}</mat-label>
+                                        <mat-label>{{ "TestEditor.QuestionContent" | translate }}</mat-label>
                                         <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5"
                                             formControlName="content"></textarea>
                                     </mat-form-field>
                                     <mat-form-field>
-                                        <mat-label>{{
-                                            "QuestionSetCreate.Answer" | translate
-                                            }}</mat-label>
+                                        <mat-label>{{ "TestEditor.Answer" | translate }}</mat-label>
                                         <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5"
                                             formControlName="answer"></textarea>
                                     </mat-form-field>
                                 </div>
                                 <div class="text-question" *ngIf="question.get('type')?.value === 'SINGLE'">
                                     <mat-form-field>
-                                        <mat-label>SINGLE</mat-label>
+                                        <mat-label>{{ "TestEditor.QuestionContent" | translate }}</mat-label>
                                         <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5"
                                             formControlName="content"></textarea>
                                     </mat-form-field>
@@ -41,12 +37,12 @@
                                         <div class="answer-container" *ngFor="let answer of getAnswerControls(i); let j = index" [formGroupName]="j">
                                             <div class="answer-content">
                                                 <mat-form-field>
-                                                  <mat-label>{{"QuestionSetCreate.Answer" | translate}}</mat-label>
+                                                  <mat-label>{{"TestEditor.Answer" | translate}}</mat-label>
                                                   <input matInput formControlName="answer">
                                                 </mat-form-field>
                                             </div>
                                             <div class="answer-actions">
-                                                <mat-checkbox formControlName="is_correct" (change)="onCheckCorrectSingle(i, j)">Poprawna?</mat-checkbox>
+                                                <mat-checkbox formControlName="is_correct" (change)="onCheckCorrectSingle(i, j)">{{ "TestEditor.IsCorrect" | translate }}</mat-checkbox>
                                                 <button mat-icon-button (click)="removeOption(i, j)">
                                                     <mat-icon>delete</mat-icon>
                                                 </button>
@@ -56,7 +52,7 @@
                                 </div>
                                 <div class="text-question" *ngIf="question.get('type')?.value === 'MULTIPLE'">
                                     <mat-form-field>
-                                        <mat-label>MULTIPLE</mat-label>
+                                        <mat-label>{{ "TestEditor.QuestionContent" | translate }}</mat-label>
                                         <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5"
                                             formControlName="content"></textarea>
                                     </mat-form-field>
@@ -64,12 +60,12 @@
                                         <div class="answer-container" *ngFor="let answer of getAnswerControls(i); let j = index" [formGroupName]="j">
                                             <div class="answer-content">
                                                 <mat-form-field>
-                                                  <mat-label>{{"QuestionSetCreate.Answer" | translate}}</mat-label>
+                                                  <mat-label>{{"TestEditor.Answer" | translate}}</mat-label>
                                                   <input matInput formControlName="answer">
                                                 </mat-form-field>
                                             </div>
                                             <div class="answer-actions">
-                                                <mat-checkbox formControlName="is_correct">Poprawna?</mat-checkbox>
+                                                <mat-checkbox formControlName="is_correct">{{ "TestEditor.IsCorrect" | translate }}</mat-checkbox>
                                                 <button mat-icon-button (click)="removeOption(i, j)">
                                                     <mat-icon>delete</mat-icon>
                                                   </button>
@@ -80,35 +76,35 @@
                                 <div class="answer-container" *ngIf="question.get('type')?.value === 'TF'">
                                     <div class="answer-content">
                                         <mat-form-field>
-                                            <mat-label>TRUE/FALSE</mat-label>
+                                            <mat-label>{{ "TestEditor.QuestionContent" | translate }}</mat-label>
                                             <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5"
                                                 formControlName="content"></textarea>
                                         </mat-form-field>
                                     </div>
                                     <div class="answer-actions">
                                         <mat-radio-group formControlName="is_correct">
-                                            <mat-radio-button [value]="true">Prawda</mat-radio-button>
-                                            <mat-radio-button [value]="false">Fałsz</mat-radio-button>
+                                            <mat-radio-button [value]="true">{{ "TestEditor.True" | translate }}</mat-radio-button>
+                                            <mat-radio-button [value]="false">{{ "TestEditor.False" | translate }}</mat-radio-button>
                                         </mat-radio-group>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <button mat-button (click)="addOption(i)" *ngIf="question.get('type')?.value === 'MULTIPLE' || question.get('type')?.value === 'SINGLE'">
-                            Dodaj odpowiedź
+                            {{ "TestEditor.AddAns" | translate }}
                         </button>
                         <button mat-button (click)="removeQuestion(i)">
-                            {{ "Utils.Remove" | translate }} pytanie
+                            {{ "TestEditor.RemoveQuestion" | translate }}
                         </button>
                     </div>
                 </div>
                 <div>
-                    <button mat-button [matMenuTriggerFor]="menu">{{ "QuestionSetCreate.AddQuestion" | translate }}</button>
+                    <button mat-button [matMenuTriggerFor]="menu">{{ "TestEditor.AddQuestion" | translate }}</button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="addQuestion('TEXT')">Tekstowe</button>
-                        <button mat-menu-item (click)="addQuestion('SINGLE')">Pojedyńczy wybór</button>
-                        <button mat-menu-item (click)="addQuestion('MULTIPLE')">Wielokrotny wybór</button>
-                        <button mat-menu-item (click)="addQuestion('TF')">Prawda/Fałsz</button>
+                        <button mat-menu-item (click)="addQuestion('TEXT')">{{ "TestEditor.Text" | translate }}</button>
+                        <button mat-menu-item (click)="addQuestion('SINGLE')">{{ "TestEditor.Single" | translate }}</button>
+                        <button mat-menu-item (click)="addQuestion('MULTIPLE')">{{ "TestEditor.Multiple" | translate }}</button>
+                        <button mat-menu-item (click)="addQuestion('TF')">{{ "TestEditor.TF" | translate }}</button>
                     </mat-menu>
                     <button mat-button (click)="postTest()">
                         {{ "Utils.Submit" | translate }}
