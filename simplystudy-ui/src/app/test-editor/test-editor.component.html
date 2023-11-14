@@ -53,9 +53,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button mat-icon-button (click)="addOption(i)">
-                                      <mat-icon>add</mat-icon>
-                                    </button>
                                 </div>
                                 <div class="text-question" *ngIf="question.get('type')?.value === 'MULTIPLE'">
                                     <mat-form-field>
@@ -63,37 +60,45 @@
                                         <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5"
                                             formControlName="content"></textarea>
                                     </mat-form-field>
-                                    <div formArrayName="answers">
-                                        <div class="answer" *ngFor="let answer of getAnswerControls(i); let j = index" [formGroupName]="j">
-                                            <mat-form-field>
-                                              <mat-label>{{"QuestionSetCreate.Answer" | translate}}</mat-label>
-                                              <input matInput formControlName="answer">
-                                            </mat-form-field>
-                                            <mat-checkbox formControlName="is_correct">Poprawna?</mat-checkbox>
-                                            <button mat-icon-button (click)="removeOption(i, j)">
-                                                <mat-icon>delete</mat-icon>
-                                              </button>
+                                    <div formArrayName="answers" class="answers">
+                                        <div class="answer-container" *ngFor="let answer of getAnswerControls(i); let j = index" [formGroupName]="j">
+                                            <div class="answer-content">
+                                                <mat-form-field>
+                                                  <mat-label>{{"QuestionSetCreate.Answer" | translate}}</mat-label>
+                                                  <input matInput formControlName="answer">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="answer-actions">
+                                                <mat-checkbox formControlName="is_correct">Poprawna?</mat-checkbox>
+                                                <button mat-icon-button (click)="removeOption(i, j)">
+                                                    <mat-icon>delete</mat-icon>
+                                                  </button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <button mat-icon-button (click)="addOption(i)">
-                                      <mat-icon>add</mat-icon>
-                                    </button>
                                 </div>
-                                <div class="text-question" *ngIf="question.get('type')?.value === 'TF'">
-                                    <mat-form-field>
-                                        <mat-label>TRUE/FALSE</mat-label>
-                                        <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5"
-                                            formControlName="content"></textarea>
-                                    </mat-form-field>
-                                    <mat-radio-group formControlName="is_correct">
-                                        <mat-radio-button [value]="true">Prawda</mat-radio-button>
-                                        <mat-radio-button [value]="false">Fałsz</mat-radio-button>
-                                    </mat-radio-group>
+                                <div class="answer-container" *ngIf="question.get('type')?.value === 'TF'">
+                                    <div class="answer-content">
+                                        <mat-form-field>
+                                            <mat-label>TRUE/FALSE</mat-label>
+                                            <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5"
+                                                formControlName="content"></textarea>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="answer-actions">
+                                        <mat-radio-group formControlName="is_correct">
+                                            <mat-radio-button [value]="true">Prawda</mat-radio-button>
+                                            <mat-radio-button [value]="false">Fałsz</mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <button mat-button (click)="addOption(i)" *ngIf="question.get('type')?.value === 'MULTIPLE' || question.get('type')?.value === 'SINGLE'">
+                            Dodaj odpowiedź
+                        </button>
                         <button mat-button (click)="removeQuestion(i)">
-                            {{ "Utils.Remove" | translate }}
+                            {{ "Utils.Remove" | translate }} pytanie
                         </button>
                     </div>
                 </div>

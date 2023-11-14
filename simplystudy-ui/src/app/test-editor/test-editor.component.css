@@ -15,10 +15,6 @@ mat-form-field {
     padding: 1em;
 }
 
-::ng-deep .mat-form-field-wrapper{
-    margin-bottom: -1.25em;
- }
-
 .answer-container {
     display: flex;
     flex-direction: row;
