@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { QuestionSet } from '../question-sets/question-set';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlingService } from '../error-handling.service';
 import { Test } from './test';
 import { MatCardModule } from '@angular/material/card';
@@ -26,7 +26,7 @@ export class TestsComponent implements OnInit {
   tests: Test[] = [];
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private authService: AuthService, private route: ActivatedRoute, private errorHandling: ErrorHandlingService) {
+  constructor(private http: HttpClient, private authService: AuthService, private route: ActivatedRoute, private errorHandling: ErrorHandlingService, private router: Router) {
     this.questionSet = {
       id: '',
       name: '',
@@ -74,4 +74,11 @@ export class TestsComponent implements OnInit {
     })
   }
 
+  showSet(): void {
+    this.router.navigateByUrl('/question_sets/' + this.questionSet.id);
+  }
+
+  learn(): void {
+    this.router.navigateByUrl('/learn/' + this.questionSet.id);
+  }
 }
