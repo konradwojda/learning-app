@@ -7,7 +7,7 @@ export interface TestQuestion {
     test_id: number,
     question: string,
     question_type: string,
-    answers: TestQuestionAnswer[],
+    answers: Array<any>,
 }
 
 export interface TestQuestionAnswer {

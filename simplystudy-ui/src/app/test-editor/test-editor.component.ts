@@ -6,7 +6,7 @@ import { ErrorHandlingService } from '../error-handling.service';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgFor, NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,7 +15,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { MatCardModule } from '@angular/material/card';
 
@@ -41,8 +41,16 @@ export class TestEditorComponent {
 
   questions = this.testQuestionsData.get('questions') as FormArray;
 
-  constructor(private http: HttpClient, private snackbarService: SnackbarService, private errorHandling: ErrorHandlingService, private _formBuilder: FormBuilder, private route: ActivatedRoute) {
+  constructor(private http: HttpClient, private snackbarService: SnackbarService, private errorHandling: ErrorHandlingService, private _formBuilder: FormBuilder, private route: ActivatedRoute, private translate: TranslateService, private router: Router) {
     this.questionSetId = Number(this.route.snapshot.paramMap.get('id'));
+  }
+
+  loadTest(test_id: number): void {
+    this.http.get(this.apiUrl + '/api/tests/' + test_id + '/').subscribe({
+      next: (response: any) => {
+        this.testData.patchValue({name: response.name});
+      }
+    })
   }
 
   addQuestion(type: string): void {
@@ -133,13 +141,31 @@ export class TestEditorComponent {
     this.http.post(this.apiUrl + '/api/tests/', { name: this.testData.value.name, question_set: this.questionSetId }).subscribe({
       next: (response: any) => {
         for (const testQuestion of this.testQuestionsData.value.questions) {
-          const question: TestQuestion = {
-            test_id: response.id,
-            question: testQuestion.content,
-            question_type: testQuestion.type,
-            answers: testQuestion.answers,
+          if (testQuestion.type === 'TF') {
+            const question: TestQuestion = {
+              test_id: response.id,
+              question: testQuestion.content,
+              question_type: testQuestion.type,
+              answers: [{answer: "True", is_correct: testQuestion.is_correct}, {answer: "False", is_correct: !testQuestion.is_correct}],
+            }
+            this.postQuestion(question);
+          } else if (testQuestion.type === 'TEXT') {
+            const question: TestQuestion = {
+              test_id: response.id,
+              question: testQuestion.content,
+              question_type: testQuestion.type,
+              answers: [{answer: testQuestion.answer, is_correct: true}],
+            }
+            this.postQuestion(question);
+          } else {
+            const question: TestQuestion = {
+              test_id: response.id,
+              question: testQuestion.content,
+              question_type: testQuestion.type,
+              answers: testQuestion.answers,
+            }
+            this.postQuestion(question);
           }
-          this.postQuestion(question);
         }
       },
       error: (error) => {
@@ -155,7 +181,8 @@ export class TestEditorComponent {
         for (const answer of answersArray) {
           this.http.post(this.apiUrl + '/api/test_questions_answers/', { text: answer.answer, is_correct: answer.is_correct, question: response.id }).subscribe({
             next: (response: any) => {
-              this.snackbarService.showSnackbar("Added new test.");
+              this.router.navigateByUrl('/tests/' + this.questionSetId);
+              this.snackbarService.showSnackbar(this.translate.instant("Snackbar.AddedTest"));
             },
             error: (error) => {
               this.errorHandling.handleError(error);

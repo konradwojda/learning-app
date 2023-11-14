@@ -117,7 +117,8 @@
     "QuestionDeleted": "Question has been deleted.",
     "AddedToResources": "Question set has been added to resources.",
     "DeletedFromResources": "Question set has been deleted from resources.",
-    "DeletedTest": "Test has been deleted."
+    "DeletedTest": "Test has been deleted.",
+    "AddedTest": "New test has been created."
   },
   "Tests": {
     "QuestionCount": "Number of questions:",
