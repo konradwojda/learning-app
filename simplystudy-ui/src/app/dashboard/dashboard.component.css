@@ -11,6 +11,7 @@
 .search-field {
   flex: 8;
   margin-right: 30px;
+  padding-bottom: 1em;
 }
 
 .new-set-btn {
