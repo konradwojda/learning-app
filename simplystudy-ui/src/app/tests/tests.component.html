@@ -24,7 +24,7 @@
           <mat-card-subtitle>{{"Tests.QuestionCount" | translate}} {{ test.questions_count }}</mat-card-subtitle>
         </mat-card-header>
       </mat-card>
-      <button mat-icon-button matTooltip="{{'Utils.Remove' | translate}}">
+      <button mat-icon-button matTooltip="{{'Utils.Remove' | translate}}" (click)="deleteTest(test.id)">
         <mat-icon>delete</mat-icon>
       </button>
       <button mat-icon-button matTooltip="{{'Utils.Edit' | translate}}">

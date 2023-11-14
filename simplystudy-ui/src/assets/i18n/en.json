@@ -116,7 +116,8 @@
     "QuestionAdded": "Question added.",
     "QuestionDeleted": "Question has been deleted.",
     "AddedToResources": "Question set has been added to resources.",
-    "DeletedFromResources": "Question set has been deleted from resources."
+    "DeletedFromResources": "Question set has been deleted from resources.",
+    "DeletedTest": "Test has been deleted."
   },
   "Tests": {
     "QuestionCount": "Number of questions:",

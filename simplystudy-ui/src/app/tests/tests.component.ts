@@ -8,11 +8,12 @@ import { ErrorHandlingService } from '../error-handling.service';
 import { Test } from './test';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgFor } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SnackbarService } from '../snackbar.service';
 
 @Component({
   selector: 'app-tests',
@@ -26,7 +27,7 @@ export class TestsComponent implements OnInit {
   tests: Test[] = [];
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private authService: AuthService, private route: ActivatedRoute, private errorHandling: ErrorHandlingService, private router: Router) {
+  constructor(private http: HttpClient, private authService: AuthService, private route: ActivatedRoute, private errorHandling: ErrorHandlingService, private router: Router, private snackbarService: SnackbarService, private translate: TranslateService) {
     this.questionSet = {
       id: '',
       name: '',
@@ -70,6 +71,22 @@ export class TestsComponent implements OnInit {
     this.http.get<Test[]>(this.apiUrl + '/api/tests/?question_set=' + id).subscribe({
       next: (data: Test[]) => {
         this.tests = data
+      },
+      error: (error) => {
+        this.errorHandling.handleError(error);
+      }
+    })
+  }
+
+  deleteTest(test_id: number): void {
+    this.http.delete(this.apiUrl + '/api/tests/' + test_id).subscribe({
+      next: (data) => {
+        this.ngOnInit();
+        this.router.navigateByUrl(this.router.url);
+        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.DeletedTest"));
+      },
+      error: (error) => {
+        this.errorHandling.handleError(error);
       }
     })
   }
