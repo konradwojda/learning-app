@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TestQuestion, QuestionType } from './questions';
+import { TestQuestion } from './questions';
 import { HttpClient } from '@angular/common/http';
 import { SnackbarService } from '../snackbar.service';
 import { ErrorHandlingService } from '../error-handling.service';
@@ -30,11 +30,6 @@ import { MatCardModule } from '@angular/material/card';
 export class TestEditorComponent {
   questionSetId: number;
   private apiUrl = environment.apiUrl;
-  testQuestionTypes: QuestionType[] = [
-    { type: "TEXT", visible_type: "Tekstowe" },
-    { type: "SINGLE", visible_type: "Pojedyńczy wybór" },
-    { type: "MULTIPLE", visible_type: "Wielokrotny wybór" },
-    { type: "TF", visible_type: "Prawda/Fałsz" }];
 
   testData = this._formBuilder.group({
     name: ['', Validators.required],
@@ -48,7 +43,7 @@ export class TestEditorComponent {
 
   constructor(private http: HttpClient, private snackbarService: SnackbarService, private errorHandling: ErrorHandlingService, private _formBuilder: FormBuilder, private route: ActivatedRoute) {
     this.questionSetId = Number(this.route.snapshot.paramMap.get('id'));
-   }
+  }
 
   addQuestion(type: string): void {
     const questionArray = this.testQuestionsData.get('questions') as FormArray;
@@ -135,9 +130,9 @@ export class TestEditorComponent {
   }
 
   postTest(): void {
-    this.http.post(this.apiUrl + '/api/tests/', {name: this.testData.value.name, question_set: this.questionSetId}).subscribe({
+    this.http.post(this.apiUrl + '/api/tests/', { name: this.testData.value.name, question_set: this.questionSetId }).subscribe({
       next: (response: any) => {
-        for(const testQuestion of this.testQuestionsData.value.questions) {
+        for (const testQuestion of this.testQuestionsData.value.questions) {
           const question: TestQuestion = {
             test_id: response.id,
             question: testQuestion.content,
@@ -154,11 +149,11 @@ export class TestEditorComponent {
   }
 
   postQuestion(data: TestQuestion): void {
-    this.http.post(this.apiUrl + '/api/test_questions/', {test: data.test_id, question: data.question, question_type: data.question_type}).subscribe({
+    this.http.post(this.apiUrl + '/api/test_questions/', { test: data.test_id, question: data.question, question_type: data.question_type }).subscribe({
       next: (response: any) => {
         const answersArray = data.answers;
         for (const answer of answersArray) {
-          this.http.post(this.apiUrl + '/api/test_questions_answers/', {text: answer.answer, is_correct: answer.is_correct, question: response.id}).subscribe({
+          this.http.post(this.apiUrl + '/api/test_questions_answers/', { text: answer.answer, is_correct: answer.is_correct, question: response.id }).subscribe({
             next: (response: any) => {
               this.snackbarService.showSnackbar("Added new test.");
             },
