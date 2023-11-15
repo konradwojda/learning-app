@@ -32,6 +32,7 @@ router.register(
 )
 router.register(r"courses", views.CourseViewSet)
 router.register(r"tests", views.TestViewSet)
+router.register(r"test_details", views.TestDetailsViewSet)
 router.register(r"test_questions", views.TestQuestionViewSet)
 router.register(r"test_questions_answers", views.TestQuestionAnswerViewSet)
 router.register(r"user_resources", views.UserResourceViewSet)

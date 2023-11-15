@@ -25,6 +25,7 @@ from simplystudy.questions.serializers import (
     QuestionSerializer,
     QuestionSetCreateSerializer,
     QuestionSetDetailSerializer,
+    TestDetailSerializer,
     TestQuestionAnswerSerializer,
     TestQuestionSerializer,
     TestSerializer,
@@ -128,6 +129,14 @@ class TestViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
         if question_set_id is not None:
             return queryset.filter(question_set__id=int(question_set_id))
         return queryset
+
+
+class TestDetailsViewSet(viewsets.ModelViewSet):
+    queryset = Test.objects.all().prefetch_related(
+        "test_questions", "test_questions__question_choices"
+    )
+    serializer_class = TestDetailSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class TestQuestionViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors

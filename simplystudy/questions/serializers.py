@@ -100,6 +100,22 @@ class TestQuestionAnswerSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class TestQuestionDetailSerializer(serializers.ModelSerializer):
+    question_choices = TestQuestionAnswerSerializer(many=True)
+
+    class Meta:
+        model = TestQuestion
+        fields = ("id", "question_type", "question", "question_choices")
+
+
+class TestDetailSerializer(serializers.ModelSerializer):
+    test_questions = TestQuestionDetailSerializer(many=True)
+
+    class Meta:
+        model = Test
+        fields = "__all__"
+
+
 class UserResourceDetailSerializer(serializers.ModelSerializer):
     """Serializer dla informacji o UserResource"""
 
