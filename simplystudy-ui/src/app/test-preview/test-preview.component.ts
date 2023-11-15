@@ -67,6 +67,10 @@ export class TestPreviewComponent implements OnInit {
     })
   }
 
+  editQuestion(question_id: number): void {
+    const dialogRef = this.dialog.open(TestQuestionEditDialogComponent, {data: {}})
+  }
+
 }
 
 @Component({
@@ -81,6 +85,29 @@ export class TestEditDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<TestEditDialogComponent>,
+    private http: HttpClient,
+    private errorHandling: ErrorHandlingService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'app-test-preview-test-question-edit-dialog',
+  templateUrl: 'test-question-edit-dialog.html',
+  styleUrls: ['./test-preview.component.css'],
+  standalone: true,
+  imports: [TranslateModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule, FormsModule, MatButtonModule, MatDialogModule],
+})
+export class TestQuestionEditDialogComponent {
+  private apiUrl = environment.apiUrl;
+
+  constructor(
+    public dialogRef: MatDialogRef<TestQuestionEditDialogComponent>,
     private http: HttpClient,
     private errorHandling: ErrorHandlingService,
     @Inject(MAT_DIALOG_DATA) public data: any,
