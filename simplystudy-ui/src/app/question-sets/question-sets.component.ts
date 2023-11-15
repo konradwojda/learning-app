@@ -291,7 +291,7 @@ export class QuestionSetsComponent implements OnInit {
   }
 
   showTests(question_set_id: string): void {
-    this.router.navigateByUrl('/tests/' + question_set_id);
+    this.router.navigateByUrl('/question_sets/' + question_set_id + '/tests');
   }
 }
 

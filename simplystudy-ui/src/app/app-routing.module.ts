@@ -40,6 +40,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'question_sets/:id/tests',
+    component: TestsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'create_question_set',
     component: CreateQuestionSetComponent,
     canActivate: [AuthGuard],
