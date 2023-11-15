@@ -24,11 +24,11 @@
           <mat-card-subtitle>{{"Tests.QuestionCount" | translate}} {{ test.questions_count }}</mat-card-subtitle>
         </mat-card-header>
       </mat-card>
+      <button mat-icon-button (click)="previewTest(test.id)" matTooltip="{{'Utils.Preview' | translate}}">
+        <mat-icon>preview</mat-icon>
+      </button>
       <button mat-icon-button matTooltip="{{'Utils.Remove' | translate}}" (click)="deleteTest(test.id)">
         <mat-icon>delete</mat-icon>
-      </button>
-      <button mat-icon-button matTooltip="{{'Utils.Edit' | translate}}">
-        <mat-icon>edit</mat-icon>
       </button>
       <button mat-icon-button matTooltip="{{'Tests.Export' | translate}}">
         <mat-icon>file_download</mat-icon>
