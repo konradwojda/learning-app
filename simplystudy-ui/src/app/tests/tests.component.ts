@@ -98,4 +98,8 @@ export class TestsComponent implements OnInit {
   learn(): void {
     this.router.navigateByUrl('/learn/' + this.questionSet.id);
   }
+
+  addTest(): void {
+    this.router.navigateByUrl('/question_sets/' + this.questionSet.id + '/test_editor/new');
+  }
 }
