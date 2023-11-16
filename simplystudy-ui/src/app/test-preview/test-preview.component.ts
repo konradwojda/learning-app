@@ -186,15 +186,17 @@ export class TestQuestionEditDialogComponent {
 
   deleteAnswer(answerIdx: number): void {
     const id = this.data.answers[answerIdx].id
-    this.http.delete(this.apiUrl + '/api/test_questions_answers/' + id + '/').subscribe({
-      next: (response) => {
-        this.data.answers.splice(answerIdx, 1);
-        this.snackbarService.showSnackbar(this.translate.instant('Snackbar.OptionDeleted'))
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
-    })
+    this.data.answers.splice(answerIdx, 1);
+    if (id) {
+      this.http.delete(this.apiUrl + '/api/test_questions_answers/' + id + '/').subscribe({
+        next: (response) => {
+          this.snackbarService.showSnackbar(this.translate.instant('Snackbar.OptionDeleted'))
+        },
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        }
+      })
+    }
   }
 
   onNoClick(): void {
