@@ -8,6 +8,7 @@ export interface TestQuestion {
     question: string,
     question_type: string,
     answers: Array<any>,
+    is_true: boolean | null,
 }
 
 export interface TestQuestionAnswer {

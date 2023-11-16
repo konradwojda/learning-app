@@ -146,7 +146,8 @@ export class TestEditorComponent {
               test_id: response.id,
               question: testQuestion.content,
               question_type: testQuestion.type,
-              answers: [{answer: "True", is_correct: testQuestion.is_correct}, {answer: "False", is_correct: !testQuestion.is_correct}],
+              is_true: testQuestion.is_correct,
+              answers: [],
             }
             this.postQuestion(question);
           } else if (testQuestion.type === 'TEXT') {
@@ -154,6 +155,7 @@ export class TestEditorComponent {
               test_id: response.id,
               question: testQuestion.content,
               question_type: testQuestion.type,
+              is_true: null,
               answers: [{answer: testQuestion.answer, is_correct: true}],
             }
             this.postQuestion(question);
@@ -162,6 +164,7 @@ export class TestEditorComponent {
               test_id: response.id,
               question: testQuestion.content,
               question_type: testQuestion.type,
+              is_true: null,
               answers: testQuestion.answers,
             }
             this.postQuestion(question);
@@ -175,13 +178,13 @@ export class TestEditorComponent {
   }
 
   postQuestion(data: TestQuestion): void {
-    this.http.post(this.apiUrl + '/api/test_questions/', { test: data.test_id, question: data.question, question_type: data.question_type }).subscribe({
+    this.http.post(this.apiUrl + '/api/test_questions/', { test: data.test_id, question: data.question, question_type: data.question_type, is_true: data.is_true }).subscribe({
       next: (response: any) => {
         const answersArray = data.answers;
         for (const answer of answersArray) {
           this.http.post(this.apiUrl + '/api/test_questions_answers/', { text: answer.answer, is_correct: answer.is_correct, question: response.id }).subscribe({
             next: (response: any) => {
-              this.router.navigateByUrl('/tests/' + this.questionSetId);
+              this.router.navigateByUrl('/question_sets/' + this.questionSetId + '/tests');
               this.snackbarService.showSnackbar(this.translate.instant("Snackbar.AddedTest"));
             },
             error: (error) => {
@@ -189,6 +192,8 @@ export class TestEditorComponent {
             }
           })
         }
+        this.router.navigateByUrl('/question_sets/' + this.questionSetId + '/tests');
+        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.AddedTest"));
       },
       error: (error) => {
         this.errorHandling.handleError(error);

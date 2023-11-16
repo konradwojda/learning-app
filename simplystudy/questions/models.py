@@ -73,6 +73,7 @@ class TestQuestion(models.Model):
 
     test = models.ForeignKey(to=Test, related_name="test_questions", on_delete=models.CASCADE)
     question_type = models.CharField(max_length=128, choices=TestQuestionType.choices)
+    is_true = models.BooleanField(null=True, blank=True, default=None)
     question = models.TextField()
 
 

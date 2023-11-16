@@ -105,7 +105,7 @@ class TestQuestionDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TestQuestion
-        fields = ("id", "question_type", "question", "question_choices")
+        fields = ("id", "question_type", "question", "question_choices", "is_true")
 
 
 class TestDetailSerializer(serializers.ModelSerializer):
