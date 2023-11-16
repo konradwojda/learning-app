@@ -18,6 +18,9 @@ from simplystudy.questions.permissions import (
     OwnerPermissions,
     QuestionPermissions,
     QuestionSetPermissions,
+    TestPermissions,
+    TestQuestionAnswerPermissions,
+    TestQuestionPermissions,
     UserResourcePremissions,
 )
 from simplystudy.questions.serializers import (
@@ -121,7 +124,7 @@ class TestViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
 
     queryset = Test.objects.all()
     serializer_class = TestSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, TestPermissions]
 
     def get_queryset(self) -> QuerySet:
         queryset = self.queryset.all()
@@ -144,7 +147,7 @@ class TestQuestionViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-an
 
     queryset = TestQuestion.objects.all()
     serializer_class = TestQuestionSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, TestQuestionPermissions]
 
 
 class TestQuestionAnswerViewSet(viewsets.ModelViewSet):
@@ -152,4 +155,4 @@ class TestQuestionAnswerViewSet(viewsets.ModelViewSet):
 
     queryset = TestQuestionAnswer.objects.all()
     serializer_class = TestQuestionAnswerSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, TestQuestionAnswerPermissions]
