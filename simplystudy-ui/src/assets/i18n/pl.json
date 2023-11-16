@@ -124,7 +124,8 @@
   "Tests": {
     "QuestionCount": "Liczba pytań:",
     "Export": "Pobierz test",
-    "Take": "Kliknij aby rozpocząć test"
+    "Take": "Kliknij aby rozpocząć test",
+    "Edit": "Edytuj test"
   },
   "TestEditor": {
     "Create": "Stwórz nowy test",

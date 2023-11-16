@@ -124,7 +124,8 @@
   "Tests": {
     "QuestionCount": "Number of questions:",
     "Export": "Download test",
-    "Take": "Click to take a test"
+    "Take": "Click to take a test",
+    "Edit": "Edit test"
   },
   "TestEditor": {
     "Create": "Create new test",
