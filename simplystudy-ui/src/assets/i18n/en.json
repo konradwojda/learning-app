@@ -119,7 +119,8 @@
     "AddedToResources": "Question set has been added to resources.",
     "DeletedFromResources": "Question set has been deleted from resources.",
     "DeletedTest": "Test has been deleted.",
-    "AddedTest": "New test has been created."
+    "AddedTest": "New test has been created.",
+    "EditedTest": "Test has been updated."
   },
   "Tests": {
     "QuestionCount": "Number of questions:",
@@ -141,6 +142,7 @@
     "Text": "Text question",
     "Single": "Single choice question",
     "Multiple": "Multiple choice question",
-    "TF": "True/False question"
+    "TF": "True/False question",
+    "EditQuestion": "Edytuj pytanie"
   }
 }

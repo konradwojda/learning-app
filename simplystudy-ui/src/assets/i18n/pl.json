@@ -119,7 +119,8 @@
     "AddedToResources": "Zestaw pytań dostał dodany do zasobów.",
     "DeletedFromResources": "Zestaw pytań został usunięty z zasobów.",
     "DeletedTest": "Test został usunięty.",
-    "AddedTest": "Nowy test został utworzony"
+    "AddedTest": "Nowy test został utworzony",
+    "EditedTest": "Test został zaktualizowany."
   },
   "Tests": {
     "QuestionCount": "Liczba pytań:",
@@ -141,6 +142,7 @@
     "Text": "Pytanie tekstowe",
     "Single": "Pytanie pojedyńczego wyboru",
     "Multiple": "Pytanie wielokrotnego wyboru",
-    "TF": "Pytanie prawda/fałsz"
+    "TF": "Pytanie prawda/fałsz",
+    "EditQuestion": "Edytuj pytanie"
   }
 }

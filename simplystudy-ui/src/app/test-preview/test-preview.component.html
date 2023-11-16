@@ -32,10 +32,10 @@
                 {{ question.question_choices[0].text }}
             </div>
             <div *ngIf="question.question_type === 'TF'">
-                <div *ngIf="(question.question_choices[0].text === 'True' && question.question_choices[0].is_correct) || (question.question_choices[0].text === 'False' && !question.question_choices[0].is_correct)">
+                <div *ngIf="question.is_true">
                     True
                 </div>
-                <div *ngIf="(question.question_choices[0].text === 'True' && !question.question_choices[0].is_correct) || (question.question_choices[0].text === 'False' && question.question_choices[0].is_correct)">
+                <div *ngIf="!question.is_true">
                     False
                 </div>
             </div>
@@ -48,7 +48,7 @@
         </mat-card-content>
       </mat-card>
       <div class="question-actions">
-        <button mat-icon-button class="edit-button">
+        <button mat-icon-button class="edit-button" (click)="editQuestion(question)">
           <mat-icon>edit</mat-icon>
         </button>
         <button mat-icon-button>

@@ -6,13 +6,17 @@ import { environment } from 'src/environments/environment';
 import { ErrorHandlingService } from '../error-handling.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NgFor, NgIf, NgSwitchCase } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { SnackbarService } from '../snackbar.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-test-preview',
@@ -27,7 +31,7 @@ export class TestPreviewComponent implements OnInit {
   test: Test;
   private apiUrl = environment.apiUrl;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private errorHandling: ErrorHandlingService, public dialog: MatDialog, private router: Router) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private errorHandling: ErrorHandlingService, public dialog: MatDialog, private router: Router, private snackbarService: SnackbarService, private translate: TranslateService) {
     this.testId = Number(this.route.snapshot.paramMap.get('id'));
     this.test = {id: -1, name: '', questions_count: -1, question_set: -1, questions: []};
   }
@@ -44,7 +48,6 @@ export class TestPreviewComponent implements OnInit {
         this.test.question_set = data.question_set;
         this.test.questions_count = data.test_questions.length;
         this.test.questions = data.test_questions;
-        console.log(this.test);
       },
       error: (error) => {
         this.errorHandling.handleError(error);
@@ -67,8 +70,35 @@ export class TestPreviewComponent implements OnInit {
     })
   }
 
-  editQuestion(question_id: number): void {
-    const dialogRef = this.dialog.open(TestQuestionEditDialogComponent, {data: {}})
+  editQuestion(question: any): void {
+    const dialogRef = this.dialog.open(TestQuestionEditDialogComponent, {
+      data: { id: question.id, question: question.question, question_type: question.question_type, answers: question.question_choices, is_true: question.is_true }
+    });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+      const questionUpdate$ = this.http.patch(this.apiUrl + '/api/test_questions/' + result.id + '/', { test: this.testId, question: result.question, question_type: result.question_type, is_true: result.is_true });
+  
+      const answerRequests = result.answers.map((answer: any) => {
+        if (answer.id) {
+          return this.http.patch(this.apiUrl + '/api/test_questions_answers/' + answer.id + '/', { text: answer.text, is_correct: answer.is_correct, question: result.id });
+        } else {
+          return this.http.post(this.apiUrl + '/api/test_questions_answers/', { text: answer.text, is_correct: answer.is_correct, question: result.id });
+        }
+      });
+  
+      const allRequests$ = [questionUpdate$, ...answerRequests];
+  
+      forkJoin(allRequests$).subscribe({
+        next: (responses: any[]) => {
+          this.ngOnInit();
+          this.router.navigateByUrl(this.router.url);
+          this.snackbarService.showSnackbar(this.translate.instant("Snackbar.EditedTest"));
+        },
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        }
+      });
+    });
   }
 
 }
@@ -85,8 +115,6 @@ export class TestEditDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<TestEditDialogComponent>,
-    private http: HttpClient,
-    private errorHandling: ErrorHandlingService,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
   }
@@ -101,7 +129,7 @@ export class TestEditDialogComponent {
   templateUrl: 'test-question-edit-dialog.html',
   styleUrls: ['./test-preview.component.css'],
   standalone: true,
-  imports: [TranslateModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule, FormsModule, MatButtonModule, MatDialogModule],
+  imports: [TranslateModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule, FormsModule, MatButtonModule, MatDialogModule, NgIf, MatIconModule, NgFor, MatCheckboxModule, MatRadioModule],
 })
 export class TestQuestionEditDialogComponent {
   private apiUrl = environment.apiUrl;
@@ -109,9 +137,35 @@ export class TestQuestionEditDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<TestQuestionEditDialogComponent>,
     private http: HttpClient,
+    private snackbarService: SnackbarService,
     private errorHandling: ErrorHandlingService,
+    private translate: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
+  }
+
+  onCheckCorrectSingle(answerIdx: number): void {
+    for (let i = 0; i < this.data.answers.length; i++) {
+      this.data.answers[i].is_correct = false;
+    }
+    this.data.answers[answerIdx].is_correct = true;
+  }
+
+  addAnswer(): void {
+    this.data.answers.push({id: null, text: '', is_correct: false, question: this.data.id})
+  }
+
+  deleteAnswer(answerIdx: number): void {
+    const id = this.data.answers[answerIdx].id
+    this.http.delete(this.apiUrl + '/api/test_questions_answers/' + id + '/').subscribe({
+      next: (response) => {
+        this.data.answers.splice(answerIdx, 1);
+        this.snackbarService.showSnackbar(this.translate.instant('Snackbar.QuestionDeleted'))
+      },
+      error: (error) => {
+        this.errorHandling.handleError(error);
+      }
+    })
   }
 
   onNoClick(): void {
