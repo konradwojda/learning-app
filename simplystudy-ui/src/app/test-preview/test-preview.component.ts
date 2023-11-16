@@ -40,6 +40,18 @@ export class TestPreviewComponent implements OnInit {
     this.getTest();
   }
 
+  deleteTest(): void {
+    this.http.delete(this.apiUrl + '/api/tests/' + this.testId + '/').subscribe({
+      next: (data) => {
+        this.router.navigateByUrl('/question_sets/' + this.test.question_set + '/tests');
+        this.snackbarService.showSnackbar(this.translate.instant('Snackbar.DeletedTest'));
+      },
+      error: (error) => {
+        this.errorHandling.handleError(error);
+      }
+    })
+  }
+
   getTest(): void {
     this.http.get(this.apiUrl + '/api/test_details/' + this.testId + '/').subscribe({
       next: (data: any) => {
