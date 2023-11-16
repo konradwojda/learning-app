@@ -56,7 +56,13 @@
         </button>
       </div>
     </div>
-  <button mat-icon-button>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>add</mat-icon>
   </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="addQuestion('TEXT')">{{ "TestEditor.Text" | translate }}</button>
+    <button mat-menu-item (click)="addQuestion('SINGLE')">{{ "TestEditor.Single" | translate }}</button>
+    <button mat-menu-item (click)="addQuestion('MULTIPLE')">{{ "TestEditor.Multiple" | translate }}</button>
+    <button mat-menu-item (click)="addQuestion('TF')">{{ "TestEditor.TF" | translate }}</button>
+</mat-menu>
 </div>

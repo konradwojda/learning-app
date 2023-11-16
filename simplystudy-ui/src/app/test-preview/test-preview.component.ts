@@ -17,11 +17,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { SnackbarService } from '../snackbar.service';
 import { forkJoin } from 'rxjs';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-test-preview',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, TranslateModule, MatIconModule, NgFor, NgIf, NgSwitchCase, MatDialogModule],
+  imports: [MatCardModule, MatButtonModule, TranslateModule, MatIconModule, NgFor, NgIf, NgSwitchCase, MatDialogModule, MatMenuModule],
   templateUrl: './test-preview.component.html',
   styleUrls: ['./test-preview.component.css']
 })
@@ -80,8 +81,40 @@ export class TestPreviewComponent implements OnInit {
     })
   }
 
+  addQuestion(type: string): void {
+    const dialogRef = this.dialog.open(AddTestQuestionDialogComponent, {data: {test_id: this.testId, question: '', question_type: type, is_true: type === 'TF' ? true : null, answers: []}});
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        this.http.post(this.apiUrl + '/api/test_questions/', { test: result.test_id, question: result.question, question_type: result.question_type, is_true: result.is_true}).subscribe({
+          next: (response: any) => {
+            const answersArray = result.answers;
+            for(const answer of answersArray) {
+              console.log(answer);
+              this.http.post(this.apiUrl + '/api/test_questions_answers/', { text: answer.text, is_correct: answer.is_correct, question: response.id }).subscribe({
+                next: (response: any) => {
+                  this.ngOnInit();
+                  this.router.navigateByUrl(this.router.url);
+                  this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QuestionAdded"));
+                },
+                error: (error) => {
+                  this.errorHandling.handleError(error);
+                }
+              })
+            }
+            this.ngOnInit();
+            this.router.navigateByUrl(this.router.url);
+            this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QuestionAdded"));
+          },
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          }
+        })
+      }
+    })
+  }
+
   editTest(): void {
-    const dialogRef = this.dialog.open(TestEditDialogComponent, {data: {name: this.test.name, id: this.test.id}})
+    const dialogRef = this.dialog.open(TestEditDialogComponent, {data: {name: this.test.name, id: this.test.id}});
     dialogRef.afterClosed().subscribe((result) => {
       if(result){
         this.http.patch(this.apiUrl + '/api/tests/' + this.test.id + '/', {name: result.name}).subscribe({
@@ -197,6 +230,51 @@ export class TestQuestionEditDialogComponent {
         }
       })
     }
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'app-test-preview-add-test-question-dialog',
+  templateUrl: 'add-test-question-dialog.html',
+  styleUrls: ['./test-preview.component.css'],
+  standalone: true,
+  imports: [TranslateModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule, FormsModule, MatButtonModule, MatDialogModule, NgIf, MatIconModule, NgFor, MatCheckboxModule, MatRadioModule],
+})
+export class AddTestQuestionDialogComponent implements OnInit {
+  private apiUrl = environment.apiUrl;
+
+  constructor(
+    public dialogRef: MatDialogRef<AddTestQuestionDialogComponent>,
+    private snackbarService: SnackbarService,
+    private errorHandling: ErrorHandlingService,
+    private translate: TranslateService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
+  }
+
+  ngOnInit(): void {
+    if(this.data.question_type === 'TEXT'){
+      this.data.answers.push({text: '', is_correct: true});
+    }
+  }
+
+  onCheckCorrectSingle(answerIdx: number): void {
+    for (let i = 0; i < this.data.answers.length; i++) {
+      this.data.answers[i].is_correct = false;
+    }
+    this.data.answers[answerIdx].is_correct = true;
+  }
+
+  addAnswer(): void {
+    this.data.answers.push({text: '', is_correct: false})
+  }
+
+  deleteAnswer(answerIdx: number): void {
+    this.data.answers.splice(answerIdx, 1);
   }
 
   onNoClick(): void {

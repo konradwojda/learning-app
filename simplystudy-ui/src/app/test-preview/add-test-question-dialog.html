@@ -1,0 +1,64 @@
+<h1 mat-dialog-title>{{'TestEditor.EditQuestion' | translate}}</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>{{'TestEditor.QuestionContent' | translate}}</mat-label>
+    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5" [(ngModel)]="data.question" required></textarea>
+  </mat-form-field>
+  <div *ngIf="data.question_type === 'TEXT'">
+    <mat-form-field>
+      <mat-label>{{ "TestEditor.Answer" | translate }}</mat-label>
+      <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5" [(ngModel)]="data.answers[0].text"></textarea>
+    </mat-form-field>
+  </div>
+  <div *ngIf="data.question_type === 'SINGLE'">
+    <div class="answer-container" *ngFor="let answer of data.answers; let i = index">
+      <div class="answer-content">
+          <mat-form-field>
+            <mat-label>{{"TestEditor.Answer" | translate}}</mat-label>
+            <input matInput [(ngModel)]="answer.text">
+          </mat-form-field>
+      </div>
+      <div class="answer-actions">
+          <mat-checkbox [(ngModel)]="answer.is_correct" (change)="onCheckCorrectSingle(i)">{{ "TestEditor.IsCorrect" | translate }}</mat-checkbox>
+          <button mat-icon-button (click)="deleteAnswer(i)">
+              <mat-icon>delete</mat-icon>
+          </button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="data.question_type === 'MULTIPLE'">
+    <div class="answer-container" *ngFor="let answer of data.answers; let i = index">
+      <div class="answer-content">
+          <mat-form-field>
+            <mat-label>{{"TestEditor.Answer" | translate}}</mat-label>
+            <input matInput [(ngModel)]="answer.text">
+          </mat-form-field>
+      </div>
+      <div class="answer-actions">
+          <mat-checkbox [(ngModel)]="answer.is_correct">{{ "TestEditor.IsCorrect" | translate }}</mat-checkbox>
+          <button mat-icon-button (click)="deleteAnswer(i)">
+              <mat-icon>delete</mat-icon>
+          </button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="data.question_type === 'TF'">
+    <div class="answer-actions">
+        <mat-radio-group [(ngModel)]="data.is_true">
+            <mat-radio-button [value]="true">{{ "TestEditor.True" | translate }}</mat-radio-button>
+            <mat-radio-button [value]="false">{{ "TestEditor.False" | translate }}</mat-radio-button>
+        </mat-radio-group>
+    </div>
+</div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="addAnswer()" *ngIf="data.question_type === 'SINGLE' || data.question_type === 'MULTIPLE'">
+    {{ "TestEditor.AddAns" | translate }}
+  </button>
+  <button mat-button (click)="onNoClick()">
+    {{'Utils.Close' | translate}}
+  </button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
+    {{'Utils.Submit' | translate}}
+  </button>
+</div>
