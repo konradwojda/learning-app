@@ -170,6 +170,8 @@ export class TestEditorComponent {
             this.postQuestion(question);
           }
         }
+        this.router.navigateByUrl('/question_sets/' + this.questionSetId + '/tests');
+        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.AddedTest"));
       },
       error: (error) => {
         this.errorHandling.handleError(error);
