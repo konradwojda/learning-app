@@ -58,15 +58,17 @@ export class TestPreviewComponent implements OnInit {
   editTest(): void {
     const dialogRef = this.dialog.open(TestEditDialogComponent, {data: {name: this.test.name, id: this.test.id}})
     dialogRef.afterClosed().subscribe((result) => {
-      this.http.patch(this.apiUrl + '/api/tests/' + this.test.id + '/', {name: result.name}).subscribe({
-        next: (data) => {
-          this.ngOnInit();
-          this.router.navigateByUrl(this.router.url);
-        },
-        error: (error) => {
-          this.errorHandling.handleError(error);
-        }
-      })
+      if(result){
+        this.http.patch(this.apiUrl + '/api/tests/' + this.test.id + '/', {name: result.name}).subscribe({
+          next: (data) => {
+            this.ngOnInit();
+            this.router.navigateByUrl(this.router.url);
+          },
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          }
+        })
+      }
     })
   }
 
@@ -76,28 +78,30 @@ export class TestPreviewComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result) => {
-      const questionUpdate$ = this.http.patch(this.apiUrl + '/api/test_questions/' + result.id + '/', { test: this.testId, question: result.question, question_type: result.question_type, is_true: result.is_true });
-  
-      const answerRequests = result.answers.map((answer: any) => {
-        if (answer.id) {
-          return this.http.patch(this.apiUrl + '/api/test_questions_answers/' + answer.id + '/', { text: answer.text, is_correct: answer.is_correct, question: result.id });
-        } else {
-          return this.http.post(this.apiUrl + '/api/test_questions_answers/', { text: answer.text, is_correct: answer.is_correct, question: result.id });
-        }
-      });
-  
-      const allRequests$ = [questionUpdate$, ...answerRequests];
-  
-      forkJoin(allRequests$).subscribe({
-        next: (responses: any[]) => {
-          this.ngOnInit();
-          this.router.navigateByUrl(this.router.url);
-          this.snackbarService.showSnackbar(this.translate.instant("Snackbar.EditedTest"));
-        },
-        error: (error) => {
-          this.errorHandling.handleError(error);
-        }
-      });
+      if(result){
+        const questionUpdate$ = this.http.patch(this.apiUrl + '/api/test_questions/' + result.id + '/', { test: this.testId, question: result.question, question_type: result.question_type, is_true: result.is_true });
+    
+        const answerRequests = result.answers.map((answer: any) => {
+          if (answer.id) {
+            return this.http.patch(this.apiUrl + '/api/test_questions_answers/' + answer.id + '/', { text: answer.text, is_correct: answer.is_correct, question: result.id });
+          } else {
+            return this.http.post(this.apiUrl + '/api/test_questions_answers/', { text: answer.text, is_correct: answer.is_correct, question: result.id });
+          }
+        });
+    
+        const allRequests$ = [questionUpdate$, ...answerRequests];
+    
+        forkJoin(allRequests$).subscribe({
+          next: (responses: any[]) => {
+            this.ngOnInit();
+            this.router.navigateByUrl(this.router.url);
+            this.snackbarService.showSnackbar(this.translate.instant("Snackbar.EditedTest"));
+          },
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          }
+        });
+      }
     });
   }
 
