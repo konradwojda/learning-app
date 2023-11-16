@@ -120,7 +120,8 @@
     "DeletedFromResources": "Zestaw pytań został usunięty z zasobów.",
     "DeletedTest": "Test został usunięty.",
     "AddedTest": "Nowy test został utworzony",
-    "EditedTest": "Test został zaktualizowany."
+    "EditedTest": "Test został zaktualizowany.",
+    "OptionDeleted": "Opcja została usunięta."
   },
   "Tests": {
     "QuestionCount": "Liczba pytań:",

@@ -51,7 +51,7 @@
         <button mat-icon-button class="edit-button" (click)="editQuestion(question)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button>
+        <button mat-icon-button (click)="deleteTestQuestion(question.id)">
           <mat-icon>delete</mat-icon>
         </button>
       </div>

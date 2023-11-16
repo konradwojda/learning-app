@@ -52,6 +52,19 @@ export class TestPreviewComponent implements OnInit {
     })
   }
 
+  deleteTestQuestion(question_id: number): void {
+    this.http.delete(this.apiUrl + '/api/test_questions/' + question_id + '/').subscribe({
+      next: (data) => {
+        this.ngOnInit();
+        this.router.navigateByUrl(this.router.url);
+        this.snackbarService.showSnackbar(this.translate.instant('Snackbar.QuestionDeleted'));
+      },
+      error: (error) => {
+        this.errorHandling.handleError(error);
+      }
+    })
+  }
+
   getTest(): void {
     this.http.get(this.apiUrl + '/api/test_details/' + this.testId + '/').subscribe({
       next: (data: any) => {
@@ -176,7 +189,7 @@ export class TestQuestionEditDialogComponent {
     this.http.delete(this.apiUrl + '/api/test_questions_answers/' + id + '/').subscribe({
       next: (response) => {
         this.data.answers.splice(answerIdx, 1);
-        this.snackbarService.showSnackbar(this.translate.instant('Snackbar.QuestionDeleted'))
+        this.snackbarService.showSnackbar(this.translate.instant('Snackbar.OptionDeleted'))
       },
       error: (error) => {
         this.errorHandling.handleError(error);
