@@ -41,9 +41,6 @@ export class TestPreviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTest();
-    if (this.test.question_set.owner === this.authService.getUsername()) {
-      this.isOwner = true;
-    }
   }
 
   deleteTest(): void {
@@ -79,6 +76,9 @@ export class TestPreviewComponent implements OnInit {
         this.test.question_set = data.question_set;
         this.test.questions_count = data.test_questions.length;
         this.test.questions = data.test_questions;
+        if (this.test.question_set.owner === this.authService.getUsername()) {
+          this.isOwner = true;
+        }
       },
       error: (error) => {
         this.errorHandling.handleError(error);

@@ -9,7 +9,7 @@ import { Test } from './test';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -18,7 +18,7 @@ import { SnackbarService } from '../snackbar.service';
 @Component({
   selector: 'app-tests',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, TranslateModule, NgFor, MatIconModule, MatRippleModule, MatTooltipModule],
+  imports: [MatCardModule, MatButtonModule, TranslateModule, NgFor, MatIconModule, MatRippleModule, MatTooltipModule, NgIf],
   templateUrl: './tests.component.html',
   styleUrls: ['./tests.component.css']
 })
@@ -43,9 +43,6 @@ export class TestsComponent implements OnInit {
   ngOnInit(): void {
     this.getQuestionSet();
     this.getTests();
-    if (this.questionSet.owner === this.authService.getUsername()) {
-      this.isOwner = true;
-    }
   }
 
   getQuestionSet(): void {
@@ -63,6 +60,9 @@ export class TestsComponent implements OnInit {
             owner: data.owner,
             is_private: data.is_private,
           };
+          if (this.questionSet.owner === this.authService.getUsername()) {
+            this.isOwner = true;
+          }
         },
         error: (error) => {
           this.errorHandling.handleError(error);
