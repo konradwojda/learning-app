@@ -2,12 +2,14 @@
   <mat-card class="test-info">
     <mat-card-header>
       <mat-card-title>{{ test.name }}</mat-card-title>
+      <mat-card-subtitle>{{ test.question_set.name }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ test.question_set.owner }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-actions>
-      <button mat-button (click)="editTest()">
+      <button mat-button (click)="editTest()" *ngIf="isOwner">
         {{ "Utils.Edit" | translate }}
       </button>
-      <button mat-button (click)="deleteTest()">
+      <button mat-button (click)="deleteTest()" *ngIf="isOwner">
         {{ "Utils.Remove" | translate }}
       </button>
     </mat-card-actions>
@@ -47,7 +49,7 @@
             </div>
         </mat-card-content>
       </mat-card>
-      <div class="question-actions">
+      <div class="question-actions" *ngIf="isOwner">
         <button mat-icon-button class="edit-button" (click)="editQuestion(question)">
           <mat-icon>edit</mat-icon>
         </button>
@@ -56,7 +58,7 @@
         </button>
       </div>
     </div>
-  <button mat-icon-button [matMenuTriggerFor]="menu">
+  <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="isOwner">
     <mat-icon>add</mat-icon>
   </button>
   <mat-menu #menu="matMenu">

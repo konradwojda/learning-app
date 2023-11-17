@@ -18,6 +18,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { SnackbarService } from '../snackbar.service';
 import { forkJoin } from 'rxjs';
 import { MatMenuModule } from '@angular/material/menu';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-test-preview',
@@ -30,15 +31,19 @@ export class TestPreviewComponent implements OnInit {
 
   testId: number;
   test: Test;
+  isOwner = false;
   private apiUrl = environment.apiUrl;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private errorHandling: ErrorHandlingService, public dialog: MatDialog, private router: Router, private snackbarService: SnackbarService, private translate: TranslateService) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private errorHandling: ErrorHandlingService, public dialog: MatDialog, private router: Router, private snackbarService: SnackbarService, private translate: TranslateService, private authService: AuthService) {
     this.testId = Number(this.route.snapshot.paramMap.get('id'));
     this.test = {id: -1, name: '', questions_count: -1, question_set: -1, questions: []};
   }
 
   ngOnInit(): void {
     this.getTest();
+    if (this.test.question_set.owner === this.authService.getUsername()) {
+      this.isOwner = true;
+    }
   }
 
   deleteTest(): void {

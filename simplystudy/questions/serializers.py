@@ -66,9 +66,11 @@ class QuestionSetCreateSerializer(serializers.ModelSerializer):
 class QuestionSetInfoSerializer(serializers.ModelSerializer):
     """Serializer informacji o instancji modelu QuestionSet"""
 
+    owner = UsernameField(read_only=True)
+
     class Meta:
         model = QuestionSet
-        fields = ("id", "name", "description", "course")
+        fields = ("id", "name", "description", "course", "owner")
 
 
 class TestSerializer(serializers.ModelSerializer):
@@ -110,6 +112,7 @@ class TestQuestionDetailSerializer(serializers.ModelSerializer):
 
 class TestDetailSerializer(serializers.ModelSerializer):
     test_questions = TestQuestionDetailSerializer(many=True)
+    question_set = QuestionSetInfoSerializer()
 
     class Meta:
         model = Test
