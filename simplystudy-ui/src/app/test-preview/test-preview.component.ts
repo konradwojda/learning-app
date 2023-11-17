@@ -152,8 +152,8 @@ export class TestPreviewComponent implements OnInit {
               }
             });
         
-            forkJoin([answerRequests]).subscribe({
-              next: (responses: any[]) => {
+            forkJoin(answerRequests).subscribe({
+              next: (responses: any) => {
                 this.ngOnInit();
                 this.router.navigateByUrl(this.router.url);
                 this.snackbarService.showSnackbar(this.translate.instant("Snackbar.EditedTest"));
