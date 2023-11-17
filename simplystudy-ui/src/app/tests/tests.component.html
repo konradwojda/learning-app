@@ -27,14 +27,14 @@
       <button mat-icon-button (click)="previewTest(test.id)" matTooltip="{{'Utils.Preview' | translate}}">
         <mat-icon>preview</mat-icon>
       </button>
-      <button mat-icon-button matTooltip="{{'Utils.Remove' | translate}}" (click)="deleteTest(test.id)">
+      <button mat-icon-button matTooltip="{{'Utils.Remove' | translate}}" (click)="deleteTest(test.id)" *ngIf="isOwner">
         <mat-icon>delete</mat-icon>
       </button>
       <button mat-icon-button matTooltip="{{'Tests.Export' | translate}}">
         <mat-icon>file_download</mat-icon>
       </button>
     </div>
-    <button mat-icon-button (click)="addTest()">
+    <button mat-icon-button (click)="addTest()" *ngIf="isOwner">
       <mat-icon>add</mat-icon>
     </button>
 </div>

@@ -25,6 +25,7 @@ import { SnackbarService } from '../snackbar.service';
 export class TestsComponent implements OnInit {
   questionSet: QuestionSet;
   tests: Test[] = [];
+  isOwner = false;
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient, private authService: AuthService, private route: ActivatedRoute, private errorHandling: ErrorHandlingService, private router: Router, private snackbarService: SnackbarService, private translate: TranslateService) {
@@ -42,6 +43,9 @@ export class TestsComponent implements OnInit {
   ngOnInit(): void {
     this.getQuestionSet();
     this.getTests();
+    if (this.questionSet.owner === this.authService.getUsername()) {
+      this.isOwner = true;
+    }
   }
 
   getQuestionSet(): void {
