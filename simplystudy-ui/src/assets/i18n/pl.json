@@ -121,7 +121,8 @@
     "DeletedTest": "Test został usunięty.",
     "AddedTest": "Nowy test został utworzony",
     "EditedTest": "Test został zaktualizowany.",
-    "OptionDeleted": "Opcja została usunięta."
+    "OptionDeleted": "Opcja została usunięta.",
+    "ServerError": "Błąd serwera. Spróbuj ponownie później."
   },
   "Tests": {
     "QuestionCount": "Liczba pytań:",

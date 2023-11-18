@@ -121,7 +121,8 @@
     "DeletedTest": "Test has been deleted.",
     "AddedTest": "New test has been created.",
     "EditedTest": "Test has been updated.",
-    "OptionDeleted": "Option has been deleted."
+    "OptionDeleted": "Option has been deleted.",
+    "ServerError": "Server error. Try again later."
   },
   "Tests": {
     "QuestionCount": "Number of questions:",
