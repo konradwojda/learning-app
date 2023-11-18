@@ -17,6 +17,7 @@ import { AuthResetPasswordComponent } from './auth-reset-password/auth-reset-pas
 import { TestsComponent } from './tests/tests.component';
 import { TestEditorComponent } from './test-editor/test-editor.component';
 import { TestPreviewComponent } from './test-preview/test-preview.component';
+import { TakeTestComponent } from './take-test/take-test.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -65,6 +66,11 @@ const routes: Routes = [
   {
     path: 'tests/:id',
     component: TestPreviewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'tests/:id/take',
+    component: TakeTestComponent,
     canActivate: [AuthGuard],
   },
   { path: '404', component: PageNotFoundComponent },
