@@ -13,7 +13,7 @@
       <button mat-button (click)="showTests()">{{ "Learn.Test" | translate }}</button>
     </mat-card-actions>
   </mat-card>
-  <app-questions-stepper>
+  <app-questions-stepper *ngIf="questionSet.questions.length">
     <cdk-step *ngFor="let question of questionSet.questions; let i = index">
       <div class="question-pair">
         <mat-card class="question-card">
