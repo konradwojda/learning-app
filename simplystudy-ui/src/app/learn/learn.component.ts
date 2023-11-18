@@ -85,4 +85,9 @@ export class LearnComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.router.navigateByUrl('/question_sets/' + id);
   }
+
+  showTests(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.router.navigateByUrl('/question_sets/' + id + '/tests');
+  }
 }
