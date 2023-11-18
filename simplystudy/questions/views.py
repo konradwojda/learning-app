@@ -28,7 +28,6 @@ from simplystudy.questions.serializers import (
     QuestionSetCreateSerializer,
     QuestionSetDetailSerializer,
     TestDetailSerializer,
-    TestQuestionAnswerSerializer,
     TestQuestionSerializer,
     TestSerializer,
     UserResourceCreateSerializer,
