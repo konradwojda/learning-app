@@ -1,1 +1,64 @@
-<p>take-test works!</p>
+<div class="test-container">
+    <mat-card class="test-info">
+      <mat-card-header>
+        <mat-card-title>{{ test.name }}</mat-card-title>
+        <mat-card-subtitle>{{ test.question_set.name }}</mat-card-subtitle>
+        <mat-card-subtitle>{{ test.question_set.owner }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions>
+        <button mat-button>
+          {{ "Utils.Edit" | translate }}
+        </button>
+        <button mat-button>
+          {{ "Utils.Remove" | translate }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+    <div class="test-list">
+      <div *ngFor="let question of userAnswers" class="question-pair">
+        <mat-card class="question-card">
+          <mat-card-header>
+            <mat-card-title>{{ "Utils.Question" | translate }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+              {{ question.text }}
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="answer-card">
+          <mat-card-header>
+            <mat-card-title>{{ "Utils.Answer" | translate }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+              <div *ngIf="question.type === 'TEXT'">
+                <mat-form-field>
+                    <mat-label>{{ "TestEditor.Answer" | translate }}</mat-label>
+                    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5" [(ngModel)]="question.answers[0].user_answer"></textarea>
+                </mat-form-field>
+              </div>
+              <div *ngIf="question.type === 'TF'">
+                <mat-radio-group [(ngModel)]="question.is_true">
+                    <mat-radio-button [value]="true">{{ "TestEditor.True" | translate }}</mat-radio-button>
+                    <mat-radio-button [value]="false">{{ "TestEditor.False" | translate }}</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div *ngIf="question.type === 'MULTIPLE'">
+                  <div *ngFor="let answer of question.answers">
+                    <mat-checkbox [(ngModel)]="answer.is_correct">{{answer.text}}</mat-checkbox>
+                  </div>
+              </div>
+              <div *ngIf="question.type === 'SINGLE'">
+                <mat-radio-group>
+                    <div *ngFor="let answer of question.answers">
+                      <mat-radio-button>{{answer.text}}</mat-radio-button>
+                    </div>
+                </mat-radio-group>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    <button mat-button (click)="submitTest()">
+      Submit
+    </button>
+  </div>
+  
