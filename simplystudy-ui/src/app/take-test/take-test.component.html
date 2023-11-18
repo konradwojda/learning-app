@@ -16,13 +16,13 @@
     </mat-card>
   </div>
     <div class="test-list">
-      <div *ngFor="let question of userAnswers" class="question-pair">
+      <div *ngFor="let question of test.questions" class="question-pair">
         <mat-card class="question-card">
           <mat-card-header>
             <mat-card-title>{{ "Utils.Question" | translate }}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-              {{ question.text }}
+              {{ question.question }}
           </mat-card-content>
         </mat-card>
         <mat-card class="answer-card">
@@ -30,29 +30,58 @@
             <mat-card-title>{{ "Utils.Answer" | translate }}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-              <div *ngIf="question.type === 'TEXT'">
+              <div *ngIf="question.question_type === 'TEXT'">
                 <mat-form-field>
                     <mat-label>{{ "TestEditor.Answer" | translate }}</mat-label>
-                    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5" [(ngModel)]="question.answers[0].user_answer"></textarea>
+                    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5" [(ngModel)]="question.user_answer"></textarea>
                 </mat-form-field>
+                <div *ngIf="question.user_answer_correct !== null">
+                    Poprawna odpowiedź: {{ question.question_choices[0].text }}
+                </div>
               </div>
-              <div *ngIf="question.type === 'TF'">
-                <mat-radio-group [(ngModel)]="question.is_true">
+              <div *ngIf="question.question_type === 'TF'">
+                <mat-radio-group [(ngModel)]="question.user_answer">
                     <mat-radio-button [value]="true">{{ "TestEditor.True" | translate }}</mat-radio-button>
                     <mat-radio-button [value]="false">{{ "TestEditor.False" | translate }}</mat-radio-button>
                 </mat-radio-group>
+                <div *ngIf="question.user_answer_correct !== null">
+                    <div *ngIf="question.is_true">
+                        Prawidłowa odpowiedź: True
+                    </div>
+                    <div *ngIf="!question.is_true">
+                        Prawidłowa odpowiedź: False
+                    </div>
+                </div>
               </div>
-              <div *ngIf="question.type === 'MULTIPLE'">
-                  <div *ngFor="let answer of question.answers">
-                    <mat-checkbox [(ngModel)]="answer.is_correct">{{answer.text}}</mat-checkbox>
+              <div *ngIf="question.question_type === 'MULTIPLE'">
+                  <div *ngFor="let answer of question.question_choices">
+                    <mat-checkbox [(ngModel)]="answer.checked">{{answer.text}}</mat-checkbox>
+                  </div>
+                  <div *ngIf="question.user_answer_correct !== null">
+                    Poprawne odpowiedzi:
+                    <div *ngFor="let answer of question.question_choices">
+                        <div *ngIf="answer.is_correct">{{answer.text}}</div>
+                    </div>
                   </div>
               </div>
-              <div *ngIf="question.type === 'SINGLE'">
-                <mat-radio-group>
-                    <div *ngFor="let answer of question.answers">
-                      <mat-radio-button>{{answer.text}}</mat-radio-button>
+              <div *ngIf="question.question_type === 'SINGLE'">
+                <mat-radio-group [(ngModel)]="question.user_answer">
+                    <div *ngFor="let answer of question.question_choices">
+                      <mat-radio-button [value]="answer.id">{{answer.text}}</mat-radio-button>
                     </div>
                 </mat-radio-group>
+                <div *ngIf="question.user_answer_correct !== null">
+                    Poprawna odpowiedź:
+                    <div *ngFor="let answer of question.question_choices">
+                        <div *ngIf="answer.is_correct">{{answer.text}}</div>
+                    </div>
+                  </div>
+            </div>
+            <div *ngIf="question.user_answer_correct">
+                Poprawnie
+            </div>
+            <div *ngIf="question.user_answer_correct === false">
+                Niepoprawnie
             </div>
           </mat-card-content>
         </mat-card>

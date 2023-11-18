@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Test } from '../tests/test';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ErrorHandlingService } from '../error-handling.service';
@@ -14,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { TestToTake, TestQuestion } from './test-data';
 
 @Component({
   selector: 'app-take-test',
@@ -23,7 +23,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   styleUrls: ['./take-test.component.css']
 })
 export class TakeTestComponent implements OnInit{
-  test: Test;
+  test: TestToTake;
   testId: number;
   userAnswers: any[] = [];
   private apiUrl = environment.apiUrl;
@@ -45,13 +45,18 @@ export class TakeTestComponent implements OnInit{
         this.test.question_set = data.question_set;
         this.test.questions_count = data.test_questions.length;
         this.test.questions = data.test_questions;
-        for(const question of data.test_questions) {
-          const question_answers = question.question_choices.map((answer: any) => {
-            return {id: answer.id, is_correct: false, text: answer.text, user_answer: ''}
-          })
-          this.userAnswers.push({id: question.id, answers: question_answers, is_true: null, text: question.question, type: question.question_type});
+        for(const question of this.test.questions) {
+          question.user_answer_correct = null;
+          if (question.question_type === 'MULTIPLE') {
+            question.user_answer = [];
+            for (const answer of question.question_choices) {
+              answer.checked = false;
+            }
+          } else {
+            question.user_answer = '';
+          }
         }
-        console.log(this.userAnswers);
+        console.log(this.test.questions);
       },
       error: (error) => {
         this.errorHandling.handleError(error);
@@ -59,8 +64,36 @@ export class TakeTestComponent implements OnInit{
     })
   }
 
+  checkQuestionCorrect(type: string, question: TestQuestion) {
+    switch (type) {
+      case 'TEXT': {
+        question.user_answer_correct = question.user_answer === question.question_choices[0].text;
+        break;
+      }
+      case 'TF': {
+        question.user_answer_correct = question.user_answer === question.is_true;
+        break;
+      }
+      case 'SINGLE': {
+        question.user_answer_correct = question.question_choices.filter((choice) => choice.id === question.user_answer)[0]?.is_correct || false
+        break;
+      }
+      case 'MULTIPLE': {
+        for(const answer of question.question_choices) {
+          question.user_answer_correct = answer.is_correct === answer.checked;
+          if (!question.user_answer_correct){
+            break;
+          } 
+        }
+      }
+    }
+  }
+
   submitTest(): void {
-    console.log(this.userAnswers);
+    for(const question of this.test.questions) {
+      this.checkQuestionCorrect(question.question_type, question);
+    }
+    console.log(this.test.questions);
   }
 
 
