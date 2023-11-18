@@ -149,6 +149,29 @@ class TestQuestionViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-an
     serializer_class = TestQuestionSerializer
     permission_classes = [permissions.IsAuthenticated, TestQuestionPermissions]
 
+    def perform_create(self, serializer):
+        question = serializer.save()
+
+        answers_data = self.request.data.get("question_choices", [])
+        for answer_data in answers_data:
+            TestQuestionAnswer.objects.create(question=question, **answer_data)
+
+    def perform_update(self, serializer):
+        question: TestQuestion = serializer.save()
+
+        answers_data = self.request.data.get("question_choices", [])
+
+        answer_ids = {answer["id"] for answer in answers_data if answer["id"]}
+        question.question_choices.exclude(id__in=answer_ids).delete()
+
+        for answer_data in answers_data:
+            if answer_data["id"]:
+                TestQuestionAnswer.objects.filter(id=answer_data["id"]).update(
+                    question=question, **answer_data
+                )
+            else:
+                TestQuestionAnswer.objects.create(question=question, **answer_data)
+
 
 class TestQuestionAnswerViewSet(viewsets.ModelViewSet):
     """ViewSet dla modelu TestQuestionAnswer"""

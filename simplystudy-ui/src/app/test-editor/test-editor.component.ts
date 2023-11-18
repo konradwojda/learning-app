@@ -180,20 +180,11 @@ export class TestEditorComponent {
   }
 
   postQuestion(data: TestQuestion): void {
-    this.http.post(this.apiUrl + '/api/test_questions/', { test: data.test_id, question: data.question, question_type: data.question_type, is_true: data.is_true }).subscribe({
+    const answersArray = data.answers.map((answer)=>{
+      return {text:answer.answer, is_correct: answer.is_correct}
+    });
+    this.http.post(this.apiUrl + '/api/test_questions/', { test: data.test_id, question: data.question, question_type: data.question_type, is_true: data.is_true, question_choices: answersArray }).subscribe({
       next: (response: any) => {
-        const answersArray = data.answers;
-        for (const answer of answersArray) {
-          this.http.post(this.apiUrl + '/api/test_questions_answers/', { text: answer.answer, is_correct: answer.is_correct, question: response.id }).subscribe({
-            next: (response: any) => {
-              this.router.navigateByUrl('/question_sets/' + this.questionSetId + '/tests');
-              this.snackbarService.showSnackbar(this.translate.instant("Snackbar.AddedTest"));
-            },
-            error: (error) => {
-              this.errorHandling.handleError(error);
-            }
-          })
-        }
         this.router.navigateByUrl('/question_sets/' + this.questionSetId + '/tests');
         this.snackbarService.showSnackbar(this.translate.instant("Snackbar.AddedTest"));
       },

@@ -90,22 +90,8 @@ export class TestPreviewComponent implements OnInit {
     const dialogRef = this.dialog.open(AddTestQuestionDialogComponent, {data: {test_id: this.testId, question: '', question_type: type, is_true: type === 'TF' ? true : null, answers: []}});
     dialogRef.afterClosed().subscribe((result) => {
       if(result) {
-        this.http.post(this.apiUrl + '/api/test_questions/', { test: result.test_id, question: result.question, question_type: result.question_type, is_true: result.is_true}).subscribe({
+        this.http.post(this.apiUrl + '/api/test_questions/', { test: result.test_id, question: result.question, question_type: result.question_type, is_true: result.is_true, question_choices: result.answers}).subscribe({
           next: (response: any) => {
-            const answersArray = result.answers;
-            for(const answer of answersArray) {
-              console.log(answer);
-              this.http.post(this.apiUrl + '/api/test_questions_answers/', { text: answer.text, is_correct: answer.is_correct, question: response.id }).subscribe({
-                next: (response: any) => {
-                  this.ngOnInit();
-                  this.router.navigateByUrl(this.router.url);
-                  this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QuestionAdded"));
-                },
-                error: (error) => {
-                  this.errorHandling.handleError(error);
-                }
-              })
-            }
             this.ngOnInit();
             this.router.navigateByUrl(this.router.url);
             this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QuestionAdded"));
@@ -142,26 +128,8 @@ export class TestPreviewComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe((result) => {
       if(result){
-        this.http.patch(this.apiUrl + '/api/test_questions/' + result.id + '/', { test: this.testId, question: result.question, question_type: result.question_type, is_true: result.is_true }).subscribe({
+        this.http.patch(this.apiUrl + '/api/test_questions/' + result.id + '/', { test: this.testId, question: result.question, question_type: result.question_type, is_true: result.is_true, question_choices: result.answers }).subscribe({
           next: (response) => {
-            const answerRequests = result.answers.map((answer: any) => {
-              if (answer.id) {
-                return this.http.patch(this.apiUrl + '/api/test_questions_answers/' + answer.id + '/', { text: answer.text, is_correct: answer.is_correct, question: result.id });
-              } else {
-                return this.http.post(this.apiUrl + '/api/test_questions_answers/', { text: answer.text, is_correct: answer.is_correct, question: result.id });
-              }
-            });
-        
-            forkJoin(answerRequests).subscribe({
-              next: (responses: any) => {
-                this.ngOnInit();
-                this.router.navigateByUrl(this.router.url);
-                this.snackbarService.showSnackbar(this.translate.instant("Snackbar.EditedTest"));
-              },
-              error: (error) => {
-                this.errorHandling.handleError(error);
-              }
-            });
             this.ngOnInit();
             this.router.navigateByUrl(this.router.url);
             this.snackbarService.showSnackbar(this.translate.instant("Snackbar.EditedTest"));
@@ -174,8 +142,6 @@ export class TestPreviewComponent implements OnInit {
         });
     
       }
-      this.ngOnInit();
-      this.router.navigateByUrl(this.router.url);
     });
   }
 
@@ -230,23 +196,12 @@ export class TestQuestionEditDialogComponent {
   }
 
   addAnswer(): void {
-    this.data.answers.push({id: null, text: '', is_correct: false, question: this.data.id})
+    this.data.answers.push({id: null, text: '', is_correct: false})
   }
 
   deleteAnswer(answerIdx: number): void {
     const id = this.data.answers[answerIdx].id
     this.data.answers.splice(answerIdx, 1);
-    if (id) {
-      this.http.delete(this.apiUrl + '/api/test_questions_answers/' + id + '/').subscribe({
-        next: (response) => {
-          this.snackbarService.showSnackbar(this.translate.instant('Snackbar.OptionDeleted'))
-        },
-        error: (error) => {
-          this.dialogRef.close();
-          this.errorHandling.handleError(error);
-        }
-      })
-    }
   }
 
   onNoClick(): void {

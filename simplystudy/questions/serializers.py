@@ -86,20 +86,22 @@ class TestSerializer(serializers.ModelSerializer):
         return obj.test_questions.count()
 
 
-class TestQuestionSerializer(serializers.ModelSerializer):
-    """Serializer dla TestQuestion"""
-
-    class Meta:
-        model = TestQuestion
-        fields = "__all__"
-
-
 class TestQuestionAnswerSerializer(serializers.ModelSerializer):
     """Serializer dla TestQuestionAnswer"""
 
     class Meta:
         model = TestQuestionAnswer
-        fields = "__all__"
+        fields = ["id", "text", "is_correct"]
+
+
+class TestQuestionSerializer(serializers.ModelSerializer):
+    """Serializer dla TestQuestion"""
+
+    question_choices = TestQuestionAnswerSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = TestQuestion
+        fields = ["id", "test", "question_type", "is_true", "question", "question_choices"]
 
 
 class TestQuestionDetailSerializer(serializers.ModelSerializer):
