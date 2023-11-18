@@ -45,9 +45,9 @@ class UserResource(models.Model):
 
     def save(self, *args, **kwargs):
         if self.question_set.owner == self.user:
-            raise ValidationError("You cannot add you own set to resources.")
+            raise ValidationError(_("You cannot add you own set to resources."))
         if self.question_set.is_private:
-            raise ValidationError("This question set is private.")
+            raise ValidationError(_("This question set is private."))
         return super().save(*args, **kwargs)
 
 
