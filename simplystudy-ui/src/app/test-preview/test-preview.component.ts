@@ -16,7 +16,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { SnackbarService } from '../snackbar.service';
-import { forkJoin } from 'rxjs';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthService } from '../auth.service';
 
