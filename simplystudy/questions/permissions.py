@@ -104,24 +104,3 @@ class TestQuestionPermissions(permissions.BasePermission):
             if test.question_set.owner != request.user:
                 return False
         return True
-
-
-class TestQuestionAnswerPermissions(permissions.BasePermission):
-    def has_object_permission(self, request: Request, view: APIView, obj: Any) -> bool:
-        if request.method in SAFE_METHODS and obj.question.test.question_set.is_private is False:
-            return True
-        else:
-            if request.user.is_superuser:
-                return True
-            if obj.question.test.question_set.owner == request.user:
-                return True
-        return False
-
-    def has_permission(self, request: Request, view: APIView) -> bool:
-        if request.user.is_superuser:
-            return True
-        if request.method == "POST":
-            question = TestQuestion.objects.get(id=int(request.data["question"]))
-            if question.test.question_set.owner != request.user:
-                return False
-        return True

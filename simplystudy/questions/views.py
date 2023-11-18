@@ -19,7 +19,6 @@ from simplystudy.questions.permissions import (
     QuestionPermissions,
     QuestionSetPermissions,
     TestPermissions,
-    TestQuestionAnswerPermissions,
     TestQuestionPermissions,
     UserResourcePremissions,
 )
@@ -171,11 +170,3 @@ class TestQuestionViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-an
                 )
             else:
                 TestQuestionAnswer.objects.create(question=question, **answer_data)
-
-
-class TestQuestionAnswerViewSet(viewsets.ModelViewSet):
-    """ViewSet dla modelu TestQuestionAnswer"""
-
-    queryset = TestQuestionAnswer.objects.all()
-    serializer_class = TestQuestionAnswerSerializer
-    permission_classes = [permissions.IsAuthenticated, TestQuestionAnswerPermissions]
