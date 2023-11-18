@@ -1,3 +1,6 @@
+from typing import Any
+
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from simplystudy.questions.models import (
@@ -19,7 +22,7 @@ class UsernameField(serializers.CharField):
         try:
             return User.objects.get(username=data)
         except User.DoesNotExist:
-            raise serializers.ValidationError("User with this username does not exist.")
+            raise serializers.ValidationError(_("User with this username does not exist."))
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -102,6 +105,31 @@ class TestQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = TestQuestion
         fields = ["id", "test", "question_type", "is_true", "question", "question_choices"]
+
+    def validate(self, attrs: Any) -> Any:
+        answers_correct = [
+            ans["is_correct"] for ans in self.initial_data.get("question_choices", [])
+        ]
+        if (
+            attrs["question_type"]
+            in [
+                TestQuestion.TestQuestionType.SINGLE_CHOICE,
+                TestQuestion.TestQuestionType.MULTIPLE_CHOICE,
+            ]
+            and True not in answers_correct
+        ):
+            raise serializers.ValidationError(
+                _("This question has to have at least one correct answer")
+            )
+        elif (
+            attrs["question_type"] == TestQuestion.TestQuestionType.SINGLE_CHOICE
+            and answers_correct.count(True) > 1
+        ):
+            raise serializers.ValidationError(
+                _("This question has to have only one correct answer.")
+            )
+
+        return super().validate(attrs)
 
 
 class TestQuestionDetailSerializer(serializers.ModelSerializer):
