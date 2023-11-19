@@ -18,6 +18,7 @@ import { TestsComponent } from './tests/tests.component';
 import { TestEditorComponent } from './test-editor/test-editor.component';
 import { TestPreviewComponent } from './test-preview/test-preview.component';
 import { TakeTestComponent } from './take-test/take-test.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -29,6 +30,11 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile',
+    component: ProfilePageComponent,
     canActivate: [AuthGuard],
   },
   {
