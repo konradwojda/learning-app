@@ -30,7 +30,7 @@
       <mat-icon>person</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item *ngIf="isAuthenticated">
+      <button mat-menu-item *ngIf="isAuthenticated" routerLink="/profile">
         {{ username }}<mat-icon>account_circle</mat-icon>
       </button>
       <button mat-menu-item (click)="logOut()" *ngIf="isAuthenticated">
