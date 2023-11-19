@@ -18,7 +18,7 @@
 </div>
 <div class="list">
     <div class="list-elem" *ngFor="let test of tests">
-      <mat-card matRipple matTooltip="{{'Tests.Take' | translate}}">
+      <mat-card matRipple matTooltip="{{'Tests.Take' | translate}}" (click)="takeTest(test.id)">
         <mat-card-header>
           <mat-card-title>{{ test.name }}</mat-card-title>
           <mat-card-subtitle>{{"Tests.QuestionCount" | translate}} {{ test.questions_count }}</mat-card-subtitle>
