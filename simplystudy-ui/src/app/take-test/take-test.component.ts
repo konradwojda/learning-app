@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, NgStyle } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -18,14 +18,13 @@ import { TestToTake, TestQuestion } from './test-data';
 @Component({
   selector: 'app-take-test',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, TranslateModule, NgFor, NgIf, MatFormFieldModule, ReactiveFormsModule, FormsModule, MatInputModule, MatRadioModule, MatCheckboxModule],
+  imports: [MatCardModule, MatButtonModule, TranslateModule, NgFor, NgIf, MatFormFieldModule, ReactiveFormsModule, FormsModule, MatInputModule, MatRadioModule, MatCheckboxModule, NgStyle],
   templateUrl: './take-test.component.html',
   styleUrls: ['./take-test.component.css']
 })
 export class TakeTestComponent implements OnInit{
   test: TestToTake;
   testId: number;
-  userAnswers: any[] = [];
   private apiUrl = environment.apiUrl;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private errorHandling: ErrorHandlingService, private router: Router, private snackbarService: SnackbarService) {
@@ -56,7 +55,6 @@ export class TakeTestComponent implements OnInit{
             question.user_answer = '';
           }
         }
-        console.log(this.test.questions);
       },
       error: (error) => {
         this.errorHandling.handleError(error);
@@ -89,12 +87,17 @@ export class TakeTestComponent implements OnInit{
     }
   }
 
+  getCorrectAnswers(question: any) {
+    return question.question_choices.filter((answer: any) => answer.is_correct);
+  }
+
+  showTest(): void {
+    this.router.navigateByUrl('/tests/' + this.testId);
+  }
+
   submitTest(): void {
     for(const question of this.test.questions) {
       this.checkQuestionCorrect(question.question_type, question);
     }
-    console.log(this.test.questions);
   }
-
-
 }

@@ -146,5 +146,13 @@
     "Multiple": "Multiple choice question",
     "TF": "True/False question",
     "EditQuestion": "Edytuj pytanie"
+  },
+  "TakeTest": {
+    "ShowTest": "Preview test",
+    "Check": "Check answers",
+    "CorrectAnswer": "Correct answer: ",
+    "CorrectAnswers": "Correct answers: ",
+    "Correct": "Correct",
+    "NotCorrect": "Not correct"
   }
 }

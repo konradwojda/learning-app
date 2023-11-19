@@ -146,5 +146,13 @@
     "Multiple": "Pytanie wielokrotnego wyboru",
     "TF": "Pytanie prawda/fałsz",
     "EditQuestion": "Edytuj pytanie"
+  },
+  "TakeTest": {
+    "ShowTest": "Podgląd testu",
+    "Check": "Sprawdź odpowiedzi",
+    "CorrectAnswer": "Poprawna odpowiedź: ",
+    "CorrectAnswers": "Poprawne odpowiedzi: ",
+    "Correct": "Poprawnie",
+    "NotCorrect": "Niepoprawnie"
   }
 }
