@@ -1,1 +1,66 @@
-<p>profile-page works!</p>
+<div class="login-container">
+    <mat-card>
+      <mat-card-title>{{'Profile.Title' | translate}}</mat-card-title>
+      <mat-card-subtitle>{{'Profile.Username' | translate}}: {{user?.username}}</mat-card-subtitle>
+      <mat-card-subtitle>{{'Profile.Email' | translate}}: {{user?.email}}</mat-card-subtitle>
+      <mat-card-actions>
+        <button mat-button (click)="setShowChangePassword()">{{'Profile.ChangePass' | translate}}</button>
+        <button mat-button (click)="setShowChangeUsername()">{{'Profile.ChangeUsername' | translate}}</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card class="change-password" *ngIf="showChangePassword">
+        <mat-card-title>{{'Profile.ChangePass' | translate}}</mat-card-title>
+        <mat-card-content>
+          <form
+            [formGroup]="changePasswordForm"
+            (ngSubmit)="changePassword(changePasswordForm.value)"
+          >
+            <p>
+              <mat-form-field>
+                <mat-label>{{'Profile.NewPass' | translate}}</mat-label>
+                <input matInput type="password" formControlName="new_password" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>{{'Profile.ReNewPass' | translate}}</mat-label>
+                <input matInput type="password" formControlName="re_new_password" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>{{'Profile.CurrPass' | translate}}</mat-label>
+                <input matInput type="password" formControlName="current_password" />
+              </mat-form-field>
+            </p>
+            <div class="button">
+              <button type="submit" mat-button>
+                {{ "Login.Send" | translate }}
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="change-username" *ngIf="showChangeUsername">
+        <mat-card-title>{{'Profile.ChangeUsername' | translate}}</mat-card-title>
+        <mat-card-content>
+          <form
+            [formGroup]="changeUsernameForm"
+            (ngSubmit)="changeUsername(changeUsernameForm.value)"
+          >
+            <p>
+              <mat-form-field>
+                <mat-label>{{'Profile.NewUsername' | translate}}</mat-label>
+                <input matInput formControlName="new_username" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>{{'Profile.CurrPass' | translate}}</mat-label>
+                <input matInput type="password" formControlName="current_password" />
+              </mat-form-field>
+            </p>
+            <div class="button">
+              <button type="submit" mat-button>
+                {{ "Login.Send" | translate }}
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+  </div>
+  

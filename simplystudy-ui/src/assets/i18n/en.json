@@ -26,6 +26,17 @@
     "Retype": "Retype password",
     "Email": "Email"
   },
+  "Profile": {
+    "Title": "Your profile",
+    "Username": "Username",
+    "Email": "Email",
+    "ChangePass": "Change password",
+    "ChangeUsername": "Change username",
+    "NewPass": "New password",
+    "ReNewPass": "Retype new password",
+    "CurrPass": "Current password",
+    "NewUsername": "New username"
+  },
   "Courses": {
     "Course": "Course",
     "Name": "Course name",
@@ -122,7 +133,9 @@
     "AddedTest": "New test has been created.",
     "EditedTest": "Test has been updated.",
     "OptionDeleted": "Option has been deleted.",
-    "ServerError": "Server error. Try again later."
+    "ServerError": "Server error. Try again later.",
+    "ChangedPass": "Password has been changed",
+    "ChangedUsername": "Username has been changed"
   },
   "Tests": {
     "QuestionCount": "Number of questions:",

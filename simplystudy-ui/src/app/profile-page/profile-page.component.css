@@ -1,0 +1,30 @@
+:host {
+    display: flex;
+    justify-content: center;
+    margin: 100px 0px;
+}
+  
+mat-card-title,
+mat-card-subtitle,
+mat-card-content {
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+}
+  
+.button {
+    justify-content: flex-end;
+}
+  
+mat-form-field {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+  
+.change-password, .change-username {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+  

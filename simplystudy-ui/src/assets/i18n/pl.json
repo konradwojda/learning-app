@@ -26,6 +26,17 @@
     "Retype": "Powtórz hasło",
     "Email": "Adres email"
   },
+  "Profile": {
+    "Title": "Twój profil",
+    "Username": "Nazwa użytkownika",
+    "Email": "Adres email",
+    "ChangePass": "Zmień hasło",
+    "ChangeUsername": "Zmień nazwę użytkownika",
+    "NewPass": "Nowe hasło",
+    "ReNewPass": "Powtórz nowe hasło",
+    "CurrPass": "Obecne hasło",
+    "NewUsername": "Nowa nazwa użytkownika"
+  },
   "Courses": {
     "Course": "Kurs",
     "Name": "Nazwa kursu",
@@ -122,7 +133,9 @@
     "AddedTest": "Nowy test został utworzony",
     "EditedTest": "Test został zaktualizowany.",
     "OptionDeleted": "Opcja została usunięta.",
-    "ServerError": "Błąd serwera. Spróbuj ponownie później."
+    "ServerError": "Błąd serwera. Spróbuj ponownie później.",
+    "ChangedPass": "Hasło zostało zmienione",
+    "ChangedUsername": "Nazwa użytkownika została zmieniona"
   },
   "Tests": {
     "QuestionCount": "Liczba pytań:",

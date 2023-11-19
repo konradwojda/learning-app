@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { LoggedUser } from './auth';
+import { LoggedUser, UserInfo } from './auth';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -114,5 +114,17 @@ export class AuthService {
       new_password,
       re_new_password,
     });
+  }
+
+  getUserInfo(): Observable<UserInfo> {
+    return this.http.get<UserInfo>(this.apiUrl + '/auth/users/me/');
+  }
+
+  setPassword(new_password: string, re_new_password: string, current_password: string) {
+    return this.http.post(this.apiUrl + '/auth/users/set_password/', {new_password, re_new_password, current_password});
+  }
+
+  changeUsername(new_username: string, current_password: string) {
+    return this.http.post(this.apiUrl + '/auth/users/set_username/', {new_username, current_password});
   }
 }

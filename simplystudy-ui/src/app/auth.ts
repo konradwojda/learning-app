@@ -15,3 +15,9 @@ export interface RegisterUserData {
   re_password: string;
   email: string;
 }
+
+export interface UserInfo {
+  id: number,
+  email: string,
+  username: string
+}
