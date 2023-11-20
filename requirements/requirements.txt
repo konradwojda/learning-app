@@ -5,3 +5,4 @@ djoser
 whitenoise
 pillow
 python-dotenv
+pdfkit
