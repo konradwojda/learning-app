@@ -114,4 +114,8 @@ export class TestsComponent implements OnInit {
   previewTest(test_id: number): void {
     this.router.navigateByUrl('/tests/' + test_id);
   }
+
+  getTestDownloadUrl(test_id: number): string {
+    return this.apiUrl + '/download_test/' + test_id;
+  }
 }
