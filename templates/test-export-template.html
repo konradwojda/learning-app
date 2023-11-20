@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{name}}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style type="text/css">
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    p {font-size: medium; text-align: left; display:flex; flex-direction: column}
+    h3 {text-align: center;}
+    h2 {text-align:center;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2><b>{{name}}</b></h2>
+    <h3><b>{{question_set.name}}</b></h3>
+
+{% for question in test_questions %}
+    <div>
+        <h4>Question {{forloop.counter}}</h4>
+        <p>
+        {{question.question}}</br>
+        </p>
+        {% if question.question_type == "SINGLE" %}
+                Only one answer is correct </br>
+                {% for choice in question.question_choices %}
+                        <input type="checkbox">
+                        {{ choice.text }}
+                        <br>
+                {% endfor %}
+        {% elif question.question_type == "MULTIPLE" %}
+                Multiple answers can be correct </br>
+                {% for choice in question.question_choices %}
+                        <input type="checkbox">
+                        {{ choice.text }}
+                        <br>
+                {% endfor %}
+        {% elif question.question_type == "TEXT" %}
+
+        {% elif question.question_type == "TF" %}
+            <p>True  |  False</p>
+        {% endif %}
+    </div>
+{% endfor %}
+  </div>
+</body>
+</html>
