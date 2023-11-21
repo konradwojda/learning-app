@@ -135,7 +135,8 @@
     "OptionDeleted": "Option has been deleted.",
     "ServerError": "Server error. Try again later.",
     "ChangedPass": "Password has been changed",
-    "ChangedUsername": "Username has been changed"
+    "ChangedUsername": "Username has been changed",
+    "NoPermission": "You do not have permission to perform this action."
   },
   "Tests": {
     "QuestionCount": "Number of questions:",

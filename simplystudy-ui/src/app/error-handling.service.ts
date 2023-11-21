@@ -20,6 +20,8 @@ export class ErrorHandlingService {
       this.router.navigateByUrl('/404');
     } else if (error.status === 500) {
       this.snackbarService.showSnackbar(this.translate.instant("Snackbar.ServerError"));
+    } else if (error.status === 403) {
+      this.snackbarService.showSnackbar(this.translate.instant("Snackbar.NoPermission"))
     } else {
       this.snackbarService.showError(error);
     }

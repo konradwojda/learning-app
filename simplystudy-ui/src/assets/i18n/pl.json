@@ -135,7 +135,8 @@
     "OptionDeleted": "Opcja została usunięta.",
     "ServerError": "Błąd serwera. Spróbuj ponownie później.",
     "ChangedPass": "Hasło zostało zmienione",
-    "ChangedUsername": "Nazwa użytkownika została zmieniona"
+    "ChangedUsername": "Nazwa użytkownika została zmieniona",
+    "NoPermission": "Nie masz uprawnień aby wykonać tę czynność."
   },
   "Tests": {
     "QuestionCount": "Liczba pytań:",
