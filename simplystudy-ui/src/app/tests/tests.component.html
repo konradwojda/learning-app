@@ -30,7 +30,7 @@
       <button mat-icon-button matTooltip="{{'Utils.Remove' | translate}}" (click)="deleteTest(test.id)" *ngIf="isOwner">
         <mat-icon>delete</mat-icon>
       </button>
-        <a mat-icon-button matTooltip="{{'Tests.Export' | translate}}" [href]="getTestDownloadUrl(test.id)"><mat-icon>file_download</mat-icon></a>
+        <button mat-icon-button matTooltip="{{'Tests.Export' | translate}}" (click)="getTestDownloadUrl(test.id, test.name)"><mat-icon>file_download</mat-icon></button>
     </div>
     <button mat-icon-button (click)="addTest()" *ngIf="isOwner">
       <mat-icon>add</mat-icon>

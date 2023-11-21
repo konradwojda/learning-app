@@ -115,7 +115,23 @@ export class TestsComponent implements OnInit {
     this.router.navigateByUrl('/tests/' + test_id);
   }
 
-  getTestDownloadUrl(test_id: number): string {
-    return this.apiUrl + '/download_test/' + test_id;
+  getTestDownloadUrl(test_id: number, test_name: string): void {
+    this.http.get(this.apiUrl + '/download_test/' + test_id, {responseType: 'blob'}).subscribe({
+      next: (blob: Blob) => {
+        const downloadUrl = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = test_name + '.pdf';
+        document.body.appendChild(link);
+        link.click();
+
+        document.body.removeChild(link);
+        URL.revokeObjectURL(downloadUrl);
+      },
+      error: (error) => {
+        this.errorHandling.handleError(error);
+      }
+    })
   }
 }
