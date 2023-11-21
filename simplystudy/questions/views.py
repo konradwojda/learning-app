@@ -1,5 +1,3 @@
-from typing import Any
-
 from django.db.models import Q
 from django.db.models.query import QuerySet
 from rest_framework import filters, permissions, viewsets
@@ -137,7 +135,7 @@ class TestDetailsViewSet(viewsets.ModelViewSet):
         "test_questions", "test_questions__question_choices"
     )
     serializer_class = TestDetailSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, TestPermissions]
 
 
 class TestQuestionViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
