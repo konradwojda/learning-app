@@ -155,7 +155,11 @@ export class CreateQuestionSetComponent implements OnInit {
                   this.errorHandling.handleError(error);
                 },
               });
-          }
+            }
+            this.snackbarService.showSnackbar(
+              this.translate.instant('Snackbar.QSAdded'),
+            );
+            this.router.navigateByUrl('/question_sets/' + set_data.id);
         },
         error: (error) => {
           this.errorHandling.handleError(error);
