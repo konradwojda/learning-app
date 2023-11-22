@@ -18,6 +18,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { MatCardModule } from '@angular/material/card';
+import { Observable, forkJoin } from 'rxjs';
 
 
 @Component({
@@ -138,6 +139,7 @@ export class TestEditorComponent {
   }
 
   postTest(): void {
+    const questionRequests: Array<Observable<any>> = []
     this.http.post(this.apiUrl + '/api/tests/', { name: this.testData.value.name, question_set: this.questionSetId }).subscribe({
       next: (response: any) => {
         for (const testQuestion of this.testQuestionsData.value.questions) {
@@ -149,7 +151,7 @@ export class TestEditorComponent {
               is_true: testQuestion.is_correct,
               answers: [],
             }
-            this.postQuestion(question);
+            questionRequests.push(this.getQuestionRequest(question));
           } else if (testQuestion.type === 'TEXT') {
             const question: TestQuestion = {
               test_id: response.id,
@@ -158,7 +160,7 @@ export class TestEditorComponent {
               is_true: null,
               answers: [{answer: testQuestion.answer, is_correct: true}],
             }
-            this.postQuestion(question);
+            questionRequests.push(this.getQuestionRequest(question));
           } else {
             const question: TestQuestion = {
               test_id: response.id,
@@ -167,11 +169,18 @@ export class TestEditorComponent {
               is_true: null,
               answers: testQuestion.answers,
             }
-            this.postQuestion(question);
+            questionRequests.push(this.getQuestionRequest(question));
           }
         }
-        this.router.navigateByUrl('/question_sets/' + this.questionSetId + '/tests');
-        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.AddedTest"));
+        forkJoin(questionRequests).subscribe({
+          next: (responses) => {
+            this.router.navigateByUrl('/question_sets/' + this.questionSetId + '/tests');
+            this.snackbarService.showSnackbar(this.translate.instant("Snackbar.AddedTest"));
+          },
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          }
+        })
       },
       error: (error) => {
         this.errorHandling.handleError(error);
@@ -179,18 +188,10 @@ export class TestEditorComponent {
     })
   }
 
-  postQuestion(data: TestQuestion): void {
+  getQuestionRequest(data: TestQuestion): Observable<any> {
     const answersArray = data.answers.map((answer)=>{
       return {text:answer.answer, is_correct: answer.is_correct}
     });
-    this.http.post(this.apiUrl + '/api/test_questions/', { test: data.test_id, question: data.question, question_type: data.question_type, is_true: data.is_true, question_choices: answersArray }).subscribe({
-      next: (response: any) => {
-        this.router.navigateByUrl('/question_sets/' + this.questionSetId + '/tests');
-        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.AddedTest"));
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
-    })
+    return this.http.post(this.apiUrl + '/api/test_questions/', { test: data.test_id, question: data.question, question_type: data.question_type, is_true: data.is_true, question_choices: answersArray })
   }
 }
