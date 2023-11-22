@@ -22,7 +22,10 @@ def download_test_pdf(request, test_id: int):
         raise PermissionDenied()
     test_data = TestDetailSerializer(test).data
     response = HttpResponse(
-        pdfkit.from_string(get_template("test-export-template.html").render(test_data)),
+        pdfkit.from_string(
+            get_template("test-export-template.html").render(test_data),
+            options={"encoding": "utf-8"},
+        ),
         content_type="application/pdf",
     )
     response["Content-Disposition"] = "attachment;"
