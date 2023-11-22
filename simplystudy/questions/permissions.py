@@ -65,7 +65,7 @@ class UserResourcePremissions(permissions.BasePermission):
 
 
 class TestPermissions(permissions.BasePermission):
-    def has_object_permission(self, request: Request, view: APIView, obj: Any) -> bool:
+    def has_object_permission(self, request: Request, view: APIView | None, obj: Any) -> bool:
         if request.method in SAFE_METHODS and obj.question_set.is_private is False:
             return True
         else:
