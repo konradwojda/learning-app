@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load i18n %}
 <html>
 <head>
   <title>{{name}}</title>
@@ -21,19 +22,19 @@
 
 {% for question in test_questions %}
     <div>
-        <h4>Question {{forloop.counter}}</h4>
+        <h4>{% translate "Question" %} {{forloop.counter}}</h4>
         <p>
         {{question.question}}</br>
         </p>
         {% if question.question_type == "SINGLE" %}
-                Only one answer is correct </br>
+                {% translate "Only one answer is correct" %} </br>
                 {% for choice in question.question_choices %}
                         <input type="checkbox">
                         {{ choice.text }}
                         <br>
                 {% endfor %}
         {% elif question.question_type == "MULTIPLE" %}
-                Multiple answers can be correct </br>
+                {% translate "Multiple answers can be correct" %} </br>
                 {% for choice in question.question_choices %}
                         <input type="checkbox">
                         {{ choice.text }}
@@ -42,7 +43,7 @@
         {% elif question.question_type == "TEXT" %}
 
         {% elif question.question_type == "TF" %}
-            <p>True  |  False</p>
+            <p>{% translate "True  |  False" %}</p>
         {% endif %}
     </div>
 {% endfor %}

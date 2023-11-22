@@ -1,0 +1,70 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-22 17:57+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: simplystudy/questions/models.py:48
+msgid "You cannot add you own set to resources."
+msgstr "Nie możesz dodać swojego zestawu do zasobów."
+
+#: simplystudy/questions/models.py:50
+msgid "This question set is private."
+msgstr "Ten zestaw pytań jest prywatny."
+
+#: simplystudy/questions/models.py:69
+msgid "Text answer"
+msgstr "Odpowiedź tekstowa"
+
+#: simplystudy/questions/models.py:70
+msgid "Multiple choice"
+msgstr "Wielokrotny wybór"
+
+#: simplystudy/questions/models.py:71
+msgid "Single choice"
+msgstr "Pojedyńczy wybór"
+
+#: simplystudy/questions/models.py:72
+msgid "True or false"
+msgstr "Prawda czy fałsz"
+
+#: simplystudy/questions/serializers.py:25
+msgid "User with this username does not exist."
+msgstr "Użytkownik z taką nazwą nie istnieje"
+
+#: simplystudy/questions/serializers.py:122
+msgid "This question has to have at least one correct answer"
+msgstr "Pytanie musi mieć co najmniej jedną poprawną odpowiedź"
+
+#: simplystudy/questions/serializers.py:129
+msgid "This question has to have only one correct answer."
+msgstr "Pytanie musi mieć co najwyżej jedną poprawną odpowiedź"
+
+#: templates/test-export-template.html:25
+msgid "Question"
+msgstr "Pytanie"
+
+#: templates/test-export-template.html:30
+msgid "Only one answer is correct"
+msgstr "Tylko jedna odpowiedź jest poprawna"
+
+#: templates/test-export-template.html:37
+msgid "Multiple answers can be correct"
+msgstr "Wiele odpowiedzi może być poprawnych"
+
+#: templates/test-export-template.html:46
+msgid "True  |  False"
+msgstr "Prawa   |   Fałsz"
