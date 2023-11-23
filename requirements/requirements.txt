@@ -6,3 +6,4 @@ whitenoise
 pillow
 python-dotenv
 pdfkit
+psycopg2
