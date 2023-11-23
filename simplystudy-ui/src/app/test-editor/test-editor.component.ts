@@ -142,6 +142,10 @@ export class TestEditorComponent {
     const questionRequests: Array<Observable<any>> = []
     this.http.post(this.apiUrl + '/api/tests/', { name: this.testData.value.name, question_set: this.questionSetId }).subscribe({
       next: (response: any) => {
+        if(!this.testQuestionsData.value.question) {
+          this.router.navigateByUrl('/question_sets/' + this.questionSetId + '/tests');
+          this.snackbarService.showSnackbar(this.translate.instant("Snackbar.AddedTest"));
+        }
         for (const testQuestion of this.testQuestionsData.value.questions) {
           if (testQuestion.type === 'TF') {
             const question: TestQuestion = {
