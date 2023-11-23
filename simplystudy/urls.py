@@ -44,5 +44,5 @@ urlpatterns = [
     path("download_test/<int:test_id>", download_test_pdf),
     re_path(r"^auth/", include("djoser.urls")),
     re_path(r"^auth/", include("djoser.urls.authtoken")),
-    re_path(r"^(?P<path>.*)/$", RedirectToAngular.as_view()),
+    re_path(r"^(?P<path>.*)/?$", RedirectToAngular.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
