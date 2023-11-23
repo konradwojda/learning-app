@@ -172,6 +172,10 @@
   "ConfirmDialog": {
     "Confirm": "Potwierdź",
     "Yes": "Tak",
-    "No": "Nie"
+    "No": "Nie",
+    "DeleteQS": "Czy chcesz usunąć ten zestaw pytań?",
+    "DeleteQuestion": "Czy chcesz usunąć to pytanie?",
+    "DeleteCourse": "Czy chcesz usunąć ten kurs?",
+    "DeleteTest": "Czy chcesz usunąć ten test?"
   }
 }

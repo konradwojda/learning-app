@@ -28,6 +28,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ErrorHandlingService } from '../error-handling.service';
 import { UserResource } from '../search-resources/user-resource';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-question-sets',
@@ -124,17 +125,22 @@ export class QuestionSetsComponent implements OnInit {
   }
 
   deleteQuestionSet(id: string): void {
-    this.http.delete(this.apiUrl + '/api/question_sets/' + id + '/').subscribe({
-      next: (data) => {
-        this.snackbarService.showSnackbar(
-          this.translate.instant('Snackbar.QSDeleted'),
-        );
-        this.router.navigateByUrl('/dashboard');
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      },
-    });
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {data: {message: this.translate.instant("ConfirmDialog.DeleteQS")}, maxWidth: '400px'});
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        this.http.delete(this.apiUrl + '/api/question_sets/' + id + '/').subscribe({
+          next: (data) => {
+            this.snackbarService.showSnackbar(
+              this.translate.instant('Snackbar.QSDeleted'),
+            );
+            this.router.navigateByUrl('/dashboard');
+          },
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          },
+        });
+      }
+    })
   }
 
   editQuestionSet(): void {
@@ -229,22 +235,27 @@ export class QuestionSetsComponent implements OnInit {
   }
 
   deleteQuestion(question_id: string): void {
-    this.http
-      .delete(this.apiUrl + '/api/questions/' + question_id + '/')
-      .subscribe({
-        next: (data) => {
-          this.ngOnInit();
-          this.router.navigateByUrl(this.router.url);
-          this.snackbarService.showSnackbar(
-            this.translate.instant('Snackbar.QuestionDeleted'),
-          );
-        },
-        error: (error) => {
-          this.ngOnInit();
-          this.router.navigateByUrl(this.router.url);
-          this.errorHandling.handleError(error);
-        },
-      });
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {data: {message: this.translate.instant("ConfirmDialog.DeleteQuestion")}, maxWidth: '400px'});
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        this.http
+          .delete(this.apiUrl + '/api/questions/' + question_id + '/')
+          .subscribe({
+            next: (data) => {
+              this.ngOnInit();
+              this.router.navigateByUrl(this.router.url);
+              this.snackbarService.showSnackbar(
+                this.translate.instant('Snackbar.QuestionDeleted'),
+              );
+            },
+            error: (error) => {
+              this.ngOnInit();
+              this.router.navigateByUrl(this.router.url);
+              this.errorHandling.handleError(error);
+            },
+          });
+      }
+    })
   }
 
   addToResources(question_set_id: string): void {

@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { ErrorHandlingService } from '../error-handling.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-courses',
@@ -55,20 +56,25 @@ export class CoursesComponent implements OnInit {
   ) {}
 
   deleteCourse(course_id: number): void {
-    this.http
-      .delete(this.apiUrl + '/api/courses/' + course_id + '/')
-      .subscribe({
-        next: (data) => {
-          this.snackbarService.showSnackbar(
-            this.translate.instant('Snackbar.CourseDeleted'),
-          );
-          this.ngOnInit();
-          this.router.navigateByUrl(this.router.url);
-        },
-        error: (error) => {
-          this.errorHandling.handleError(error);
-        },
-      });
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {data: {message: this.translate.instant("ConfirmDialog.DeleteCourse")}, maxWidth: '400px'});
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        this.http
+          .delete(this.apiUrl + '/api/courses/' + course_id + '/')
+          .subscribe({
+            next: (data) => {
+              this.snackbarService.showSnackbar(
+                this.translate.instant('Snackbar.CourseDeleted'),
+              );
+              this.ngOnInit();
+              this.router.navigateByUrl(this.router.url);
+            },
+            error: (error) => {
+              this.errorHandling.handleError(error);
+            },
+          });
+      }
+    })
   }
 
   editCourse(course: Course): void {

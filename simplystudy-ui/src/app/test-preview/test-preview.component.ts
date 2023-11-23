@@ -18,6 +18,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { SnackbarService } from '../snackbar.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthService } from '../auth.service';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-test-preview',
@@ -43,26 +44,36 @@ export class TestPreviewComponent implements OnInit {
   }
 
   deleteTest(): void {
-    this.http.delete(this.apiUrl + '/api/tests/' + this.testId + '/').subscribe({
-      next: (data) => {
-        this.router.navigateByUrl('/question_sets/' + this.test.question_set + '/tests');
-        this.snackbarService.showSnackbar(this.translate.instant('Snackbar.DeletedTest'));
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {data: {message: this.translate.instant("ConfirmDialog.DeleteTest")}, maxWidth: '400px'});
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        this.http.delete(this.apiUrl + '/api/tests/' + this.testId + '/').subscribe({
+          next: (data) => {
+            this.router.navigateByUrl('/question_sets/' + this.test.question_set + '/tests');
+            this.snackbarService.showSnackbar(this.translate.instant('Snackbar.DeletedTest'));
+          },
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          }
+        })
       }
     })
   }
 
   deleteTestQuestion(question_id: number): void {
-    this.http.delete(this.apiUrl + '/api/test_questions/' + question_id + '/').subscribe({
-      next: (data) => {
-        this.ngOnInit();
-        this.router.navigateByUrl(this.router.url);
-        this.snackbarService.showSnackbar(this.translate.instant('Snackbar.QuestionDeleted'));
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {data: {message: this.translate.instant("ConfirmDialog.DeleteQuestion")}, maxWidth: '400px'});
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        this.http.delete(this.apiUrl + '/api/test_questions/' + question_id + '/').subscribe({
+          next: (data) => {
+            this.ngOnInit();
+            this.router.navigateByUrl(this.router.url);
+            this.snackbarService.showSnackbar(this.translate.instant('Snackbar.QuestionDeleted'));
+          },
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          }
+        })
       }
     })
   }

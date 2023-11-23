@@ -14,6 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SnackbarService } from '../snackbar.service';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tests',
@@ -28,7 +30,7 @@ export class TestsComponent implements OnInit {
   isOwner = false;
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private authService: AuthService, private route: ActivatedRoute, private errorHandling: ErrorHandlingService, private router: Router, private snackbarService: SnackbarService, private translate: TranslateService) {
+  constructor(private http: HttpClient, private authService: AuthService, private route: ActivatedRoute, private errorHandling: ErrorHandlingService, private router: Router, private snackbarService: SnackbarService, private translate: TranslateService, private dialog: MatDialog) {
     this.questionSet = {
       id: '',
       name: '',
@@ -83,14 +85,19 @@ export class TestsComponent implements OnInit {
   }
 
   deleteTest(test_id: number): void {
-    this.http.delete(this.apiUrl + '/api/tests/' + test_id).subscribe({
-      next: (data) => {
-        this.ngOnInit();
-        this.router.navigateByUrl(this.router.url);
-        this.snackbarService.showSnackbar(this.translate.instant("Snackbar.DeletedTest"));
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {data: {message: this.translate.instant("ConfirmDialog.DeleteTest")}, maxWidth: '400px'});
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        this.http.delete(this.apiUrl + '/api/tests/' + test_id).subscribe({
+          next: (data) => {
+            this.ngOnInit();
+            this.router.navigateByUrl(this.router.url);
+            this.snackbarService.showSnackbar(this.translate.instant("Snackbar.DeletedTest"));
+          },
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          }
+        })
       }
     })
   }
