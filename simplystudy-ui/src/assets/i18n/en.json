@@ -168,5 +168,10 @@
     "CorrectAnswers": "Correct answers: ",
     "Correct": "Correct",
     "NotCorrect": "Not correct"
+  },
+  "ConfirmDialog": {
+    "Confirm": "Confirm",
+    "Yes": "Yes",
+    "No": "No"
   }
 }
