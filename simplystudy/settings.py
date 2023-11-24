@@ -25,14 +25,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 load_dotenv(BASE_DIR / ".env")
 
+ENVIRONMENT = os.environ.get("DJANGO_ENVIRONMENT", default="DEVELOPMENT")
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-r-=*+*^!2_%p8oyvu7x04e63o%q3@w++cr*t-kqb7yg@+r=44g"
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+if ENVIRONMENT == "DEVELOPMENT":
+    DEBUG = True
 
 ALLOWED_HOSTS: list = []
 
