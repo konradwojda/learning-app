@@ -24,3 +24,16 @@
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 24px;
 }
+
+.new-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+
+.new-user-info button {
+  margin: 5px;
+  padding: 10px 20px;
+}

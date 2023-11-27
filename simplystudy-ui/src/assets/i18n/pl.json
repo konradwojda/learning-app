@@ -45,7 +45,9 @@
   },
   "Dashboard": {
     "FilterText": "Szukaj swoich zestawów",
-    "AddSet": "Nowy zestaw"
+    "AddSet": "Nowy zestaw",
+    "NewUserInfo": "Nie posiadasz jeszcze żadnych zestawów pytań. Możesz dodać swój pierwszy zestaw lub wyświetlić poradnik dotyczący strony.",
+    "Tutorial": "Zobacz poradnik"
   },
   "QuestionSetCreate": {
     "FillData": "Uzupełnij dane zestawu",

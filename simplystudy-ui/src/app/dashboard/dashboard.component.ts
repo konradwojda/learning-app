@@ -6,7 +6,7 @@ import { AuthService } from '../auth.service';
 import { environment } from 'src/environments/environment';
 import { SnackbarService } from '../snackbar.service';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -34,19 +34,20 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     RouterModule,
     TranslateModule,
+    NgIf
   ],
 })
 export class DashboardComponent implements OnInit {
   questionSets: Array<QuestionSet> = [];
   filteredQuestionSets: Array<QuestionSet> = [];
   filterText = '';
+  showNewUserInfo = false;
   private apiUrl = environment.apiUrl;
 
   constructor(
     private router: Router,
     private http: HttpClient,
     private authService: AuthService,
-    private snackbarService: SnackbarService,
     private errorHandling: ErrorHandlingService,
   ) {}
 
@@ -70,6 +71,9 @@ export class DashboardComponent implements OnInit {
         next: (data: Array<QuestionSet>) => {
           this.questionSets = data;
           this.filteredQuestionSets = data;
+          if(data.length == 0) {
+            this.showNewUserInfo = true;
+          }
         },
         error: (error) => {
           this.errorHandling.handleError(error);

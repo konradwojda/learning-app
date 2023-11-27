@@ -45,7 +45,9 @@
   },
   "Dashboard": {
     "FilterText": "Filter your resources",
-    "AddSet": "New set"
+    "AddSet": "New set",
+    "NewUserInfo": "You don't have any question sets yet. You can add your first set or view the tutorial for the page.",
+    "Tutorial": "See tutorial"
   },
   "QuestionSetCreate": {
     "FillData": "Fill question set data",
