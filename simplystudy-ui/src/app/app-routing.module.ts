@@ -19,6 +19,7 @@ import { TestEditorComponent } from './test-editor/test-editor.component';
 import { TestPreviewComponent } from './test-preview/test-preview.component';
 import { TakeTestComponent } from './take-test/take-test.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { TutorialComponent } from './tutorial/tutorial.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'activate/:uid/:token', component: AuthActivationComponent },
   { path: 'activate', component: AuthActivationComponent },
   { path: 'reset_password/:uid/:token', component: AuthResetPasswordComponent },
+  { path: 'tutorial', component: TutorialComponent},
   {
     path: 'dashboard',
     component: DashboardComponent,
