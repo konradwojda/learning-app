@@ -177,5 +177,19 @@
     "DeleteQuestion": "Czy chcesz usunąć to pytanie?",
     "DeleteCourse": "Czy chcesz usunąć ten kurs?",
     "DeleteTest": "Czy chcesz usunąć ten test?"
+  },
+  "Tutorial": {
+    "Course": "Dodaj kursy",
+    "CourseInfo": "Przejdź do zakładki 'Moje kursy' aby dodać kursy bądź przedmioty, z którymi związane będą twoje zestawy pytań.",
+    "QS": "Dodaj nowy zestaw pytań",
+    "QSInfo": "Przejdź do Głownego panelu aby dodać swój pierwszy zestaw pytań. Określ nazwę, opis, kurs oraz prytwatność zestawu. Następnie dodaj pytania. Do pytań możesz dodawać zdjęcia. Możesz również zaimportować pytania z pliku o formacie CSV. Plik powinien zawierać nagłówek 'content,answer' oraz odpowiednie kolumny.",
+    "Learn": "Rozpocznij naukę",
+    "LearnInfo": "Aby rozpocząć naukę kliknij 'Tryb nauki'. Zobaczysz tam pytania oraz ukryte odpowiedzi. Kliknij w pole odpowiedzi aby ją zobaczyć.",
+    "Other": "Przeglądaj zestawy innych użytkowników.",
+    "OtherInfo": "Aby przeglądać publiczne zestawy innych użytkowników przejdź do zakładki 'Wyszukaj zasoby'. Możesz dodać taki zestaw do swoich zasobów klikając przycisk 'Dodaj do zasobów'. Następnie dodane zestawy wyświetlą się w zakładce 'Moje zasoby'->'Inne zasoby'.",
+    "Tests": "Utwórz testy dla zestawu pytań",
+    "TestsInfo": "Możesz dodać testy dla każdego z zestawów pytań. Aby to zrobić kliknij przycisk 'Pokaż testy' w podglądzie zestawu. Następnie dodaj odpowiednie pytania. Każdy z testów możesz pobrać w pliku PDF.",
+    "CheckYourself": "Sprawdź się",
+    "CheckYourselfInfo": "Aby spróbować wykonać dany test kliknij na niego na liście testów danego zestawu. Po zaznaczeniu odpowiedzi kliknij przycisk na dole aby zobaczyć poprawne odpowiedzi."
   }
 }

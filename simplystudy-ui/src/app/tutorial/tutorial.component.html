@@ -1,1 +1,26 @@
-<p>tutorial works!</p>
+<div class="container">
+    <mat-stepper orientation="vertical" #stepper>
+        <mat-step state="info" label="{{'Tutorial.Course' | translate}}">
+            {{'Tutorial.CourseInfo' | translate}}
+        </mat-step>
+        <mat-step state="info" label="{{'Tutorial.QS' | translate}}">
+            {{'Tutorial.QSInfo' | translate}}
+        </mat-step>
+        <mat-step state="info" label="{{'Tutorial.Learn' | translate}}">
+            {{'Tutorial.LearnInfo' | translate}}
+        </mat-step>
+        <mat-step state="info" label="{{'Tutorial.Other' | translate}}">
+            {{'Tutorial.OtherInfo' | translate}}
+        </mat-step>
+        <mat-step state="info" label="{{'Tutorial.Tests' | translate}}">
+            {{'Tutorial.TestsInfo' | translate}}
+        </mat-step>
+        <mat-step state="info" label="{{'Tutorial.CheckYourself' | translate}}">
+            {{'Tutorial.CheckYourselfInfo' | translate}}
+        </mat-step>
+      </mat-stepper>
+</div>
+
+<ng-template matStepperIcon="info">
+    <mat-icon>info</mat-icon>
+  </ng-template>

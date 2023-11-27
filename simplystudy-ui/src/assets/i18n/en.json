@@ -177,5 +177,19 @@
     "DeleteQuestion": "Do you want to delete this question?",
     "DeleteCourse": "Do you want to delete this course?",
     "DeleteTest": "Do you want to delete this test?"
+  },
+  "Tutorial": {
+    "Course": "Add Courses",
+    "CourseInfo": "Go to the 'My Courses' tab to add courses or subjects related to your question sets.",
+    "QS": "Add a New Question Set",
+    "QSInfo": "Go to the Dashboard to add your first question set. Specify the name, description, course, and privacy of the set. Then, add questions. You can include images with your questions. You can also import questions from a CSV file. The file should have a 'content, answer' header and the corresponding columns.",
+    "Learn": "Start Learning",
+    "LearnInfo": "To begin learning, click on 'Learning Mode.' There you will see questions and hidden answers. Click on the answer field to reveal it.",
+    "Other": "Browse Sets from Other Users",
+    "OtherInfo": "To browse public sets from other users, go to the 'Search Resources' tab. You can add a set to your resources by clicking the 'Add to Resources' button. The added sets will then appear in the 'My Resources' -> 'Other Resources' tab.",
+    "Tests": "Create Tests for Question Sets",
+    "TestsInfo": "You can add tests for each question set. To do this, click the 'Show Tests' button in the set preview. Then, add the appropriate questions. You can download each test in a PDF file.",
+    "CheckYourself": "Check Yourself",
+    "CheckYourselfInfo": "To attempt a specific test, click on it in the list of tests for a set. After selecting answers, click the button at the bottom to see the correct answers."
   }
 }
