@@ -72,7 +72,7 @@ class QuestionSetViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-anc
 class PublicQuestionSetViewSet(viewsets.ReadOnlyModelViewSet):
     """Widok dla publicznych zestawów pytań"""
 
-    queryset = QuestionSet.objects.filter(is_private=False)
+    queryset = QuestionSet.objects.filter(is_private=False).order_by("id")
     serializer_class = QuestionSetDetailSerializer
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = StandardPagination
