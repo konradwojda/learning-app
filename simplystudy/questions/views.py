@@ -96,6 +96,8 @@ class CourseViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestor
 
     def get_queryset(self) -> QuerySet:
         queryset = self.queryset.all()
+        if not self.request.user.is_superuser:
+            queryset = queryset.filter(owner=self.request.user)
         username = self.request.query_params.get("username")
         if username is not None:
             return queryset.filter(owner__username=username)
