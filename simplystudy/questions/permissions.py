@@ -38,7 +38,7 @@ class QuestionPermissions(permissions.BasePermission):
         if request.data.get("question_set"):
             question_set = QuestionSet.objects.get(id=int(request.data["question_set"]))
             return question_set.owner == request.user
-        return False
+        return True
 
     def has_object_permission(self, request: Request, view: APIView, obj: Any) -> bool:
         if obj.question_set.owner == request.user:
