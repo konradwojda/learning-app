@@ -1303,3 +1303,224 @@ class GetDataTests(APITestCase):
             },
         )
         self.client.logout()
+
+    def test_test_questions_view(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[0])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/test_questions/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertListEqual(
+            response.data,
+            [
+                {
+                    "id": 1,
+                    "test": 1,
+                    "question_type": "TEXT",
+                    "is_true": None,
+                    "question": "Sample Text answer question for QS1",
+                    "question_choices": [{"id": 1, "text": "Answer1", "is_correct": False}],
+                },
+                {
+                    "id": 2,
+                    "test": 1,
+                    "question_type": "MULTIPLE",
+                    "is_true": None,
+                    "question": "Sample Multiple choice question for QS1",
+                    "question_choices": [
+                        {"id": 2, "text": "Choice 1", "is_correct": True},
+                        {"id": 3, "text": "Choice 2", "is_correct": True},
+                    ],
+                },
+                {
+                    "id": 3,
+                    "test": 1,
+                    "question_type": "SINGLE",
+                    "is_true": None,
+                    "question": "Sample Single choice question for QS1",
+                    "question_choices": [
+                        {"id": 4, "text": "Choice 1", "is_correct": False},
+                        {"id": 5, "text": "Choice 2", "is_correct": True},
+                    ],
+                },
+                {
+                    "id": 4,
+                    "test": 1,
+                    "question_type": "TF",
+                    "is_true": False,
+                    "question": "Sample True or false question for QS1",
+                    "question_choices": [],
+                },
+            ],
+        )
+
+    def test_test_questions_view_no_permissions(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[1])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/test_questions/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertListEqual(
+            response.data,
+            [],
+        )
+
+    def test_test_questions_view_superuser(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[2])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/test_questions/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertListEqual(
+            response.data,
+            [
+                {
+                    "id": 1,
+                    "test": 1,
+                    "question_type": "TEXT",
+                    "is_true": None,
+                    "question": "Sample Text answer question for QS1",
+                    "question_choices": [{"id": 1, "text": "Answer1", "is_correct": False}],
+                },
+                {
+                    "id": 2,
+                    "test": 1,
+                    "question_type": "MULTIPLE",
+                    "is_true": None,
+                    "question": "Sample Multiple choice question for QS1",
+                    "question_choices": [
+                        {"id": 2, "text": "Choice 1", "is_correct": True},
+                        {"id": 3, "text": "Choice 2", "is_correct": True},
+                    ],
+                },
+                {
+                    "id": 3,
+                    "test": 1,
+                    "question_type": "SINGLE",
+                    "is_true": None,
+                    "question": "Sample Single choice question for QS1",
+                    "question_choices": [
+                        {"id": 4, "text": "Choice 1", "is_correct": False},
+                        {"id": 5, "text": "Choice 2", "is_correct": True},
+                    ],
+                },
+                {
+                    "id": 4,
+                    "test": 1,
+                    "question_type": "TF",
+                    "is_true": False,
+                    "question": "Sample True or false question for QS1",
+                    "question_choices": [],
+                },
+            ],
+        )
+
+    def test_test_questions_view_public(self) -> None:
+        question_set = QuestionSet.objects.get(id=1)
+        question_set.is_private = False
+        question_set.save()
+        token = Token.objects.get(user=SAMPLE_USERS[1])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/test_questions/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertListEqual(
+            response.data,
+            [
+                {
+                    "id": 1,
+                    "test": 1,
+                    "question_type": "TEXT",
+                    "is_true": None,
+                    "question": "Sample Text answer question for QS1",
+                    "question_choices": [{"id": 1, "text": "Answer1", "is_correct": False}],
+                },
+                {
+                    "id": 2,
+                    "test": 1,
+                    "question_type": "MULTIPLE",
+                    "is_true": None,
+                    "question": "Sample Multiple choice question for QS1",
+                    "question_choices": [
+                        {"id": 2, "text": "Choice 1", "is_correct": True},
+                        {"id": 3, "text": "Choice 2", "is_correct": True},
+                    ],
+                },
+                {
+                    "id": 3,
+                    "test": 1,
+                    "question_type": "SINGLE",
+                    "is_true": None,
+                    "question": "Sample Single choice question for QS1",
+                    "question_choices": [
+                        {"id": 4, "text": "Choice 1", "is_correct": False},
+                        {"id": 5, "text": "Choice 2", "is_correct": True},
+                    ],
+                },
+                {
+                    "id": 4,
+                    "test": 1,
+                    "question_type": "TF",
+                    "is_true": False,
+                    "question": "Sample True or false question for QS1",
+                    "question_choices": [],
+                },
+            ],
+        )
+
+    def test_test_questions_view_details(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[0])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/test_questions/1/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertDictEqual(
+            response.data,
+                {
+                    "id": 1,
+                    "test": 1,
+                    "question_type": "TEXT",
+                    "is_true": None,
+                    "question": "Sample Text answer question for QS1",
+                    "question_choices": [{"id": 1, "text": "Answer1", "is_correct": False}],
+                },
+        )
+
+    def test_test_questions_view_details_no_permissions(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[1])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/test_questions/1/")
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_test_questions_view_details_superuser(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[2])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/test_questions/1/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertDictEqual(
+            response.data,
+                {
+                    "id": 1,
+                    "test": 1,
+                    "question_type": "TEXT",
+                    "is_true": None,
+                    "question": "Sample Text answer question for QS1",
+                    "question_choices": [{"id": 1, "text": "Answer1", "is_correct": False}],
+                },
+
+        )
+
+    def test_test_questions_view_details_public(self) -> None:
+        question_set = QuestionSet.objects.get(id=1)
+        question_set.is_private = False
+        question_set.save()
+        token = Token.objects.get(user=SAMPLE_USERS[1])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/test_questions/1/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertDictEqual(
+            response.data,
+                {
+                    "id": 1,
+                    "test": 1,
+                    "question_type": "TEXT",
+                    "is_true": None,
+                    "question": "Sample Text answer question for QS1",
+                    "question_choices": [{"id": 1, "text": "Answer1", "is_correct": False}],
+                },
+        )
