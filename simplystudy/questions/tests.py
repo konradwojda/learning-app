@@ -119,6 +119,8 @@ def load_sample_data():
 class GetDataTests(APITestCase):
     """Testy sprawdzające poprawność danych zwracanych przez API oraz odpowiednich uprawnień."""
 
+    maxDiff = None
+
     @classmethod
     def setUpTestData(cls) -> None:
         load_sample_data()
@@ -131,6 +133,91 @@ class GetDataTests(APITestCase):
         self.assertTrue(Test.objects.count(), 1)
         self.assertTrue(TestQuestion.objects.count(), 4)
         self.assertTrue(TestQuestionAnswer.objects.count(), 5)
+
+    def test_question_set_view_not_authorized(self) -> None:
+        response = self.client.get("/api/question_sets/")
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_questions_view_list_user(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[0])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/questions/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertListEqual(
+            response.data,
+            [
+                {
+                    "id": 1,
+                    "content": "Question 1?",
+                    "answer": "Answer1.",
+                    "image": None,
+                    "question_set": 1,
+                },
+            ],
+        )
+
+    def test_questions_view_list_superuser(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[2])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/questions/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertListEqual(
+            response.data,
+            [
+                {
+                    "id": 1,
+                    "content": "Question 1?",
+                    "answer": "Answer1.",
+                    "image": None,
+                    "question_set": 1,
+                },
+                {
+                    "id": 2,
+                    "content": "Question 2?",
+                    "answer": "Answer2.",
+                    "image": None,
+                    "question_set": 2,
+                },
+            ],
+        )
+
+    def test_questions_view_object(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[0])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/questions/1/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertDictEqual(
+            response.data,
+            {
+                "id": 1,
+                "content": "Question 1?",
+                "answer": "Answer1.",
+                "image": None,
+                "question_set": 1,
+            },
+        )
+
+    def test_questions_view_object_no_permission(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[1])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/questions/1/")
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_questions_view_object_superuser(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[2])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/questions/1/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertDictEqual(
+            response.data,
+            {
+                "id": 1,
+                "content": "Question 1?",
+                "answer": "Answer1.",
+                "image": None,
+                "question_set": 1,
+            },
+        )
 
     def test_question_set_view_first_user(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[0])
@@ -359,6 +446,79 @@ class GetDataTests(APITestCase):
         )
         self.client.logout()
 
+    def test_question_set_view_details(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[0])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/question_sets/1/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertDictEqual(
+            response.data,
+            {
+                "id": 1,
+                "name": "QS1",
+                "description": "Desc1",
+                "owner": "first_user",
+                "course": {
+                    "id": 1,
+                    "name": "Course1",
+                    "university": "University1",
+                    "description": "Desc1",
+                    "owner": "first_user",
+                },
+                "questions": [
+                    {
+                        "id": 1,
+                        "content": "Question 1?",
+                        "answer": "Answer1.",
+                        "image": None,
+                        "question_set": 1,
+                    }
+                ],
+                "is_private": True,
+            },
+        )
+        self.client.logout()
+
+    def test_question_set_view_details_superuser(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[2])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/question_sets/1/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertDictEqual(
+            response.data,
+            {
+                "id": 1,
+                "name": "QS1",
+                "description": "Desc1",
+                "owner": "first_user",
+                "course": {
+                    "id": 1,
+                    "name": "Course1",
+                    "university": "University1",
+                    "description": "Desc1",
+                    "owner": "first_user",
+                },
+                "questions": [
+                    {
+                        "id": 1,
+                        "content": "Question 1?",
+                        "answer": "Answer1.",
+                        "image": None,
+                        "question_set": 1,
+                    }
+                ],
+                "is_private": True,
+            },
+        )
+        self.client.logout()
+
+    def test_question_set_view_details_no_permissions(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[0])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/question_sets/2/")
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.client.logout()
+
     def test_public_question_sets_view_empty(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[0])
         self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
@@ -400,6 +560,89 @@ class GetDataTests(APITestCase):
                         }
                     ],
                     "is_private": False,
+                },
+            ],
+        )
+        self.client.logout()
+
+    def test_course_view_not_authorized(self) -> None:
+        response = self.client.get("/api/courses/")
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_course_view_list(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[0])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/courses/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertListEqual(
+            response.data,
+            [
+                {
+                    "id": 1,
+                    "name": "Course1",
+                    "university": "University1",
+                    "description": "Desc1",
+                    "owner": "first_user",
+                },
+            ],
+        )
+        self.client.logout()
+
+    def test_course_view_object_permissions(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[0])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/courses/1/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertDictEqual(
+            response.data,
+            {
+                "id": 1,
+                "name": "Course1",
+                "university": "University1",
+                "description": "Desc1",
+                "owner": "first_user",
+            },
+        )
+        self.client.logout()
+
+    def test_course_view_object_permissions_superuser(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[2])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/courses/1/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertDictEqual(
+            response.data,
+            {
+                "id": 1,
+                "name": "Course1",
+                "university": "University1",
+                "description": "Desc1",
+                "owner": "first_user",
+            },
+        )
+        self.client.logout()
+
+    def test_course_view_object_permissions_not_permitted(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[0])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/courses/2/")
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.client.logout()
+
+    def test_course_view_filter(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[1])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/courses/?username=second_user")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertListEqual(
+            response.data,
+            [
+                {
+                    "id": 2,
+                    "name": "Course2",
+                    "university": "University2",
+                    "description": "Desc2",
+                    "owner": "second_user",
                 },
             ],
         )
