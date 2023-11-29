@@ -46,6 +46,13 @@ class QuestionViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancest
     serializer_class = QuestionSerializer
     permission_classes = [permissions.IsAuthenticated, QuestionPermissions]
 
+    def get_queryset(self) -> QuerySet:
+        queryset = self.queryset.all()
+        if not self.request.user.is_superuser:
+            queryset = queryset.filter(question_set__owner=self.request.user)
+
+        return queryset
+
 
 class QuestionSetViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
     """ViewSet dla modelu QuestionSet"""
