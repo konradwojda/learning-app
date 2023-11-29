@@ -1471,14 +1471,14 @@ class GetDataTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertDictEqual(
             response.data,
-                {
-                    "id": 1,
-                    "test": 1,
-                    "question_type": "TEXT",
-                    "is_true": None,
-                    "question": "Sample Text answer question for QS1",
-                    "question_choices": [{"id": 1, "text": "Answer1", "is_correct": False}],
-                },
+            {
+                "id": 1,
+                "test": 1,
+                "question_type": "TEXT",
+                "is_true": None,
+                "question": "Sample Text answer question for QS1",
+                "question_choices": [{"id": 1, "text": "Answer1", "is_correct": False}],
+            },
         )
 
     def test_test_questions_view_details_no_permissions(self) -> None:
@@ -1494,15 +1494,14 @@ class GetDataTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertDictEqual(
             response.data,
-                {
-                    "id": 1,
-                    "test": 1,
-                    "question_type": "TEXT",
-                    "is_true": None,
-                    "question": "Sample Text answer question for QS1",
-                    "question_choices": [{"id": 1, "text": "Answer1", "is_correct": False}],
-                },
-
+            {
+                "id": 1,
+                "test": 1,
+                "question_type": "TEXT",
+                "is_true": None,
+                "question": "Sample Text answer question for QS1",
+                "question_choices": [{"id": 1, "text": "Answer1", "is_correct": False}],
+            },
         )
 
     def test_test_questions_view_details_public(self) -> None:
@@ -1515,12 +1514,12 @@ class GetDataTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertDictEqual(
             response.data,
-                {
-                    "id": 1,
-                    "test": 1,
-                    "question_type": "TEXT",
-                    "is_true": None,
-                    "question": "Sample Text answer question for QS1",
-                    "question_choices": [{"id": 1, "text": "Answer1", "is_correct": False}],
-                },
+            {
+                "id": 1,
+                "test": 1,
+                "question_type": "TEXT",
+                "is_true": None,
+                "question": "Sample Text answer question for QS1",
+                "question_choices": [{"id": 1, "text": "Answer1", "is_correct": False}],
+            },
         )
