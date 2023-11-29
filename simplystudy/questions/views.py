@@ -135,6 +135,10 @@ class TestViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
 
     def get_queryset(self) -> QuerySet:
         queryset = self.queryset.all()
+        if not self.request.user.is_superuser:
+            queryset = queryset.filter(
+                Q(question_set__is_private=False) | Q(question_set__owner=self.request.user)
+            )
         question_set_id = self.request.query_params.get("question_set")
         if question_set_id is not None:
             return queryset.filter(question_set__id=int(question_set_id))
@@ -147,6 +151,14 @@ class TestDetailsViewSet(viewsets.ModelViewSet):
     )
     serializer_class = TestDetailSerializer
     permission_classes = [permissions.IsAuthenticated, TestPermissions]
+
+    def get_queryset(self) -> QuerySet:
+        queryset = self.queryset.all()
+        if not self.request.user.is_superuser:
+            queryset = queryset.filter(
+                Q(question_set__is_private=False) | Q(question_set__owner=self.request.user)
+            )
+        return queryset
 
 
 class TestQuestionViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
