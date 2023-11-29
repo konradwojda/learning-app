@@ -168,6 +168,15 @@ class TestQuestionViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-an
     serializer_class = TestQuestionSerializer
     permission_classes = [permissions.IsAuthenticated, TestQuestionPermissions]
 
+    def get_queryset(self) -> QuerySet:
+        queryset = self.queryset.all()
+        if not self.request.user.is_superuser:
+            queryset = queryset.filter(
+                Q(test__question_set__is_private=False)
+                | Q(test__question_set__owner=self.request.user)
+            )
+        return queryset
+
     def perform_create(self, serializer):
         question = serializer.save()
 
