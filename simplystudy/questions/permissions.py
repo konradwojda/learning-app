@@ -35,6 +35,8 @@ class QuestionSetPermissions(permissions.BasePermission):
 
 class QuestionPermissions(permissions.BasePermission):
     def has_permission(self, request: Request, view: APIView) -> bool:
+        if request.user.is_superuser:
+            return True
         if request.data.get("question_set"):
             question_set = QuestionSet.objects.get(id=int(request.data["question_set"]))
             return question_set.owner == request.user
