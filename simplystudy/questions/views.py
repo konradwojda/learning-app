@@ -118,6 +118,8 @@ class UserResourceViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self) -> QuerySet:
         queryset = self.queryset.all()
+        if not self.request.user.is_superuser:
+            queryset = queryset.filter(user=self.request.user)
         username = self.request.query_params.get("username")
         if username is not None:
             return queryset.filter(user__username=username)
