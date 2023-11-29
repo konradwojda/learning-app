@@ -453,6 +453,42 @@ class GetDataTests(APITestCase):
         self.client.logout()
 
     def test_question_set_view_details(self) -> None:
+        question_set = QuestionSet.objects.get(id=2)
+        question_set.is_private = False
+        question_set.save()
+        token = Token.objects.get(user=SAMPLE_USERS[0])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/question_sets/2/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertDictEqual(
+            response.data,
+            {
+                "id": 2,
+                "name": "QS2",
+                "description": "Desc2",
+                "owner": "second_user",
+                "course": {
+                    "id": 2,
+                    "name": "Course2",
+                    "university": "University2",
+                    "description": "Desc2",
+                    "owner": "second_user",
+                },
+                "questions": [
+                    {
+                        "id": 2,
+                        "content": "Question 2?",
+                        "answer": "Answer2.",
+                        "image": None,
+                        "question_set": 2,
+                    }
+                ],
+                "is_private": False,
+            },
+        )
+        self.client.logout()
+
+    def test_question_set_view_details_public(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[0])
         self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
         response = self.client.get("/api/question_sets/1/")
@@ -716,6 +752,33 @@ class GetDataTests(APITestCase):
         token = Token.objects.get(user=SAMPLE_USERS[2])
         self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
         response = self.client.get("/api/user_resources/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertListEqual(
+            response.data,
+            [
+                {
+                    "id": 1,
+                    "user": "second_user",
+                    "question_set": {
+                        "id": 1,
+                        "name": "QS1",
+                        "description": "Desc1",
+                        "owner": "first_user",
+                        "course": 1,
+                    },
+                }
+            ],
+        )
+        self.client.logout()
+
+    def test_user_resource_filter(self) -> None:
+        question_set = QuestionSet.objects.get(id=1)
+        question_set.is_private = False
+        question_set.save()
+        UserResource.objects.create(user=SAMPLE_USERS[1], question_set=question_set)
+        token = Token.objects.get(user=SAMPLE_USERS[2])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.get("/api/user_resources/?username=second_user")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertListEqual(
             response.data,
