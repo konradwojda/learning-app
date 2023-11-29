@@ -156,6 +156,7 @@ class GetDataTests(APITestCase):
                 },
             ],
         )
+        self.client.logout()
 
     def test_questions_view_list_superuser(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[2])
@@ -181,6 +182,7 @@ class GetDataTests(APITestCase):
                 },
             ],
         )
+        self.client.logout()
 
     def test_questions_view_object(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[0])
@@ -197,12 +199,14 @@ class GetDataTests(APITestCase):
                 "question_set": 1,
             },
         )
+        self.client.logout()
 
     def test_questions_view_object_no_permission(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[1])
         self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
         response = self.client.get("/api/questions/1/")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.client.logout()
 
     def test_questions_view_object_superuser(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[2])
@@ -219,6 +223,7 @@ class GetDataTests(APITestCase):
                 "question_set": 1,
             },
         )
+        self.client.logout()
 
     def test_question_set_view_first_user(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[0])
@@ -659,6 +664,7 @@ class GetDataTests(APITestCase):
         response = self.client.get("/api/user_resources/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertListEqual(response.data, [])
+        self.client.logout()
 
     def test_user_resource_default(self) -> None:
         question_set = QuestionSet.objects.get(id=1)
@@ -1352,6 +1358,7 @@ class GetDataTests(APITestCase):
                 },
             ],
         )
+        self.client.logout()
 
     def test_test_questions_view_no_permissions(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[1])
@@ -1362,6 +1369,7 @@ class GetDataTests(APITestCase):
             response.data,
             [],
         )
+        self.client.logout()
 
     def test_test_questions_view_superuser(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[2])
@@ -1411,6 +1419,7 @@ class GetDataTests(APITestCase):
                 },
             ],
         )
+        self.client.logout()
 
     def test_test_questions_view_public(self) -> None:
         question_set = QuestionSet.objects.get(id=1)
@@ -1463,6 +1472,7 @@ class GetDataTests(APITestCase):
                 },
             ],
         )
+        self.client.logout()
 
     def test_test_questions_view_details(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[0])
@@ -1480,12 +1490,14 @@ class GetDataTests(APITestCase):
                 "question_choices": [{"id": 1, "text": "Answer1", "is_correct": False}],
             },
         )
+        self.client.logout()
 
     def test_test_questions_view_details_no_permissions(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[1])
         self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
         response = self.client.get("/api/test_questions/1/")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.client.logout()
 
     def test_test_questions_view_details_superuser(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[2])
@@ -1503,6 +1515,7 @@ class GetDataTests(APITestCase):
                 "question_choices": [{"id": 1, "text": "Answer1", "is_correct": False}],
             },
         )
+        self.client.logout()
 
     def test_test_questions_view_details_public(self) -> None:
         question_set = QuestionSet.objects.get(id=1)
@@ -1523,3 +1536,4 @@ class GetDataTests(APITestCase):
                 "question_choices": [{"id": 1, "text": "Answer1", "is_correct": False}],
             },
         )
+        self.client.logout()
