@@ -1,3 +1,4 @@
+# type: ignore
 from django.core.exceptions import ValidationError
 from rest_framework import status
 from rest_framework.authtoken.models import Token
