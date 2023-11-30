@@ -33,3 +33,11 @@ load-plugins = ["pylint_django"]
 disable = ["missing-module-docstring"]
 
 django-settings-module = "simplystudy.settings"
+
+[tool.coverage.run]
+omit = [
+    "manage.py",
+    "simplystudy/wsgi.py",
+    "simplystudy/asgi.py",
+    "simplystudy/questions/management/*",
+    ]
