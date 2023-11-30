@@ -368,6 +368,21 @@ class ModifyDataTests(APITestCase):
         self.assertEqual(course.owner, SAMPLE_USERS[0])
         self.client.logout()
 
+    def test_edit_course_invalid_user(self) -> None:
+        token = Token.objects.get(user=SAMPLE_USERS[0])
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        response = self.client.patch(
+            "/api/courses/1/",
+            {
+                "name": "name",
+                "description": "description",
+                "university": "university",
+                "owner": "invalid_user",
+            },
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.client.logout()
+
     def test_edit_course_no_permissions(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[1])
         self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
