@@ -151,6 +151,7 @@ class TestDetailsViewSet(viewsets.ModelViewSet):
     )
     serializer_class = TestDetailSerializer
     permission_classes = [permissions.IsAuthenticated, TestPermissions]
+    http_method_names = ["get"]
 
     def get_queryset(self) -> QuerySet:
         queryset = self.queryset.all()
