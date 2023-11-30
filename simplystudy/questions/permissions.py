@@ -5,10 +5,22 @@ from rest_framework.permissions import SAFE_METHODS
 from rest_framework.request import Request
 from rest_framework.views import APIView
 
-from simplystudy.questions.models import QuestionSet, Test, TestQuestion
+from simplystudy.questions.models import QuestionSet, Test
 
 
 class OwnerPermissions(permissions.BasePermission):
+    def has_permission(self, request: Request, view: APIView) -> bool:
+        if request.method == "POST":
+            if request.user.is_superuser:
+                return True
+
+            if request.data.get("owner") == request.user.username:
+                return True
+
+            return False
+
+        return True
+
     def has_object_permission(self, request: Request, view: APIView, obj: Any) -> bool:
         if request.user.is_superuser:
             return True
@@ -20,6 +32,18 @@ class OwnerPermissions(permissions.BasePermission):
 
 
 class QuestionSetPermissions(permissions.BasePermission):
+    def has_permission(self, request: Request, view: APIView) -> bool:
+        if request.method == "POST":
+            if request.user.is_superuser:
+                return True
+
+            if request.data.get("owner") == request.user.username:
+                return True
+
+            return False
+
+        return True
+
     def has_object_permission(self, request: Request, view: APIView, obj: Any) -> bool:
         if request.method in SAFE_METHODS and obj.is_private is False:
             return True
