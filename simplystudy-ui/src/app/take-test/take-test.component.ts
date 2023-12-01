@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { ErrorHandlingService } from '../error-handling.service';
-import { SnackbarService } from '../snackbar.service';
+import { ErrorHandlingService } from '../services/error-handling.service';
+import { SnackbarService } from '../services/snackbar.service';
 import { environment } from 'src/environments/environment';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,14 +22,14 @@ import { TestToTake, TestQuestion } from './test-data';
   templateUrl: './take-test.component.html',
   styleUrls: ['./take-test.component.css']
 })
-export class TakeTestComponent implements OnInit{
+export class TakeTestComponent implements OnInit {
   test: TestToTake;
   testId: number;
   private apiUrl = environment.apiUrl;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private errorHandling: ErrorHandlingService, private router: Router, private snackbarService: SnackbarService) {
     this.testId = Number(this.route.snapshot.paramMap.get('id'));
-    this.test = {id: -1, name: '', questions_count: -1, question_set: -1, questions: []};
+    this.test = { id: -1, name: '', questions_count: -1, question_set: -1, questions: [] };
   }
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class TakeTestComponent implements OnInit{
         this.test.question_set = data.question_set;
         this.test.questions_count = data.test_questions.length;
         this.test.questions = data.test_questions;
-        for(const question of this.test.questions) {
+        for (const question of this.test.questions) {
           question.user_answer_correct = null;
           if (question.question_type === 'MULTIPLE') {
             question.user_answer = [];
@@ -77,11 +77,11 @@ export class TakeTestComponent implements OnInit{
         break;
       }
       case 'MULTIPLE': {
-        for(const answer of question.question_choices) {
+        for (const answer of question.question_choices) {
           question.user_answer_correct = answer.is_correct === answer.checked;
-          if (!question.user_answer_correct){
+          if (!question.user_answer_correct) {
             break;
-          } 
+          }
         }
       }
     }
@@ -96,7 +96,7 @@ export class TakeTestComponent implements OnInit{
   }
 
   submitTest(): void {
-    for(const question of this.test.questions) {
+    for (const question of this.test.questions) {
       this.checkQuestionCorrect(question.question_type, question);
     }
   }

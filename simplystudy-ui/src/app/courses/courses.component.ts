@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Course } from './course';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { AuthService } from '../auth.service';
-import { SnackbarService } from '../snackbar.service';
+import { AuthService } from '../services/auth.service';
+import { SnackbarService } from '../services/snackbar.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,7 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
-import { ErrorHandlingService } from '../error-handling.service';
+import { ErrorHandlingService } from '../services/error-handling.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
@@ -53,12 +53,12 @@ export class CoursesComponent implements OnInit {
     private router: Router,
     private errorHandling: ErrorHandlingService,
     private translate: TranslateService,
-  ) {}
+  ) { }
 
   deleteCourse(course_id: number): void {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {data: {message: this.translate.instant("ConfirmDialog.DeleteCourse")}, maxWidth: '400px'});
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, { data: { message: this.translate.instant("ConfirmDialog.DeleteCourse") }, maxWidth: '400px' });
     dialogRef.afterClosed().subscribe((result) => {
-      if(result) {
+      if (result) {
         this.http
           .delete(this.apiUrl + '/api/courses/' + course_id + '/')
           .subscribe({
@@ -165,7 +165,7 @@ export class CourseEditDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<CourseEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Course,
-  ) {}
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close();

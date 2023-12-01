@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { TestQuestion } from './questions';
 import { HttpClient } from '@angular/common/http';
-import { SnackbarService } from '../snackbar.service';
-import { ErrorHandlingService } from '../error-handling.service';
+import { SnackbarService } from '../services/snackbar.service';
+import { ErrorHandlingService } from '../services/error-handling.service';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -49,7 +49,7 @@ export class TestEditorComponent {
   loadTest(test_id: number): void {
     this.http.get(this.apiUrl + '/api/tests/' + test_id + '/').subscribe({
       next: (response: any) => {
-        this.testData.patchValue({name: response.name});
+        this.testData.patchValue({ name: response.name });
       }
     })
   }
@@ -142,7 +142,7 @@ export class TestEditorComponent {
     const questionRequests: Array<Observable<any>> = []
     this.http.post(this.apiUrl + '/api/tests/', { name: this.testData.value.name, question_set: this.questionSetId }).subscribe({
       next: (response: any) => {
-        if(!this.testQuestionsData.value.question) {
+        if (!this.testQuestionsData.value.question) {
           this.router.navigateByUrl('/question_sets/' + this.questionSetId + '/tests');
           this.snackbarService.showSnackbar(this.translate.instant("Snackbar.AddedTest"));
         }
@@ -162,7 +162,7 @@ export class TestEditorComponent {
               question: testQuestion.content,
               question_type: testQuestion.type,
               is_true: null,
-              answers: [{answer: testQuestion.answer, is_correct: true}],
+              answers: [{ answer: testQuestion.answer, is_correct: true }],
             }
             questionRequests.push(this.getQuestionRequest(question));
           } else {
@@ -193,8 +193,8 @@ export class TestEditorComponent {
   }
 
   getQuestionRequest(data: TestQuestion): Observable<any> {
-    const answersArray = data.answers.map((answer)=>{
-      return {text:answer.answer, is_correct: answer.is_correct}
+    const answersArray = data.answers.map((answer) => {
+      return { text: answer.answer, is_correct: answer.is_correct }
     });
     return this.http.post(this.apiUrl + '/api/test_questions/', { test: data.test_id, question: data.question, question_type: data.question_type, is_true: data.is_true, question_choices: answersArray })
   }

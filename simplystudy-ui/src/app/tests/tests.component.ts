@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { QuestionSet } from '../question-sets/question-set';
 import { environment } from 'src/environments/environment';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ErrorHandlingService } from '../error-handling.service';
+import { ErrorHandlingService } from '../services/error-handling.service';
 import { Test } from './test';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,7 +13,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { SnackbarService } from '../snackbar.service';
+import { SnackbarService } from '../services/snackbar.service';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -85,9 +85,9 @@ export class TestsComponent implements OnInit {
   }
 
   deleteTest(test_id: number): void {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {data: {message: this.translate.instant("ConfirmDialog.DeleteTest")}, maxWidth: '400px'});
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, { data: { message: this.translate.instant("ConfirmDialog.DeleteTest") }, maxWidth: '400px' });
     dialogRef.afterClosed().subscribe((result) => {
-      if(result) {
+      if (result) {
         this.http.delete(this.apiUrl + '/api/tests/' + test_id).subscribe({
           next: (data) => {
             this.ngOnInit();
@@ -123,7 +123,7 @@ export class TestsComponent implements OnInit {
   }
 
   getTestDownloadUrl(test_id: number, test_name: string): void {
-    this.http.get(this.apiUrl + '/download_test/' + test_id, {responseType: 'blob'}).subscribe({
+    this.http.get(this.apiUrl + '/download_test/' + test_id, { responseType: 'blob' }).subscribe({
       next: (blob: Blob) => {
         const downloadUrl = URL.createObjectURL(blob);
 

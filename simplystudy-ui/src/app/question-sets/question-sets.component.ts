@@ -8,7 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { NgFor, NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { environment } from 'src/environments/environment';
-import { SnackbarService } from '../snackbar.service';
+import { SnackbarService } from '../services/snackbar.service';
 import { Router } from '@angular/router';
 import { Course } from '../courses/course';
 import {
@@ -20,12 +20,12 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ErrorHandlingService } from '../error-handling.service';
+import { ErrorHandlingService } from '../services/error-handling.service';
 import { UserResource } from '../search-resources/user-resource';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
@@ -125,9 +125,9 @@ export class QuestionSetsComponent implements OnInit {
   }
 
   deleteQuestionSet(id: string): void {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {data: {message: this.translate.instant("ConfirmDialog.DeleteQS")}, maxWidth: '400px'});
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, { data: { message: this.translate.instant("ConfirmDialog.DeleteQS") }, maxWidth: '400px' });
     dialogRef.afterClosed().subscribe((result) => {
-      if(result) {
+      if (result) {
         this.http.delete(this.apiUrl + '/api/question_sets/' + id + '/').subscribe({
           next: (data) => {
             this.snackbarService.showSnackbar(
@@ -235,9 +235,9 @@ export class QuestionSetsComponent implements OnInit {
   }
 
   deleteQuestion(question_id: string): void {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {data: {message: this.translate.instant("ConfirmDialog.DeleteQuestion")}, maxWidth: '400px'});
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, { data: { message: this.translate.instant("ConfirmDialog.DeleteQuestion") }, maxWidth: '400px' });
     dialogRef.afterClosed().subscribe((result) => {
-      if(result) {
+      if (result) {
         this.http
           .delete(this.apiUrl + '/api/questions/' + question_id + '/')
           .subscribe({

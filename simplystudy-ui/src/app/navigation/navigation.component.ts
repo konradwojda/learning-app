@@ -13,11 +13,11 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { LanguageService } from '../language.service';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-navigation',
@@ -38,8 +38,7 @@ import { LanguageService } from '../language.service';
   standalone: true,
 })
 export class NavigationComponent
-  implements OnDestroy, OnInit, AfterViewChecked
-{
+  implements OnDestroy, OnInit, AfterViewChecked {
   mobileQuery: MediaQueryList;
   isAuthenticated = false;
   username = '';

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { LoggedUser, UserInfo } from './auth';
+import { LoggedUser, UserInfo } from '../auth/auth';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class AuthService {
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   private usernameSubject = new BehaviorSubject<string>('');
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   logIn(username: string, password: string): Observable<any> {
     return this.http.post(this.apiUrl + '/auth/token/login/', {
@@ -121,10 +121,10 @@ export class AuthService {
   }
 
   setPassword(new_password: string, re_new_password: string, current_password: string) {
-    return this.http.post(this.apiUrl + '/auth/users/set_password/', {new_password, re_new_password, current_password});
+    return this.http.post(this.apiUrl + '/auth/users/set_password/', { new_password, re_new_password, current_password });
   }
 
   changeUsername(new_username: string, current_password: string) {
-    return this.http.post(this.apiUrl + '/auth/users/set_username/', {new_username, current_password});
+    return this.http.post(this.apiUrl + '/auth/users/set_username/', { new_username, current_password });
   }
 }

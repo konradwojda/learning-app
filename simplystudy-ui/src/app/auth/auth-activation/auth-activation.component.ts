@@ -6,10 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../auth.service';
-import { SnackbarService } from '../snackbar.service';
+import { AuthService } from '../../services/auth.service';
+import { SnackbarService } from '../../services/snackbar.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ErrorHandlingService } from '../error-handling.service';
+import { ErrorHandlingService } from '../../services/error-handling.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';

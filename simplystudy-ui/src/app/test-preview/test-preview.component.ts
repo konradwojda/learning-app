@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Test } from '../tests/test';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { ErrorHandlingService } from '../error-handling.service';
+import { ErrorHandlingService } from '../services/error-handling.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -15,9 +15,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
-import { SnackbarService } from '../snackbar.service';
+import { SnackbarService } from '../services/snackbar.service';
 import { MatMenuModule } from '@angular/material/menu';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
@@ -36,7 +36,7 @@ export class TestPreviewComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private errorHandling: ErrorHandlingService, public dialog: MatDialog, private router: Router, private snackbarService: SnackbarService, private translate: TranslateService, private authService: AuthService) {
     this.testId = Number(this.route.snapshot.paramMap.get('id'));
-    this.test = {id: -1, name: '', questions_count: -1, question_set: -1, questions: []};
+    this.test = { id: -1, name: '', questions_count: -1, question_set: -1, questions: [] };
   }
 
   ngOnInit(): void {
@@ -44,9 +44,9 @@ export class TestPreviewComponent implements OnInit {
   }
 
   deleteTest(): void {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {data: {message: this.translate.instant("ConfirmDialog.DeleteTest")}, maxWidth: '400px'});
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, { data: { message: this.translate.instant("ConfirmDialog.DeleteTest") }, maxWidth: '400px' });
     dialogRef.afterClosed().subscribe((result) => {
-      if(result) {
+      if (result) {
         this.http.delete(this.apiUrl + '/api/tests/' + this.testId + '/').subscribe({
           next: (data) => {
             this.router.navigateByUrl('/question_sets/' + this.test.question_set + '/tests');
@@ -61,9 +61,9 @@ export class TestPreviewComponent implements OnInit {
   }
 
   deleteTestQuestion(question_id: number): void {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {data: {message: this.translate.instant("ConfirmDialog.DeleteQuestion")}, maxWidth: '400px'});
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, { data: { message: this.translate.instant("ConfirmDialog.DeleteQuestion") }, maxWidth: '400px' });
     dialogRef.afterClosed().subscribe((result) => {
-      if(result) {
+      if (result) {
         this.http.delete(this.apiUrl + '/api/test_questions/' + question_id + '/').subscribe({
           next: (data) => {
             this.ngOnInit();
@@ -97,10 +97,10 @@ export class TestPreviewComponent implements OnInit {
   }
 
   addQuestion(type: string): void {
-    const dialogRef = this.dialog.open(AddTestQuestionDialogComponent, {data: {test_id: this.testId, question: '', question_type: type, is_true: type === 'TF' ? true : null, answers: []}});
+    const dialogRef = this.dialog.open(AddTestQuestionDialogComponent, { data: { test_id: this.testId, question: '', question_type: type, is_true: type === 'TF' ? true : null, answers: [] } });
     dialogRef.afterClosed().subscribe((result) => {
-      if(result) {
-        this.http.post(this.apiUrl + '/api/test_questions/', { test: result.test_id, question: result.question, question_type: result.question_type, is_true: result.is_true, question_choices: result.answers}).subscribe({
+      if (result) {
+        this.http.post(this.apiUrl + '/api/test_questions/', { test: result.test_id, question: result.question, question_type: result.question_type, is_true: result.is_true, question_choices: result.answers }).subscribe({
           next: (response: any) => {
             this.ngOnInit();
             this.router.navigateByUrl(this.router.url);
@@ -115,10 +115,10 @@ export class TestPreviewComponent implements OnInit {
   }
 
   editTest(): void {
-    const dialogRef = this.dialog.open(TestEditDialogComponent, {data: {name: this.test.name, id: this.test.id}});
+    const dialogRef = this.dialog.open(TestEditDialogComponent, { data: { name: this.test.name, id: this.test.id } });
     dialogRef.afterClosed().subscribe((result) => {
-      if(result){
-        this.http.patch(this.apiUrl + '/api/tests/' + this.test.id + '/', {name: result.name}).subscribe({
+      if (result) {
+        this.http.patch(this.apiUrl + '/api/tests/' + this.test.id + '/', { name: result.name }).subscribe({
           next: (data) => {
             this.ngOnInit();
             this.router.navigateByUrl(this.router.url);
@@ -135,9 +135,9 @@ export class TestPreviewComponent implements OnInit {
     const dialogRef = this.dialog.open(TestQuestionEditDialogComponent, {
       data: { id: question.id, question: question.question, question_type: question.question_type, answers: question.question_choices, is_true: question.is_true }
     });
-  
+
     dialogRef.afterClosed().subscribe((result) => {
-      if(result){
+      if (result) {
         this.http.patch(this.apiUrl + '/api/test_questions/' + result.id + '/', { test: this.testId, question: result.question, question_type: result.question_type, is_true: result.is_true, question_choices: result.answers }).subscribe({
           next: (response) => {
             this.ngOnInit();
@@ -150,7 +150,7 @@ export class TestPreviewComponent implements OnInit {
             this.errorHandling.handleError(error);
           }
         });
-    
+
       }
     });
   }
@@ -206,7 +206,7 @@ export class TestQuestionEditDialogComponent {
   }
 
   addAnswer(): void {
-    this.data.answers.push({id: null, text: '', is_correct: false})
+    this.data.answers.push({ id: null, text: '', is_correct: false })
   }
 
   deleteAnswer(answerIdx: number): void {
@@ -239,8 +239,8 @@ export class AddTestQuestionDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.data.question_type === 'TEXT'){
-      this.data.answers.push({text: '', is_correct: true});
+    if (this.data.question_type === 'TEXT') {
+      this.data.answers.push({ text: '', is_correct: true });
     }
   }
 
@@ -252,7 +252,7 @@ export class AddTestQuestionDialogComponent implements OnInit {
   }
 
   addAnswer(): void {
-    this.data.answers.push({text: '', is_correct: false})
+    this.data.answers.push({ text: '', is_correct: false })
   }
 
   deleteAnswer(answerIdx: number): void {

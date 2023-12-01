@@ -1,14 +1,14 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { QuestionsStepperComponent } from '../questions-stepper/questions-stepper.component';
+import { QuestionsStepperComponent } from './questions-stepper/questions-stepper.component';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { MatCardModule } from '@angular/material/card';
 import { QuestionSet } from '../question-sets/question-set';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { AuthService } from '../auth.service';
-import { ErrorHandlingService } from '../error-handling.service';
+import { AuthService } from '../services/auth.service';
+import { ErrorHandlingService } from '../services/error-handling.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { TranslateModule } from '@ngx-translate/core';

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthLoginComponent } from './auth-login/auth-login.component';
-import { AuthRegisterComponent } from './auth-register/auth-register.component';
+import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
+import { AuthRegisterComponent } from './auth/auth-register/auth-register.component';
 import { QuestionSetsComponent } from './question-sets/question-sets.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -11,9 +11,9 @@ import { SearchResourcesComponent } from './search-resources/search-resources.co
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MyResourcesComponent } from './my-resources/my-resources.component';
 import { LearnComponent } from './learn/learn.component';
-import { AuthGuard } from './auth.guard';
-import { AuthActivationComponent } from './auth-activation/auth-activation.component';
-import { AuthResetPasswordComponent } from './auth-reset-password/auth-reset-password.component';
+import { AuthGuard } from './auth/auth.guard';
+import { AuthActivationComponent } from './auth/auth-activation/auth-activation.component';
+import { AuthResetPasswordComponent } from './auth/auth-reset-password/auth-reset-password.component';
 import { TestsComponent } from './tests/tests.component';
 import { TestEditorComponent } from './test-editor/test-editor.component';
 import { TestPreviewComponent } from './test-preview/test-preview.component';
@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'activate/:uid/:token', component: AuthActivationComponent },
   { path: 'activate', component: AuthActivationComponent },
   { path: 'reset_password/:uid/:token', component: AuthResetPasswordComponent },
-  { path: 'tutorial', component: TutorialComponent},
+  { path: 'tutorial', component: TutorialComponent },
   {
     path: 'dashboard',
     component: DashboardComponent,

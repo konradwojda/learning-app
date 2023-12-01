@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { UserInfo } from '../auth';
-import { ErrorHandlingService } from '../error-handling.service';
+import { AuthService } from '../services/auth.service';
+import { UserInfo } from '../auth/auth';
+import { ErrorHandlingService } from '../services/error-handling.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -9,7 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { SnackbarService } from '../snackbar.service';
+import { SnackbarService } from '../services/snackbar.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -34,7 +34,7 @@ export class ProfilePageComponent implements OnInit {
   showChangePassword = false;
   showChangeUsername = false;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private errorHandling: ErrorHandlingService, private snackbarService: SnackbarService, private router: Router, private translate: TranslateService){
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private errorHandling: ErrorHandlingService, private snackbarService: SnackbarService, private router: Router, private translate: TranslateService) {
     this.changePasswordForm = this.formBuilder.group({
       new_password: ['', [Validators.required]],
       re_new_password: ['', [Validators.required]],
@@ -83,15 +83,15 @@ export class ProfilePageComponent implements OnInit {
     })
   }
 
-  setShowChangePassword() { 
-    if(this.showChangeUsername) {
+  setShowChangePassword() {
+    if (this.showChangeUsername) {
       this.showChangeUsername = false;
     }
     this.showChangePassword = !this.showChangePassword;
   }
 
   setShowChangeUsername() {
-    if(this.showChangePassword) {
+    if (this.showChangePassword) {
       this.showChangePassword = false;
     }
     this.showChangeUsername = !this.showChangeUsername;

@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { UserResource } from '../search-resources/user-resource';
 import { environment } from 'src/environments/environment';
-import { AuthService } from '../auth.service';
-import { ErrorHandlingService } from '../error-handling.service';
+import { AuthService } from '../services/auth.service';
+import { ErrorHandlingService } from '../services/error-handling.service';
 import { QuestionSet } from '../question-sets/question-set';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -35,7 +35,7 @@ export class MyResourcesComponent implements OnInit {
     private http: HttpClient,
     private authService: AuthService,
     private errorHandling: ErrorHandlingService,
-  ) {}
+  ) { }
 
   private getUserResources(): void {
     const username = this.authService.getUsername();

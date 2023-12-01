@@ -14,17 +14,17 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { Course } from '../courses/course';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { SnackbarService } from '../snackbar.service';
+import { SnackbarService } from '../services/snackbar.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
-import { CsvService } from '../csv.service';
+import { CsvService } from '../services/csv.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ErrorHandlingService } from '../error-handling.service';
+import { ErrorHandlingService } from '../services/error-handling.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -75,7 +75,7 @@ export class CreateQuestionSetComponent implements OnInit {
     private csv: CsvService,
     private errorHandling: ErrorHandlingService,
     private translate: TranslateService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const username = this.authService.getUsername();
@@ -155,11 +155,11 @@ export class CreateQuestionSetComponent implements OnInit {
                   this.errorHandling.handleError(error);
                 },
               });
-            }
-            this.snackbarService.showSnackbar(
-              this.translate.instant('Snackbar.QSAdded'),
-            );
-            this.router.navigateByUrl('/question_sets/' + set_data.id);
+          }
+          this.snackbarService.showSnackbar(
+            this.translate.instant('Snackbar.QSAdded'),
+          );
+          this.router.navigateByUrl('/question_sets/' + set_data.id);
         },
         error: (error) => {
           this.errorHandling.handleError(error);

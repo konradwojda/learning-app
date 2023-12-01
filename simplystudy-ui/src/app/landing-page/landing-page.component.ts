@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -15,7 +15,7 @@ export class LandingPageComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {

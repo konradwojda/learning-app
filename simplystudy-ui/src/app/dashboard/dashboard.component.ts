@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { QuestionSet } from '../question-sets/question-set';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { environment } from 'src/environments/environment';
-import { SnackbarService } from '../snackbar.service';
+import { SnackbarService } from '../services/snackbar.service';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { NgFor, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -14,7 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatRippleModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
-import { ErrorHandlingService } from '../error-handling.service';
+import { ErrorHandlingService } from '../services/error-handling.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
     private http: HttpClient,
     private authService: AuthService,
     private errorHandling: ErrorHandlingService,
-  ) {}
+  ) { }
 
   applyFilter() {
     this.filteredQuestionSets = this.filterQuestionSetsByName(this.filterText);
@@ -71,7 +71,7 @@ export class DashboardComponent implements OnInit {
         next: (data: Array<QuestionSet>) => {
           this.questionSets = data;
           this.filteredQuestionSets = data;
-          if(data.length == 0) {
+          if (data.length == 0) {
             this.showNewUserInfo = true;
           }
         },

@@ -6,13 +6,13 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { LanguageService } from './language.service';
+import { LanguageService } from '../services/language.service';
 
 @Injectable()
 export class LanguageInterceptor implements HttpInterceptor {
   selectedLang = '';
 
-  constructor(private languageService: LanguageService) {}
+  constructor(private languageService: LanguageService) { }
 
   intercept(
     request: HttpRequest<unknown>,

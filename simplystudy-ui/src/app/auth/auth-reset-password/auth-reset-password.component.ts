@@ -5,10 +5,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../auth.service';
-import { SnackbarService } from '../snackbar.service';
+import { AuthService } from '../../services/auth.service';
+import { SnackbarService } from '../../services/snackbar.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ErrorHandlingService } from '../error-handling.service';
+import { ErrorHandlingService } from '../../services/error-handling.service';
 import { MatCardModule } from '@angular/material/card';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
