@@ -36,22 +36,14 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 @NgModule({
   declarations: [AppComponent, ConfirmationDialogComponent],
   imports: [
-    AuthLoginComponent,
-    AuthRegisterComponent,
-    DashboardComponent,
     BrowserModule,
-    QuestionSetsComponent,
     BrowserAnimationsModule,
     MatSlideToggleModule,
-    NavigationComponent,
-    LandingPageComponent,
-    SearchResourcesComponent,
     AppRoutingModule,
     HttpClientModule,
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
-    PageNotFoundComponent,
     ReactiveFormsModule,
     HttpClientXsrfModule.withOptions({
       cookieName: 'csrftoken',
@@ -70,11 +62,11 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     { provide: HTTP_INTERCEPTORS, useClass: CsrfTokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LanguageInterceptor, multi: true },
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { width: '70%' } },
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { subscriptSizing: 'dynamic' }},
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { subscriptSizing: 'dynamic' } },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
 
 export function HttpLoaderFactory(
   httpHandler: HttpBackend,
