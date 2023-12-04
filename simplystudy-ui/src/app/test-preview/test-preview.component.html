@@ -21,17 +21,14 @@
         <mat-card-header>
           <mat-card-title>{{ "Utils.Question" | translate }}</mat-card-title>
         </mat-card-header>
-        <mat-card-content>
-            {{ question.question }}
-        </mat-card-content>
+        <mat-card-content [innerText]="question.question"></mat-card-content>
       </mat-card>
       <mat-card class="answer-card">
         <mat-card-header>
           <mat-card-title>{{ "Utils.Answer" | translate }}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <div *ngIf="question.question_type === 'TEXT'">
-                {{ question.question_choices[0].text }}
+            <div *ngIf="question.question_type === 'TEXT'" [innerText]="question.question_choices[0].text">
             </div>
             <div *ngIf="question.question_type === 'TF'">
                 <div *ngIf="question.is_true">
