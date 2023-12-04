@@ -15,12 +15,12 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SnackbarService } from '../services/snackbar.service';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tests',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, TranslateModule, NgFor, MatIconModule, MatRippleModule, MatTooltipModule, NgIf],
+  imports: [MatCardModule, MatButtonModule, TranslateModule, NgFor, MatIconModule, MatRippleModule, MatTooltipModule, NgIf, MatDialogModule],
   templateUrl: './tests.component.html',
   styleUrls: ['./tests.component.css']
 })
