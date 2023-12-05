@@ -1,7 +1,4 @@
-import pdfkit  # type: ignore
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
-from django.template.loader import get_template
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
