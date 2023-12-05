@@ -51,6 +51,7 @@
               <div *ngIf="question.question_type === 'MULTIPLE'">
                   <div *ngFor="let answer of question.question_choices">
                     <mat-checkbox [(ngModel)]="answer.checked">{{answer.text}}</mat-checkbox>
+                    <mat-divider></mat-divider>
                   </div>
                   <div *ngIf="question.user_answer_correct !== null">
                     {{"TakeTest.CorrectAnswers" | translate}}
@@ -63,6 +64,7 @@
                 <mat-radio-group [(ngModel)]="question.user_answer">
                     <div *ngFor="let answer of question.question_choices">
                       <mat-radio-button [value]="answer.id">{{answer.text}}</mat-radio-button>
+                      <mat-divider></mat-divider>
                     </div>
                 </mat-radio-group>
                 <div *ngIf="question.user_answer_correct !== null">

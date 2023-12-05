@@ -14,11 +14,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TestToTake, TestQuestion } from './test-data';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-take-test',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, TranslateModule, NgFor, NgIf, MatFormFieldModule, ReactiveFormsModule, FormsModule, MatInputModule, MatRadioModule, MatCheckboxModule, NgStyle],
+  imports: [MatCardModule, MatButtonModule, TranslateModule, NgFor, NgIf, MatFormFieldModule, ReactiveFormsModule, FormsModule, MatInputModule, MatRadioModule, MatCheckboxModule, NgStyle, MatDividerModule],
   templateUrl: './take-test.component.html',
   styleUrls: ['./take-test.component.css']
 })
