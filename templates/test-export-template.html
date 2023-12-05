@@ -14,6 +14,9 @@
     h3 {text-align: center;}
     h2 {text-align:center;}
     h4 {text-align: center;}
+    .keep-together {
+      page-break-inside: avoid !important;
+    }
   </style>
 </head>
 <body>
@@ -22,7 +25,7 @@
     <h3><b>{{question_set.name}}</b></h3>
 
 {% for question in test_questions %}
-    <div>
+    <div class="keep-together">
         <h4>{% translate "Question" %} {{forloop.counter}}</h4>
         <p>
         {{question.question}}</br>
