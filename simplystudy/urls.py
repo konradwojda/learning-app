@@ -21,7 +21,7 @@ from django.urls import include, path, re_path
 from rest_framework import routers
 
 from simplystudy.questions import views
-from simplystudy.questions.export_test import download_test_pdf
+from simplystudy.questions.export_test import download_test_html
 from simplystudy.users.views import UserViewSet
 from simplystudy.views import RedirectToAngular
 
@@ -42,7 +42,7 @@ urlpatterns = (
     [
         path("api/", include(router.urls)),
         path("admin/", admin.site.urls),
-        path("download_test/<int:test_id>", download_test_pdf),
+        path("download_test/<int:test_id>", download_test_html),
         re_path(r"^auth/", include("djoser.urls")),
         re_path(r"^auth/", include("djoser.urls.authtoken")),
     ]
