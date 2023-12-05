@@ -129,7 +129,7 @@ export class TestsComponent implements OnInit {
 
         const link = document.createElement('a');
         link.href = downloadUrl;
-        link.download = test_name + '.pdf';
+        link.download = test_name + '.html';
         document.body.appendChild(link);
         link.click();
 
