@@ -1,3 +1,7 @@
+mat-card-content {
+    white-space: pre-wrap;
+}
+
 .test-container {
     padding: 1em;
   }

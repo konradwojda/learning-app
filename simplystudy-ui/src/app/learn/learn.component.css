@@ -1,3 +1,7 @@
+mat-card-content {
+  white-space: pre-wrap;
+}
+
 .question-set-container {
   padding: 1em;
 }
