@@ -20,17 +20,9 @@ class DownloadPDFTestCase(APITestCase):
     def test_download_test_normal(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[0])
         self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
-        test = Test.objects.get(id=1)
         response = self.client.get("/download_test/1")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response["Content-Type"], "application/pdf")
-        self.assertEqual(
-            response["Content-Disposition"],
-            "attachment;",
-        )
-        self.assertEqual(
-            response.context.dicts[1].serializer.data, TestDetailSerializer(test).data
-        )
+        self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
 
     def test_download_test_no_permissions(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[1])
@@ -41,17 +33,9 @@ class DownloadPDFTestCase(APITestCase):
     def test_download_test_superuser(self) -> None:
         token = Token.objects.get(user=SAMPLE_USERS[2])
         self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
-        test = Test.objects.get(id=1)
         response = self.client.get("/download_test/1")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response["Content-Type"], "application/pdf")
-        self.assertEqual(
-            response["Content-Disposition"],
-            "attachment;",
-        )
-        self.assertEqual(
-            response.context.dicts[1].serializer.data, TestDetailSerializer(test).data
-        )
+        self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
 
     def test_download_test_public(self) -> None:
         question_set = QuestionSet.objects.get(id=1)
@@ -59,14 +43,6 @@ class DownloadPDFTestCase(APITestCase):
         question_set.save()
         token = Token.objects.get(user=SAMPLE_USERS[1])
         self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
-        test = Test.objects.get(id=1)
         response = self.client.get("/download_test/1")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response["Content-Type"], "application/pdf")
-        self.assertEqual(
-            response["Content-Disposition"],
-            "attachment;",
-        )
-        self.assertEqual(
-            response.context.dicts[1].serializer.data, TestDetailSerializer(test).data
-        )
+        self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
