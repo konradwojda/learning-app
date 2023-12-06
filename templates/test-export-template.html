@@ -1,64 +1,83 @@
 <!DOCTYPE html>
 {% load i18n %}
-<html>
+<html lang="en">
 <head>
-  <title>{{name}}</title>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style type="text/css">
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+  <title>{{ name }}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    p {font-size: medium; text-align: left; display:flex; flex-direction: column}
-    h3 {text-align: center;}
-    h2 {text-align:center;}
-    h4 {text-align: center;}
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
+    }
+
+    h2, h3, h4 {
+      text-align: center;
+    }
+
+    p {
+      font-size: medium;
+      text-align: left;
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
     .keep-together {
       page-break-inside: avoid !important;
+    }
+
+    .question {
+      padding: 10px;
+    }
+
+    .choices {
+      white-space: pre-wrap;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2><b>{{name}}</b></h2>
-    <h3><b>{{question_set.name}}</b></h3>
+    <h2><b>{{ name }}</b></h2>
+    <h3><b>{{ question_set.name }}</b></h3>
 
-{% for question in test_questions %}
-    <div class="keep-together">
-        <h4>{% translate "Question" %} {{forloop.counter}}</h4>
-        <p>
-        {{question.question}}</br>
-        </p>
-        {% if question.question_type == "SINGLE" %}
-                {% translate "Only one answer is correct" %} </br>
-                {% for choice in question.question_choices %}
-                        <input type="checkbox">
-                        {{ choice.text }}
-                        <br>
-                {% endfor %}
-        {% elif question.question_type == "MULTIPLE" %}
-                {% translate "Multiple answers can be correct" %} </br>
-                {% for choice in question.question_choices %}
-                        <input type="checkbox">
-                        {{ choice.text }}
-                        <br>
-                {% endfor %}
-        {% elif question.question_type == "TEXT" %}
-              </br>
-              </br>
-              </br>
-              </br>
-              </br>
-              </br>
-              </br>
-              </br>
-              </br>
-        {% elif question.question_type == "TF" %}
-            <p>{% translate "True  |  False" %}</p>
+    {% for question in test_questions %}
+      <div class="keep-together question">
+        <h4>{% translate "Question" %} {{ forloop.counter }}</h4>
+        <p>{{ question.question }}</p>
+
+        {% if question.question_type == 'SINGLE' %}
+          <p style="margin-top: 10px;">{% translate "Only one answer is correct" %}</p>
+        {% elif question.question_type == 'MULTIPLE' %}
+          <p style="margin-top: 10px;">{% translate "Multiple answers can be correct" %}</p>
+        {% elif question.question_type == 'TEXT' %}
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+        {% elif question.question_type == 'TF' %}
+          <p style="margin-top: 10px;">{% translate "True  |  False" %}</p>
         {% endif %}
-    </div>
-{% endfor %}
+
+        {% if question.question_type == "SINGLE" or question.question_type == "MULTIPLE" %}
+          <div class="choices">
+            {% for choice in question.question_choices %}
+              <input type="checkbox">{{ choice.text }}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
   </div>
 </body>
 </html>
