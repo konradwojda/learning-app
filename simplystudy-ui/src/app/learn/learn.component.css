@@ -29,3 +29,18 @@ mat-card-content {
   box-sizing: border-box;
   width: 100%;
 }
+
+@media (max-width: 1000px) {
+  .question-pair {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .question-card,
+  .answer-card {
+    width: 100%;
+    margin-top: 8px;
+    min-height: 20em;
+  }
+}
