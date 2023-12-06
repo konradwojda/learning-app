@@ -67,4 +67,4 @@ msgstr "Wiele odpowiedzi może być poprawnych"
 
 #: templates/test-export-template.html:46
 msgid "True  |  False"
-msgstr "Prawa   |   Fałsz"
+msgstr "Prawda   |   Fałsz"
