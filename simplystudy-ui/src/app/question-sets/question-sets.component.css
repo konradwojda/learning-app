@@ -71,3 +71,27 @@ mat-form-field {
   justify-content: center;
   padding-top: 20px;
 }
+
+@media (max-width: 1000px) {
+  .question-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .question-pair {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .question-actions {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .question-card,
+  .answer-card {
+    width: 100%;
+    margin-top: 8px;
+  }
+}
