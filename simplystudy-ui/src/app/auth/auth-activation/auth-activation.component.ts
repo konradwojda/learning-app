@@ -36,15 +36,15 @@ export class AuthActivationComponent implements OnInit {
   isWaiting = true;
 
   constructor(
-    private _formBuilder: FormBuilder,
-    private _authService: AuthService,
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
     private snackbarService: SnackbarService,
     private router: Router,
     private route: ActivatedRoute,
     private errorHandling: ErrorHandlingService,
     private translate: TranslateService,
   ) {
-    this.activationForm = this._formBuilder.group({
+    this.activationForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
     });
   }
@@ -60,7 +60,7 @@ export class AuthActivationComponent implements OnInit {
   }
 
   activate(uid: string, token: string) {
-    this._authService.activate(uid, token).subscribe({
+    this.authService.activate(uid, token).subscribe({
       error: (error) => {
         this.errorHandling.handleError(error);
       },
@@ -74,7 +74,7 @@ export class AuthActivationComponent implements OnInit {
   }
 
   resendActivation(email: string) {
-    this._authService.resendActivation(email).subscribe({
+    this.authService.resendActivation(email).subscribe({
       error: (error) => {
         this.errorHandling.handleError(error);
       },

@@ -54,20 +54,20 @@ export class CreateQuestionSetComponent implements OnInit {
   courseList: Array<Course> = [];
   isPrivate = true;
 
-  questionSetData = this._formBuilder.group({
+  questionSetData = this.formBuilder.group({
     name: ['', Validators.required],
     description: [''],
     course: new FormControl(),
     is_private: ['', Validators.required],
   });
-  questionsData = this._formBuilder.group({
-    questions: this._formBuilder.array([]),
+  questionsData = this.formBuilder.group({
+    questions: this.formBuilder.array([]),
   }) as FormGroup;
 
   questions = this.questionsData.get('questions') as FormArray;
 
   constructor(
-    private _formBuilder: FormBuilder,
+    private formBuilder: FormBuilder,
     private authService: AuthService,
     private http: HttpClient,
     private snackbarService: SnackbarService,
@@ -94,7 +94,7 @@ export class CreateQuestionSetComponent implements OnInit {
   addQuestion(): void {
     const questionArray = this.questionsData.get('questions') as FormArray;
     questionArray.push(
-      this._formBuilder.group({
+      this.formBuilder.group({
         content: ['', Validators.required],
         answer: ['', Validators.required],
         image: new FormControl(''),
@@ -173,7 +173,7 @@ export class CreateQuestionSetComponent implements OnInit {
     const questionArray = this.questionsData.get('questions') as FormArray;
     for (const question of questions) {
       questionArray.push(
-        this._formBuilder.group({
+        this.formBuilder.group({
           content: [question.content, Validators.required],
           answer: [question.answer, Validators.required],
           image: new FormControl(''),

@@ -32,17 +32,17 @@ export class TestEditorComponent {
   questionSetId: number;
   private apiUrl = environment.apiUrl;
 
-  testData = this._formBuilder.group({
+  testData = this.formBuilder.group({
     name: ['', Validators.required],
   });
 
-  testQuestionsData = this._formBuilder.group({
-    questions: this._formBuilder.array([]),
+  testQuestionsData = this.formBuilder.group({
+    questions: this.formBuilder.array([]),
   }) as FormGroup;
 
   questions = this.testQuestionsData.get('questions') as FormArray;
 
-  constructor(private http: HttpClient, private snackbarService: SnackbarService, private errorHandling: ErrorHandlingService, private _formBuilder: FormBuilder, private route: ActivatedRoute, private translate: TranslateService, private router: Router) {
+  constructor(private http: HttpClient, private snackbarService: SnackbarService, private errorHandling: ErrorHandlingService, private formBuilder: FormBuilder, private route: ActivatedRoute, private translate: TranslateService, private router: Router) {
     this.questionSetId = Number(this.route.snapshot.paramMap.get('id'));
   }
 
@@ -59,7 +59,7 @@ export class TestEditorComponent {
     switch (type) {
       case "TEXT":
         questionArray.push(
-          this._formBuilder.group({
+          this.formBuilder.group({
             content: ['', Validators.required],
             answer: ['', Validators.required],
             type: ["TEXT", Validators.required],
@@ -68,25 +68,25 @@ export class TestEditorComponent {
         break;
       case "SINGLE":
         questionArray.push(
-          this._formBuilder.group({
+          this.formBuilder.group({
             content: ['', Validators.required],
-            answers: this._formBuilder.array([]),
+            answers: this.formBuilder.array([]),
             type: ["SINGLE", Validators.required],
           }),
         );
         break;
       case "MULTIPLE":
         questionArray.push(
-          this._formBuilder.group({
+          this.formBuilder.group({
             content: ['', Validators.required],
-            answers: this._formBuilder.array([]),
+            answers: this.formBuilder.array([]),
             type: ["MULTIPLE", Validators.required],
           }),
         );
         break;
       case "TF":
         questionArray.push(
-          this._formBuilder.group({
+          this.formBuilder.group({
             content: ['', Validators.required],
             is_correct: [true, Validators.required],
             type: ['TF', Validators.required],
@@ -107,7 +107,7 @@ export class TestEditorComponent {
   addOption(questionIndex: number): void {
     const questionArray = this.testQuestionsData.get('questions') as FormArray;
     const answers = (questionArray.at(questionIndex).get('answers') as FormArray);
-    answers.push(this._formBuilder.group({
+    answers.push(this.formBuilder.group({
       answer: ['', Validators.required],
       is_correct: [false, Validators.required],
     }));

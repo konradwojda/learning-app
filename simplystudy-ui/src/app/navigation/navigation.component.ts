@@ -45,7 +45,7 @@ export class NavigationComponent
   languages: string[];
   selectedLang!: string;
 
-  private _mobileQueryListener: () => void;
+  private mobileQueryListener: () => void;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
@@ -59,8 +59,8 @@ export class NavigationComponent
       this.selectedLang = language;
     });
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addEventListener('change', this._mobileQueryListener);
+    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener('change', this.mobileQueryListener);
   }
 
   ngOnInit(): void {
@@ -92,7 +92,7 @@ export class NavigationComponent
   }
 
   ngOnDestroy(): void {
-    this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
+    this.mobileQuery.removeEventListener('change', this.mobileQueryListener);
   }
 
   ngAfterViewChecked() {
