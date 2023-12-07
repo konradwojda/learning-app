@@ -145,14 +145,14 @@ export class CreateQuestionSetComponent implements OnInit {
             this.http
               .post(this.apiUrl + '/api/questions/', question_form)
               .subscribe({
-                next: (data) => {
+                error: (error) => {
+                  this.errorHandling.handleError(error);
+                },
+                complete: () => {
                   this.snackbarService.showSnackbar(
                     this.translate.instant('Snackbar.QSAdded'),
                   );
                   this.router.navigateByUrl('/question_sets/' + set_data.id);
-                },
-                error: (error) => {
-                  this.errorHandling.handleError(error);
                 },
               });
           }

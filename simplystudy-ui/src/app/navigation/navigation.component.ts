@@ -75,14 +75,14 @@ export class NavigationComponent
 
   logOut(): void {
     this.authService.logOut().subscribe({
-      next: (data) => {
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
         localStorage.removeItem('userData');
         this.authService.setUsername('');
         this.authService.setIsAuthenticated(false);
         this.router.navigateByUrl('');
-      },
-      error: (error) => {
-        console.log(error);
       },
     });
   }

@@ -89,14 +89,14 @@ export class TestsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.http.delete(this.apiUrl + '/api/tests/' + test_id).subscribe({
-          next: (data) => {
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          },
+          complete: () => {
             this.ngOnInit();
             this.router.navigateByUrl(this.router.url);
             this.snackbarService.showSnackbar(this.translate.instant("Snackbar.DeletedTest"));
           },
-          error: (error) => {
-            this.errorHandling.handleError(error);
-          }
         })
       }
     })

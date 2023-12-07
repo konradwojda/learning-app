@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -85,13 +85,13 @@ export class AuthLoginComponent {
 
   resetPassword(data: any): void {
     this.authService.resetPassword(data.email).subscribe({
-      next: (data) => {
+      error: (error) => {
+        this.errorHandling.handleError(error);
+      },
+      complete: () => {
         this.snackbarService.showSnackbar(
           this.translate.instant('Snackbar.PasswordResetEmailSent'),
         );
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
       },
     });
   }

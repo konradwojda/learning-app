@@ -48,13 +48,13 @@ export class TestPreviewComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.http.delete(this.apiUrl + '/api/tests/' + this.testId + '/').subscribe({
-          next: (data) => {
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          },
+          complete: () => {
             this.router.navigateByUrl('/question_sets/' + this.test.question_set + '/tests');
             this.snackbarService.showSnackbar(this.translate.instant('Snackbar.DeletedTest'));
           },
-          error: (error) => {
-            this.errorHandling.handleError(error);
-          }
         })
       }
     })
@@ -65,14 +65,14 @@ export class TestPreviewComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.http.delete(this.apiUrl + '/api/test_questions/' + question_id + '/').subscribe({
-          next: (data) => {
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          },
+          complete: () => {
             this.ngOnInit();
             this.router.navigateByUrl(this.router.url);
             this.snackbarService.showSnackbar(this.translate.instant('Snackbar.QuestionDeleted'));
           },
-          error: (error) => {
-            this.errorHandling.handleError(error);
-          }
         })
       }
     })
@@ -101,14 +101,14 @@ export class TestPreviewComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.http.post(this.apiUrl + '/api/test_questions/', { test: result.test_id, question: result.question, question_type: result.question_type, is_true: result.is_true, question_choices: result.answers }).subscribe({
-          next: (response: any) => {
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          },
+          complete: () => {
             this.ngOnInit();
             this.router.navigateByUrl(this.router.url);
             this.snackbarService.showSnackbar(this.translate.instant("Snackbar.QuestionAdded"));
           },
-          error: (error) => {
-            this.errorHandling.handleError(error);
-          }
         })
       }
     })
@@ -119,13 +119,13 @@ export class TestPreviewComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.http.patch(this.apiUrl + '/api/tests/' + this.test.id + '/', { name: result.name }).subscribe({
-          next: (data) => {
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          },
+          complete: () => {
             this.ngOnInit();
             this.router.navigateByUrl(this.router.url);
           },
-          error: (error) => {
-            this.errorHandling.handleError(error);
-          }
         })
       }
     })
@@ -139,16 +139,16 @@ export class TestPreviewComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.http.patch(this.apiUrl + '/api/test_questions/' + result.id + '/', { test: this.testId, question: result.question, question_type: result.question_type, is_true: result.is_true, question_choices: result.answers }).subscribe({
-          next: (response) => {
-            this.ngOnInit();
-            this.router.navigateByUrl(this.router.url);
-            this.snackbarService.showSnackbar(this.translate.instant("Snackbar.EditedTest"));
-          },
           error: (error) => {
             this.ngOnInit();
             this.router.navigateByUrl(this.router.url);
             this.errorHandling.handleError(error);
-          }
+          },
+          complete: () => {
+            this.ngOnInit();
+            this.router.navigateByUrl(this.router.url);
+            this.snackbarService.showSnackbar(this.translate.instant("Snackbar.EditedTest"));
+          },
         });
 
       }
@@ -210,7 +210,6 @@ export class TestQuestionEditDialogComponent {
   }
 
   deleteAnswer(answerIdx: number): void {
-    const id = this.data.answers[answerIdx].id
     this.data.answers.splice(answerIdx, 1);
   }
 

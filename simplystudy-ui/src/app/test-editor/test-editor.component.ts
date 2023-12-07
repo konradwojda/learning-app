@@ -177,13 +177,13 @@ export class TestEditorComponent {
           }
         }
         forkJoin(questionRequests).subscribe({
-          next: (responses) => {
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          },
+          complete: () => {
             this.router.navigateByUrl('/question_sets/' + this.questionSetId + '/tests');
             this.snackbarService.showSnackbar(this.translate.instant("Snackbar.AddedTest"));
           },
-          error: (error) => {
-            this.errorHandling.handleError(error);
-          }
         })
       },
       error: (error) => {

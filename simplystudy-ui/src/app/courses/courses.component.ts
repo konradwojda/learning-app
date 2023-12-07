@@ -62,15 +62,15 @@ export class CoursesComponent implements OnInit {
         this.http
           .delete(this.apiUrl + '/api/courses/' + course_id + '/')
           .subscribe({
-            next: (data) => {
+            error: (error) => {
+              this.errorHandling.handleError(error);
+            },
+            complete: () => {
               this.snackbarService.showSnackbar(
                 this.translate.instant('Snackbar.CourseDeleted'),
               );
               this.ngOnInit();
               this.router.navigateByUrl(this.router.url);
-            },
-            error: (error) => {
-              this.errorHandling.handleError(error);
             },
           });
       }
@@ -90,19 +90,19 @@ export class CoursesComponent implements OnInit {
       this.http
         .put(this.apiUrl + '/api/courses/' + course.id + '/', result)
         .subscribe({
-          next: (data) => {
-            this.snackbarService.showSnackbar(
-              this.translate.instant('Snackbar.CourseUpdated'),
-            );
-            this.ngOnInit();
-            this.router.navigateByUrl(this.router.url);
-          },
           error: (error) => {
             for (const err in error.error) {
               this.snackbarService.showSnackbar(
                 err + ': ' + error.error[err][0],
               );
             }
+          },
+          complete: () => {
+            this.snackbarService.showSnackbar(
+              this.translate.instant('Snackbar.CourseUpdated'),
+            );
+            this.ngOnInit();
+            this.router.navigateByUrl(this.router.url);
           },
         });
     });
@@ -115,17 +115,17 @@ export class CoursesComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       result.owner = this.authService.getUsername();
       this.http.post(this.apiUrl + '/api/courses/', result).subscribe({
-        next: (data) => {
+        error: (error) => {
+          for (const err in error.error) {
+            this.snackbarService.showSnackbar(err + ': ' + error.error[err][0]);
+          }
+        },
+        complete: () => {
           this.snackbarService.showSnackbar(
             this.translate.instant('Snackbar.CourseAdded'),
           );
           this.ngOnInit();
           this.router.navigateByUrl(this.router.url);
-        },
-        error: (error) => {
-          for (const err in error.error) {
-            this.snackbarService.showSnackbar(err + ': ' + error.error[err][0]);
-          }
         },
       });
     });

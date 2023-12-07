@@ -4,7 +4,6 @@ import { Router, RouterModule } from '@angular/router';
 import { QuestionSet } from '../question-sets/question-set';
 import { AuthService } from '../services/auth.service';
 import { environment } from 'src/environments/environment';
-import { SnackbarService } from '../services/snackbar.service';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { NgFor, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';

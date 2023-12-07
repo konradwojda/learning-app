@@ -58,28 +58,28 @@ export class ProfilePageComponent implements OnInit {
   }
   changePassword(data: any) {
     this.authService.setPassword(data.new_password, data.re_new_password, data.current_password).subscribe({
-      next: (response) => {
+      error: (error) => {
+        this.errorHandling.handleError(error);
+      },
+      complete: () => {
         this.ngOnInit();
         this.router.navigateByUrl(this.router.url);
         this.snackbarService.showSnackbar(this.translate.instant("Snackbar.ChangedPass"));
       },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
     })
   }
 
   changeUsername(data: any) {
     this.authService.changeUsername(data.new_username, data.current_password).subscribe({
-      next: (response: any) => {
+      error: (error) => {
+        this.errorHandling.handleError(error);
+      },
+      complete: () => {
         this.authService.setUsername(data.new_username);
         this.ngOnInit();
         this.router.navigateByUrl(this.router.url);
         this.snackbarService.showSnackbar(this.translate.instant("Snackbar.ChangedUsername"));
       },
-      error: (error) => {
-        this.errorHandling.handleError(error);
-      }
     })
   }
 

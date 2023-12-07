@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -53,14 +53,14 @@ export class AuthRegisterComponent {
     this.authService
       .registerUser(user.username, user.password, user.re_password, user.email)
       .subscribe({
-        next: (data) => {
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+        complete: () => {
           this.snackbarService.showSnackbar(
             this.translate.instant('Snackbar.RegisterActivation'),
           );
           this.router.navigateByUrl('/activate');
-        },
-        error: (error) => {
-          this.errorHandling.handleError(error);
         },
       });
   }

@@ -53,14 +53,14 @@ export class AuthResetPasswordComponent {
     this.authService
       .resetPasswordConfirmation(password, re_password, uid, token)
       .subscribe({
-        next: (data) => {
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+        complete: () => {
           this.snackbarService.showSnackbar(
             this.translate.instant('Snackbar.PasswordChangedSuccess'),
           );
           this.router.navigateByUrl('/login');
-        },
-        error: (error) => {
-          this.errorHandling.handleError(error);
         },
       });
   }

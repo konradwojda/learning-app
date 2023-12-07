@@ -129,14 +129,14 @@ export class QuestionSetsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.http.delete(this.apiUrl + '/api/question_sets/' + id + '/').subscribe({
-          next: (data) => {
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          },
+          complete: () => {
             this.snackbarService.showSnackbar(
               this.translate.instant('Snackbar.QSDeleted'),
             );
             this.router.navigateByUrl('/dashboard');
-          },
-          error: (error) => {
-            this.errorHandling.handleError(error);
           },
         });
       }
@@ -166,15 +166,15 @@ export class QuestionSetsComponent implements OnInit {
           },
         )
         .subscribe({
-          next: (data) => {
+          error: (error) => {
+            this.errorHandling.handleError(error);
+          },
+          complete: () => {
             this.snackbarService.showSnackbar(
               this.translate.instant('Snackbar.QSUpdated'),
             );
             this.ngOnInit();
             this.router.navigateByUrl(this.router.url);
-          },
-          error: (error) => {
-            this.errorHandling.handleError(error);
           },
         });
     });
@@ -196,7 +196,7 @@ export class QuestionSetsComponent implements OnInit {
           answer: result.answer,
         })
         .subscribe({
-          next: (data) => {
+          complete: () => {
             this.snackbarService.showSnackbar(
               this.translate.instant('Snackbar.QuestionUpdated'),
             );
@@ -218,17 +218,17 @@ export class QuestionSetsComponent implements OnInit {
       question_form.append('image', result.image);
       question_form.append('question_set', question_set_id);
       this.http.post(this.apiUrl + '/api/questions/', question_form).subscribe({
-        next: (data) => {
+        error: (error) => {
+          this.ngOnInit();
+          this.router.navigateByUrl(this.router.url);
+          this.errorHandling.handleError(error);
+        },
+        complete: () => {
           this.snackbarService.showSnackbar(
             this.translate.instant('Snackbar.QuestionAdded'),
           );
           this.ngOnInit();
           this.router.navigateByUrl(this.router.url);
-        },
-        error: (error) => {
-          this.ngOnInit();
-          this.router.navigateByUrl(this.router.url);
-          this.errorHandling.handleError(error);
         },
       });
     });
@@ -241,17 +241,17 @@ export class QuestionSetsComponent implements OnInit {
         this.http
           .delete(this.apiUrl + '/api/questions/' + question_id + '/')
           .subscribe({
-            next: (data) => {
+            error: (error) => {
+              this.ngOnInit();
+              this.router.navigateByUrl(this.router.url);
+              this.errorHandling.handleError(error);
+            },
+            complete: () => {
               this.ngOnInit();
               this.router.navigateByUrl(this.router.url);
               this.snackbarService.showSnackbar(
                 this.translate.instant('Snackbar.QuestionDeleted'),
               );
-            },
-            error: (error) => {
-              this.ngOnInit();
-              this.router.navigateByUrl(this.router.url);
-              this.errorHandling.handleError(error);
             },
           });
       }
@@ -266,15 +266,15 @@ export class QuestionSetsComponent implements OnInit {
         question_set: question_set_id,
       })
       .subscribe({
-        next: (data) => {
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+        complete: () => {
           this.ngOnInit();
           this.router.navigateByUrl(this.router.url);
           this.snackbarService.showSnackbar(
             this.translate.instant('Snackbar.AddedToResources'),
           );
-        },
-        error: (error) => {
-          this.errorHandling.handleError(error);
         },
       });
   }
@@ -283,16 +283,16 @@ export class QuestionSetsComponent implements OnInit {
     this.http
       .delete(this.apiUrl + '/api/user_resources/' + this.resource?.id)
       .subscribe({
-        next: (data) => {
+        error: (error) => {
+          this.errorHandling.handleError(error);
+        },
+        complete: () => {
           this.resource = null;
           this.ngOnInit();
           this.router.navigateByUrl(this.router.url);
           this.snackbarService.showSnackbar(
             this.translate.instant('Snackbar.DeletedFromResources'),
           );
-        },
-        error: (error) => {
-          this.errorHandling.handleError(error);
         },
       });
   }
