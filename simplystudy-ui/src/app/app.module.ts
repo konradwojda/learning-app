@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationComponent } from './navigation/navigation.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
 import {
   HTTP_INTERCEPTORS,
   HttpBackend,
@@ -19,14 +18,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthTokenInterceptor } from './interceptors/auth-token.interceptor';
 import { CsrfTokenInterceptor } from './interceptors/csrf-token.interceptor';
-import { AuthRegisterComponent } from './auth/auth-register/auth-register.component';
-import { QuestionSetsComponent } from './question-sets/question-sets.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { LandingPageComponent } from './landing-page/landing-page.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
-import { SearchResourcesComponent } from './search-resources/search-resources.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LanguageInterceptor } from './interceptors/language.interceptor';
