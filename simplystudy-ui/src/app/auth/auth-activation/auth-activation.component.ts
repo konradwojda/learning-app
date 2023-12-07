@@ -61,27 +61,27 @@ export class AuthActivationComponent implements OnInit {
 
   activate(uid: string, token: string) {
     this._authService.activate(uid, token).subscribe({
-      next: (data) => {
+      error: (error) => {
+        this.errorHandling.handleError(error);
+      },
+      complete: () => {
         this.snackbarService.showSnackbar(
           this.translate.instant('Snackbar.AccountActivate'),
         );
         this.router.navigateByUrl('/login');
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
       },
     });
   }
 
   resendActivation(email: string) {
     this._authService.resendActivation(email).subscribe({
-      next: (data) => {
+      error: (error) => {
+        this.errorHandling.handleError(error);
+      },
+      complete: () => {
         this.snackbarService.showSnackbar(
           this.translate.instant('Snackbar.ActivationEmailSent'),
         );
-      },
-      error: (error) => {
-        this.errorHandling.handleError(error);
       },
     });
   }
