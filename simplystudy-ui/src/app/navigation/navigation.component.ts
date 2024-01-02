@@ -77,6 +77,10 @@ export class NavigationComponent
     this.authService.logOut().subscribe({
       error: (error) => {
         console.log(error);
+        localStorage.removeItem('userData');
+        this.authService.setUsername('');
+        this.authService.setIsAuthenticated(false);
+        this.router.navigateByUrl('');
       },
       complete: () => {
         localStorage.removeItem('userData');
